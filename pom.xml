@@ -54,15 +54,15 @@
     </build>
 
     <dependencies>
-        <!-- Lombok -->
+        <!-- Lombok para getters y setters-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.22</version>
+            <version>1.18.26</version>
             <scope>provided</scope>
         </dependency>
 
-        <!-- Junit -->
+        <!-- Junit para testear-->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
@@ -70,7 +70,7 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Retrofit -->
+        <!-- Retrofit para consumir API-->
         <dependency>
             <groupId>com.squareup.retrofit2</groupId>
             <artifactId>retrofit</artifactId>

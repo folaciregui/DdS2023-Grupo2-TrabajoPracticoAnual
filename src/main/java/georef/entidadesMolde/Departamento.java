@@ -1,4 +1,4 @@
-package domain.services.georef.entidadesMolde;
+package georef.entidadesMolde;
 
 import lombok.Getter;
 import lombok.Setter;
