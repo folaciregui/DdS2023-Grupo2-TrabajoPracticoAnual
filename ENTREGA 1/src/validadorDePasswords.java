@@ -3,7 +3,6 @@ import java.net.*;
 import java.util.Objects;
 import java.util.Scanner;
 public class validadorDePasswords {
-
     public boolean validarRobustez(String password) throws IOException {
         boolean esRobusta = true;
         if (password.length() >= 12 )
@@ -46,7 +45,5 @@ public class validadorDePasswords {
             }
             }
         return esRobusta;
-
     }
-
 }
