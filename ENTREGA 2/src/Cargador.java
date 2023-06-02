@@ -33,7 +33,7 @@ public class Cargador {
                 String nombrePersona = csvRecord.get("NombrePersonaACargo");
                 String apellidoPersona = csvRecord.get("ApellidoPersonaACargo");
                 String correoElectronico = csvRecord.get("CorreoElectronico");
-                nombreIdentificador = csvRecord.get("IdentificadorCuentaOrgDeControl");
+                nombreIdentificador = csvRecord.get("IdentificadorCuenta");
                 TipoDeNotificacion tipoNotif = TipoDeNotificacion.valueOf(csvRecord.get("TipoNotificacion"));
                 FrecuenciaDeNotificacion frecNotif = FrecuenciaDeNotificacion.valueOf(csvRecord.get("FrecuenciaNotificacion"));
 
