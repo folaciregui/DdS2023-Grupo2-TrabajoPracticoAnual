@@ -9,5 +9,11 @@ public class Linea extends Entidad{
     private Estacion estacionDeDestino;
     private List<Estacion> establecimientos;
 
-
+    @Override
+    public List<Monitoreable> getMonitoreables(){
+        List<Monitoreable> listaMonitoreables = establecimientos.stream()
+        .flatMap(estacion -> estacion.getMonitoreables().stream())
+        .collect(Collectors.toList());
+        return listaMonitoreables;
+    }
 }

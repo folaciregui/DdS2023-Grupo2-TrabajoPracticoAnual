@@ -8,4 +8,5 @@ public class Sucursal extends Establecimiento{
     private Ubicacion ubicacion;
     private List<Monitoreable> servicios;
     private Localizacion localizacion;
+    
 }

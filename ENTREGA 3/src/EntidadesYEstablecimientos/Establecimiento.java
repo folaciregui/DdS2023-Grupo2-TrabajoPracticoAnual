@@ -22,5 +22,9 @@ public class Establecimiento {
         //TODO
         return;
     }
+
+    public List<Monitoreable> getMonitoreable(){
+        return this.servicios;
+    }
 }
 }

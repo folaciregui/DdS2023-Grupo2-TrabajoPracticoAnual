@@ -18,4 +18,8 @@ public class EmpresasPrestadoras {
     public void setPersonaACargo(UsuarioEmpresarial personaACargo) {
         this.personaACargo = personaACargo;
     }
+
+    public void registrarIncidente(){
+        //toDO
+    }
 }
