@@ -1,4 +1,5 @@
 package Ranking;
+import EntidadesYEstablecimientos.*;
 
 public class InformeIncidente {
     private Entidad entidadAsociada;

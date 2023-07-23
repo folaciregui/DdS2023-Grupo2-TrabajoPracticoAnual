@@ -1,9 +1,7 @@
 import java.io.FileReader;
 import java.io.IOException;
 
-import EntidadesYEstablecimientos.EmpresaPrestadora;
-import EntidadesYEstablecimientos.RepositorioEmpresas;
-import EntidadesYEstablecimientos.TipoOrganismo;
+import EntidadesYEstablecimientos.*;
 import UsuariosYComunidades.FrecuenciaDeNotificacion;
 import UsuariosYComunidades.TipoDeNotificacion;
 import UsuariosYComunidades.UsuarioEmpresarial;

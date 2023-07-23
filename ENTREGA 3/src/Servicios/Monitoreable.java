@@ -1,5 +1,7 @@
 package Servicios;
 
+import java.util.List;
+
 public class Monitoreable {
     private String nombre;
     private Disponibilidad estado;
@@ -18,5 +20,9 @@ public class Monitoreable {
 
     public List<Incidente> getIncidentesInactivos(){
         return this.incidentesInactivos;
+    }
+
+    public Disponibilidad getDisponibilidad() {
+        return estado;
     }
 }

@@ -8,6 +8,7 @@ public class EmpresaPrestadora {
     private String nombre;
     private Integer cuit;
     private UsuarioEmpresarial personaACargo;
+    private Entidad entidadAsociada;
     public EmpresaPrestadora(String nombrePersona, Integer cuitPersona, UsuarioEmpresarial persona) {
         this.setCuit(cuitPersona);
         this.setNombre(nombrePersona);
@@ -31,6 +32,7 @@ public class EmpresaPrestadora {
 
     public void solicitarInforme(){
         //TODO
+
         return;
     }
 }

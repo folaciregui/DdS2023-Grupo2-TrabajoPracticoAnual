@@ -1,7 +1,8 @@
 package Ranking;
 
-public class TipoDeRanking {
-    public void generarRanking(){
-        //void?
-    }
+import java.util.List;
+
+public abstract class TipoDeRanking {
+
+    public abstract List<InformeIncidente> generarRanking(List<InformeIncidente> listaInformes);
 }

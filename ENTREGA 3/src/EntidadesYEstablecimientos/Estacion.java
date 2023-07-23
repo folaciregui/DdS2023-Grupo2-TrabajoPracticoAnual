@@ -1,8 +1,10 @@
 package EntidadesYEstablecimientos;
 
+import Servicios.Disponibilidad;
 import Servicios.Monitoreable;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Estacion extends Establecimiento{
     private List<Linea> lineas;
@@ -22,8 +24,7 @@ public class Estacion extends Establecimiento{
     }
 
     public List<Monitoreable> serviciosDisponibles(){
-        //TODO
-        return null;
+        return monitoreables.stream().filter(monitoreable -> monitoreable.getDisponibilidad().equals(Disponibilidad.ACTIVO)).collect(Collectors.toList());
     }
 
     public List<Linea> getLineas() {

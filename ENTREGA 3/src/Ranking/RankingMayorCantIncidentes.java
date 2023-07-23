@@ -1,8 +1,12 @@
 package Ranking;
 
+import java.util.List;
+
 public class RankingMayorCantIncidentes extends TipoDeRanking {
-    public List<InformeIncidente> generarRanking(List<InformeIncidente> listaInformes){
-        //toDO
+
+    @Override
+    public List<InformeIncidente> generarRanking(List<InformeIncidente> listaInformes) {
+
+        return null;
     }
-    
 }

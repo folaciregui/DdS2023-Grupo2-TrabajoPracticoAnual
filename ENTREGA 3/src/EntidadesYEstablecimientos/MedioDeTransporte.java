@@ -4,8 +4,11 @@ import lombok.Setter;
 
 public class MedioDeTransporte {
     private Linea linea;
-
-    @Setter //es lo mismo que el metodo modificacionMedio
     private TipoDeMedio tipoDeMedio;
-
+    public void setLinea(Linea linea) {
+        this.linea = linea;
+    }
+    public void setTipoDeMedio(TipoDeMedio tipoDeMedio) {
+        this.tipoDeMedio = tipoDeMedio;
+    }
 }

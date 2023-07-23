@@ -7,26 +7,16 @@ import java.util.List;
 public class Establecimiento {
     private String nombre;
     private Ubicacion ubicacion;
-    private List<Monitoreable> servicios;
+    private List<Monitoreable> monitoreables;
     private Localizacion localizacion;
 
-    public void altaEstablecimiento (Establecimiento establecimiento) {
+    //public void modificacionDisponibilidad(Establecimiento establecimiento) {
         //TODO
-        return;
-    }
-
-    public void bajaEstablecimiento (Establecimiento establecimiento) {
-        //TODO
-        return;
-    }
-
-    public void modificacionDisponibilidad(Establecimiento establecimiento) {
-        //TODO
-        return;
-    }
+    //    return;
+    //}
 
     public List<Monitoreable> getMonitoreable(){
-        return this.servicios;
+        return this.monitoreables;
     }
 }
 

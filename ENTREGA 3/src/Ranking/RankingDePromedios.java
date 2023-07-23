@@ -1,5 +1,8 @@
 package Ranking;
 
+import EntidadesYEstablecimientos.Entidad;
+import Servicios.Incidente;
+
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
@@ -10,15 +13,14 @@ public class RankingDePromedios extends TipoDeRanking{
     @Override
     public List<InformeIncidente> generarRanking(List<InformeIncidente> listaInformes){
       
-        List<IncidenteInactivo> listaIncidentesInactivos = listaInformes.stream()
-            .map(InformeIncidente::getEntidadAsociada) // Obtener la entidad asociada de cada informe
+        List<Entidad> entidades = listaInformes.stream().map(informeIncidente::getEntidadAsociada) // Obtener la entidad asociada de cada informe
             .flatMap(entidad -> entidad.getMonitoreables().stream()) // Obtener todas las listas de monitoreables y combinarlas en una sola lista
             .flatMap(monitoreable -> monitoreable.getIncidentesInactivos().stream()) // Obtener todos los incidentes inactivos y combinarlos en una sola lista
             .collect(Collectors.toList()); // Recolectar en una lista
         // Lista con todos los incidentes inactivos asociado a cada una de las entidades
 
         // calculo del promedio de diferencia en minutos por entidad
-        for (Entidad entidad : listaIncidentesInactivos) {
+        for (Entidad entidad : entidades) {
             List<IncidenteInactivo> incidentesInactivosEntidad = entidad.getIncidentesInactivos();
             int totalDiferenciaEnMinutos = 0;
 
