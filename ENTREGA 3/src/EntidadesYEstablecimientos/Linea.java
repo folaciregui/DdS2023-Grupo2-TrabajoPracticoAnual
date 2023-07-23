@@ -1,6 +1,9 @@
 package EntidadesYEstablecimientos;
 
+import Servicios.Monitoreable;
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Linea extends Entidad{
     private String nombre;

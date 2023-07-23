@@ -1,20 +1,16 @@
 package EntidadesYEstablecimientos;
 
+import Servicios.Monitoreable;
+import Ranking.*;
+
+import java.util.List;
+
 public abstract class Entidad {
     private EmpresaPrestadora empresaPrestadora;
     private OrganismoDeControl organismoDeControl;
     private List<InformeIncidente> informes;
     private Double PromedioCierreIncidentes;
 
-    public void actualizacionDatos(EmpresaPrestadora empresaPrestadora) {
-        //TODO
-        return;
-    }
-
-    public void actualizacionDatos(OrganismoDeControl organismoDeControl) {
-        //TODO
-        return;
-    }
 
     public List<Monitoreable> getMonitoreables(){
     }
@@ -23,5 +19,29 @@ public abstract class Entidad {
     }
     public void setPromedioCierreIncidentes(Double promedio){
         this.PromedioCierreIncidentes = promedio,
+    }
+
+    public EmpresaPrestadora getEmpresaPrestadora() {
+        return empresaPrestadora;
+    }
+
+    public void setEmpresaPrestadora(EmpresaPrestadora empresaPrestadora) {
+        this.empresaPrestadora = empresaPrestadora;
+    }
+
+    public OrganismoDeControl getOrganismoDeControl() {
+        return organismoDeControl;
+    }
+
+    public void setOrganismoDeControl(OrganismoDeControl organismoDeControl) {
+        this.organismoDeControl = organismoDeControl;
+    }
+
+    public List<InformeIncidente> getInformes() {
+        return informes;
+    }
+
+    public void setInformes(List<InformeIncidente> informes) {
+        this.informes = informes;
     }
 }

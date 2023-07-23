@@ -1,3 +1,5 @@
+import UsuariosYComunidades.UsuarioEmpresarial;
+
 public class OrganismoDeControl {
     private String nombre;
     private Integer cuit;

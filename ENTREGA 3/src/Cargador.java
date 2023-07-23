@@ -1,7 +1,14 @@
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+
+import EntidadesYEstablecimientos.EmpresaPrestadora;
+import EntidadesYEstablecimientos.RepositorioEmpresas;
+import EntidadesYEstablecimientos.TipoOrganismo;
+import UsuariosYComunidades.FrecuenciaDeNotificacion;
+import UsuariosYComunidades.TipoDeNotificacion;
+import UsuariosYComunidades.UsuarioEmpresarial;
+import Validador.Cuenta;
+import Validador.RepositorioDeCuentas;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
@@ -18,10 +25,10 @@ public class Cargador {
              CSVParser csvParser = new CSVParser(fileReader, CSVFormat.DEFAULT)) {
             String nombreIdentificador;
             OrganismoDeControl nuevoOrganismo;
-            EmpresasPrestadoras nuevaPrestadora;
+            EmpresaPrestadora nuevaPrestadora;
             TipoOrganismo tipoOrganismo;
             for (CSVRecord csvRecord : csvParser) {
-                String tipoOrganismoCSV = csvRecord.get("TipoOrganismo");
+                String tipoOrganismoCSV = csvRecord.get("EntidadesYEstablecimientos.TipoOrganismo");
                 try {
                     tipoOrganismo = TipoOrganismo.valueOf(tipoOrganismoCSV);
                 } catch (IllegalArgumentException e) {
@@ -43,7 +50,7 @@ public class Cargador {
                     UsuarioEmpresarial personaACargo = new UsuarioEmpresarial(nombrePersona, apellidoPersona, cuenta, correoElectronico, tipoNotif, frecNotif);
 
                     if (tipoOrganismo == TipoOrganismo.PRESTADORA) {
-                        nuevaPrestadora = new EmpresasPrestadoras(nombreOrganismo, cuit, personaACargo);
+                        nuevaPrestadora = new EmpresaPrestadora(nombreOrganismo, cuit, personaACargo);
                        repoEmpresas.agregarPrestadora(nuevaPrestadora);
                     } else if (tipoOrganismo == TipoOrganismo.ORGCONTROL) {
                         nuevoOrganismo = new OrganismoDeControl(nombreOrganismo, cuit, personaACargo);

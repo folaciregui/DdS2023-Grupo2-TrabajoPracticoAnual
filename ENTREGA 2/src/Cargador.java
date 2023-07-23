@@ -21,7 +21,7 @@ public class Cargador {
             EmpresasPrestadoras nuevaPrestadora;
             TipoOrganismo tipoOrganismo;
             for (CSVRecord csvRecord : csvParser) {
-                String tipoOrganismoCSV = csvRecord.get("TipoOrganismo");
+                String tipoOrganismoCSV = csvRecord.get("EntidadesYEstablecimientos.TipoOrganismo");
                 try {
                     tipoOrganismo = TipoOrganismo.valueOf(tipoOrganismoCSV);
                 } catch (IllegalArgumentException e) {

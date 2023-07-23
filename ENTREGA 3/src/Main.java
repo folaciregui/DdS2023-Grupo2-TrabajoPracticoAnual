@@ -1,3 +1,6 @@
+import Validador.MensajeDeError;
+import Validador.validadorDePasswords;
+
 import java.io.IOException;
 import java.util.Scanner;
 

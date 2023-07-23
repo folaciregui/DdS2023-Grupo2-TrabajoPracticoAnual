@@ -1,5 +1,7 @@
 package EntidadesYEstablecimientos;
 
+import Servicios.Monitoreable;
+
 import java.util.List;
 
 public class Establecimiento {
@@ -27,4 +29,4 @@ public class Establecimiento {
         return this.servicios;
     }
 }
-}
+
