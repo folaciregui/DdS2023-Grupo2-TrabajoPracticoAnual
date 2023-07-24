@@ -1,6 +1,5 @@
 package EntidadesYEstablecimientos;
 
-import lombok.Setter;
 
 public class MedioDeTransporte {
     private Linea linea;

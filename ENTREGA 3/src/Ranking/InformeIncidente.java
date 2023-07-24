@@ -3,10 +3,10 @@ import EntidadesYEstablecimientos.*;
 
 public class InformeIncidente {
     private Entidad entidadAsociada;
-    public notificarEmpresaPrestadora(){
+    public void notificarEmpresaPrestadora(){
         //toDO
     }
-    public notificarOrganismoDeControl(){
+    public void notificarOrganismoDeControl(){
         //toDO
     }
 

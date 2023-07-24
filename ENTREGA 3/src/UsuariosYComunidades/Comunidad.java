@@ -1,5 +1,9 @@
 package UsuariosYComunidades;
 
+import Servicios.Incidente;
+
+import java.util.List;
+
 public class Comunidad {
     private List<Membresia> miembros;
     private List<Incidente> incidentesNotificables;

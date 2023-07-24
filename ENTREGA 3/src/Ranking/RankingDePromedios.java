@@ -8,12 +8,13 @@ import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.stream.Collectors;
 
 public class RankingDePromedios extends TipoDeRanking{
     @Override
     public List<InformeIncidente> generarRanking(List<InformeIncidente> listaInformes){
       
-        List<Entidad> entidades = listaInformes.stream().map(informeIncidente::getEntidadAsociada) // Obtener la entidad asociada de cada informe
+        List<Entidad> entidades = listaInformes.stream().map(informeIncidente->informeIncidente.getEntidadAsociada()) // Obtener la entidad asociada de cada informe
             .flatMap(entidad -> entidad.getMonitoreables().stream()) // Obtener todas las listas de monitoreables y combinarlas en una sola lista
             .flatMap(monitoreable -> monitoreable.getIncidentesInactivos().stream()) // Obtener todos los incidentes inactivos y combinarlos en una sola lista
             .collect(Collectors.toList()); // Recolectar en una lista

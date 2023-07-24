@@ -2,6 +2,7 @@ package UsuariosYComunidades;
 
 import EntidadesYEstablecimientos.*;
 import Servicios.*;
+import Validador.Cuenta;
 
 import java.util.List;
 
@@ -11,6 +12,10 @@ public class UsuarioPersonal extends UsuarioGeneral {
     private List<Monitoreable> serviciosDeInteres;
     private List<HoraNotificacion> horariosNotificacion;
     private List<EmpresaPrestadora> empresasDeInteres;
+
+    public UsuarioPersonal(String nombreUsuario, String apellidoUsuario, Cuenta cuentaUsuario, String correoElectronicoUsuario) {
+        super(nombreUsuario, apellidoUsuario, cuentaUsuario, correoElectronicoUsuario);
+    }
 
     public void modificar(Monitoreable unMonitoreable){
         //completar

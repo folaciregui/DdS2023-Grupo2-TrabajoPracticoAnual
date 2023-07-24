@@ -1,6 +1,9 @@
 package Servicios;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Monitoreable {
     private String nombre;
@@ -20,6 +23,11 @@ public class Monitoreable {
 
     public List<Incidente> getIncidentesInactivos(){
         return this.incidentesInactivos;
+    }
+    public List<Incidente> getIncidentesTotales(){
+        List<Incidente> todosIncidentes = Stream.concat(this.getIncidentesInactivos().stream(), this.getIncidentesAbiertos().stream())
+                .collect(Collectors.toList());
+        return todosIncidentes;
     }
 
     public Disponibilidad getDisponibilidad() {

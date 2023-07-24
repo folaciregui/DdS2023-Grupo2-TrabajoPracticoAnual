@@ -1,4 +1,5 @@
 package Validador;
+import UsuariosYComunidades.UsuarioGeneral;
 
 public class Cuenta {
     private UsuarioGeneral usuario;

@@ -10,15 +10,22 @@ public abstract class Entidad {
     private OrganismoDeControl organismoDeControl;
     private List<InformeIncidente> informes;
     private Double PromedioCierreIncidentes;
+    private int cantidadIncidentes;
 
-
+    public int getCantidadIncidentes(){
+        return cantidadIncidentes;
+    }
+    public void setCantidadIncidentes(int nuevaCantidad){
+        this.cantidadIncidentes = nuevaCantidad;
+    }
     public List<Monitoreable> getMonitoreables(){
+        return null;
     }
     public Double getPromedioCierreIncidentes(){
         return this.PromedioCierreIncidentes;
     }
     public void setPromedioCierreIncidentes(Double promedio){
-        this.PromedioCierreIncidentes = promedio,
+        this.PromedioCierreIncidentes = promedio;
     }
 
     public EmpresaPrestadora getEmpresaPrestadora() {
