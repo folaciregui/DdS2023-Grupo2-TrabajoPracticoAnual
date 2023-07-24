@@ -1,5 +1,6 @@
 package EntidadesYEstablecimientos;
 
+import Servicios.Incidente;
 import Servicios.Monitoreable;
 import Ranking.*;
 
@@ -44,6 +45,7 @@ public abstract class Entidad {
         this.organismoDeControl = organismoDeControl;
     }
 
+    public abstract List<Incidente> getIncidentesInactivos();
     public List<InformeIncidente> getInformes() {
         return informes;
     }

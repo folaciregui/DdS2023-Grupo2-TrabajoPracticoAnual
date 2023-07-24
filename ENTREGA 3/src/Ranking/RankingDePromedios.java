@@ -13,19 +13,19 @@ import java.util.stream.Collectors;
 public class RankingDePromedios extends TipoDeRanking{
     @Override
     public List<InformeIncidente> generarRanking(List<InformeIncidente> listaInformes){
-      
-        List<Entidad> entidades = listaInformes.stream().map(informeIncidente->informeIncidente.getEntidadAsociada()) // Obtener la entidad asociada de cada informe
-            .flatMap(entidad -> entidad.getMonitoreables().stream()) // Obtener todas las listas de monitoreables y combinarlas en una sola lista
-            .flatMap(monitoreable -> monitoreable.getIncidentesInactivos().stream()) // Obtener todos los incidentes inactivos y combinarlos en una sola lista
-            .collect(Collectors.toList()); // Recolectar en una lista
+        List<Entidad> entidades = listaInformes.stream()
+                .map(informeIncidente -> informeIncidente.getEntidadAsociada()).collect(Collectors.toList()); // Recolectar en una lista
+// Lista con todas las entidades asociadas a los incidentes inactivos
+
+        // Recolectar en una lista
         // Lista con todos los incidentes inactivos asociado a cada una de las entidades
 
         // calculo del promedio de diferencia en minutos por entidad
         for (Entidad entidad : entidades) {
-            List<IncidenteInactivo> incidentesInactivosEntidad = entidad.getIncidentesInactivos();
+            List<Incidente> incidentesInactivosEntidad = entidad.getIncidentesInactivos();
             int totalDiferenciaEnMinutos = 0;
 
-            for (IncidenteInactivo incidente : incidentesInactivosEntidad) {
+            for (Incidente incidente : incidentesInactivosEntidad) {
                 LocalDateTime fechaInicio = incidente.getFechaInicio();
                 LocalDateTime fechaCierre = incidente.getFechaCierre();
 
