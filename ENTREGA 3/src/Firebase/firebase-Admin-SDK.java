@@ -13,7 +13,7 @@ public class FirebaseAuthentication {
 
         FirebaseOptions options = new FirebaseOptions.Builder()
                 .setCredentials(GoogleCredentials.fromStream(new FileInputStream(pathToCredentials)))
-                .setDatabaseUrl("https://tp-dds-sistema-monitoreo.firebaseio.com")
+                .setDatabaseUrl("https://tp-dds-sistema-monitoreables.firebaseio.com")
                 .build();
     //inicializa la configuracion para firebase
         FirebaseApp.initializeApp(options);
