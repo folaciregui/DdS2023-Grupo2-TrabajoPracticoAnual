@@ -44,5 +44,12 @@
             <artifactId>converter-gson</artifactId>
             <version>2.9.0</version>
         </dependency>
+        <!-- Firebase para inicio de sesion -->
+        <dependency>
+            <groupId>com.google.firebase</groupId>
+            <artifactId>firebase-admin</artifactId>
+            <version>9.6.0</version>
+        </dependency>
+
     </dependencies>
 </project>
