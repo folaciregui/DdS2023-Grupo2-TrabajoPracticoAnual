@@ -5,22 +5,56 @@ import java.time.LocalDateTime;
 import java.time.Duration;
 public class Incidente {
     private int id;
-    private Usuarioi usuarioCreador;
-    private Usuarioi usuarioCerrador;
+    private Usuario usuarioCreador;
+    private Usuario usuarioCerrador;
     private LocalDateTime fechaInicio;
-    private LocalDateTime fechaCierre;
 
+    public LocalDateTime getFechaInicio() {
+        return fechaInicio;
+    }
+
+    public void setFechaInicio(LocalDateTime fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public LocalDateTime getFechaCierre() {
+        return fechaCierre;
+    }
+
+    public void setFechaCierre(LocalDateTime fechaCierre) {
+        this.fechaCierre = fechaCierre;
+    }
+
+    private LocalDateTime fechaCierre;
+    private boolean estaCerrado;
+
+    public Monitoreable getMonitoreable() {
+        return monitoreable;
+    }
+
+    public void setMonitoreable(Monitoreable monitoreable) {
+        this.monitoreable = monitoreable;
+    }
+
+    private Monitoreable monitoreable;
+    public boolean getEstaCerrado(){
+        return estaCerrado;
+    }
     public boolean mismoCreadorCerrador(){
-        return usuarioCerrador == usuarioCreador;
+        if (this.getEstaCerrado()){
+            return usuarioCerrador == usuarioCreador;
+        } else {
+            return false;
+        }
     }
     public boolean tiempoAbiertoMenorA(double segundos){
         return Duration.between(fechaCierre,fechaInicio ).getSeconds() < segundos;
     }
-    public Usuarioi getUsuarioCreador() {
+    public Usuario getUsuarioCreador() {
         return usuarioCreador;
     }
 
-    public Usuarioi getUsuarioCerrador() {
+    public Usuario getUsuarioCerrador() {
         return usuarioCerrador;
     }
 }

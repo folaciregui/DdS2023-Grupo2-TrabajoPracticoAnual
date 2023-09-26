@@ -1,6 +1,6 @@
 package org.example;
 
-public enum Clasificacionconfianza {
+public enum ClasificacionConfianza {
     NOCONFIABLE,
     CONRESERVAS,
     CONFIABLENIVEL1,

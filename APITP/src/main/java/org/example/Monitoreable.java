@@ -4,6 +4,15 @@ import java.util.List;
 
 public class Monitoreable{
     private int id;
-    private List<Incidente> usuarios;
-    private Estado
+
+    public List<Incidente> getIncidentes() {
+        return incidentes;
+    }
+
+    public void setIncidentes(List<Incidente> incidentes) {
+        this.incidentes = incidentes;
+    }
+
+    private List<Incidente> incidentes;
+
 }
