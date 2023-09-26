@@ -9,14 +9,18 @@ public class Incidente {
     private Usuarioi usuarioCerrador;
     private LocalDateTime fechaInicio;
     private LocalDateTime fechaCierre;
-    public void puntosporincidente(){
-        if(Duration.between(fechaCierre,fechaInicio ).getSeconds()<180 && usuarioCerrador==usuarioCreador){
-            usuarioCerrador.actualizar_puntos(-0.2);
-        } else if (1==0){ //esta es la del medio despues la hago
-        } else{
-            usuarioCerrador.actualizar_puntos(0.5);
-            usuarioCreador.actualizar_puntos(0.5);
-        }
+
+    public boolean mismoCreadorCerrador(){
+        return usuarioCerrador == usuarioCreador;
+    }
+    public boolean tiempoAbiertoMenorA(double segundos){
+        return Duration.between(fechaCierre,fechaInicio ).getSeconds() < segundos;
+    }
+    public Usuarioi getUsuarioCreador() {
+        return usuarioCreador;
     }
 
+    public Usuarioi getUsuarioCerrador() {
+        return usuarioCerrador;
+    }
 }
