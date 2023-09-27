@@ -1,4 +1,4 @@
-package org.example;
+package com.example.hibernate.dominio;
 
 import static java.lang.Double.max;
 

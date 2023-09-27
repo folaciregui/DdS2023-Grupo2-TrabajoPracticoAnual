@@ -1,19 +1,53 @@
-package org.example;
+package com.example.hibernate.dominio;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CalculadoraGrados {
+    public List<Incidente> getRepoIncidentes() {
+        return repoIncidentes;
+    }
+
+    public void setRepoIncidentes(List<Incidente> repoIncidentes) {
+        this.repoIncidentes = repoIncidentes;
+    }
+
+    public List<Usuario> getRepoUsuarios() {
+        return repoUsuarios;
+    }
+
+    public void setRepoUsuarios(List<Usuario> repoUsuarios) {
+        this.repoUsuarios = repoUsuarios;
+    }
+
+    public List<Comunidad> getRepoComunidad() {
+        return repoComunidad;
+    }
+
+    public void setRepoComunidad(List<Comunidad> repoComunidad) {
+        this.repoComunidad = repoComunidad;
+    }
+
     private List<Incidente> repoIncidentes;
     private List<Usuario> repoUsuarios;
     private List<Comunidad> repoComunidad;
+
+    public Usuario getUsuarioAnalizado() {
+        return usuarioAnalizado;
+    }
+
+    public void setUsuarioAnalizado(Usuario usuarioAnalizado) {
+        this.usuarioAnalizado = usuarioAnalizado;
+    }
+
     private Usuario usuarioAnalizado;
 
     public void aperturaFraudulenta(){
         for (Incidente incidente : repoIncidentes) {
             if(incidente.tiempoAbiertoMenorA(180) && incidente.mismoCreadorCerrador()){
-                usuarioAnalizado = incidente.getUsuarioCerrador();
+                this.setUsuarioAnalizado(incidente.getUsuarioCerrador());
                 usuarioAnalizado.actualizar_puntos(-0.2);
                 usuarioAnalizado.setMalandra(true);
             }
@@ -30,7 +64,8 @@ public class CalculadoraGrados {
         // analizar incidentes del monitoreable con 3minutos de apertura de diferencia
         // restar puntos
         for (Usuario unUsuario : repoUsuarios) {
-            List<Incidente> incidentesCerrados = unUsuario.getActividadIncidentes().stream().filter(incidente -> incidente.getEstaCerrado()).toList();
+            List<Incidente> incidentesCerrados = unUsuario.getActividadIncidentes().stream().filter(incidente -> incidente.getEstaCerrado()).collect(Collectors.toList());
+
             for (Incidente incidenteAnalizado : incidentesCerrados) {
                 Monitoreable monitoreable = incidenteAnalizado.getMonitoreable();
                 for (Incidente otroIncidente: monitoreable.getIncidentes()){

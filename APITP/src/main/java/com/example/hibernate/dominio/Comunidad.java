@@ -1,8 +1,24 @@
-package org.example;
+package com.example.hibernate.dominio;
 
 import java.util.List;
 
 public class Comunidad{
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public NivelConfianza getNivelConfianza() {
+        return nivelConfianza;
+    }
+
+    public void setNivelConfianza(NivelConfianza nivelConfianza) {
+        this.nivelConfianza = nivelConfianza;
+    }
+
     private int id;
 
     public List<Usuario> getUsuarios() {

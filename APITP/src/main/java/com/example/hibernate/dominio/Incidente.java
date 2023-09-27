@@ -1,9 +1,33 @@
-package org.example;
+package com.example.hibernate.dominio;
 
 import java.time.LocalDateTime;
 
 import java.time.Duration;
 public class Incidente {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setUsuarioCreador(Usuario usuarioCreador) {
+        this.usuarioCreador = usuarioCreador;
+    }
+
+    public void setUsuarioCerrador(Usuario usuarioCerrador) {
+        this.usuarioCerrador = usuarioCerrador;
+    }
+
+    public boolean isEstaCerrado() {
+        return estaCerrado;
+    }
+
+    public void setEstaCerrado(boolean estaCerrado) {
+        this.estaCerrado = estaCerrado;
+    }
+
     private int id;
     private Usuario usuarioCreador;
     private Usuario usuarioCerrador;

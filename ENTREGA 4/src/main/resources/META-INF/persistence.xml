@@ -5,7 +5,7 @@
     <properties>
       <property name="hibernate.archive.autodetection" value="class"/>
       <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-      <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/autodromo"/>
+      <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/tp_anual"/>
       <property name="hibernate.connection.username" value="root"/>
       <property name="hibernate.connection.password" value=""/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL57Dialect"/>

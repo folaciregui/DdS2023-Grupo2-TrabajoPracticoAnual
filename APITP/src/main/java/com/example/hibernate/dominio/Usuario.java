@@ -1,9 +1,17 @@
-package org.example;
+package com.example.hibernate.dominio;
 
 import java.util.List;
 
 public class Usuario {
-    private int usuario;
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    private int id;
 
     public boolean isMalandra() {
         return malandra;
