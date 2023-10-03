@@ -4,7 +4,15 @@ import java.util.List;
 
 public class Monitoreable{
     private int id;
+    private List<Incidente> incidentes;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
     public List<Incidente> getIncidentes() {
         return incidentes;
     }
@@ -13,6 +21,6 @@ public class Monitoreable{
         this.incidentes = incidentes;
     }
 
-    private List<Incidente> incidentes;
+
 
 }

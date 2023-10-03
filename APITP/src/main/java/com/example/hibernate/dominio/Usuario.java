@@ -2,7 +2,30 @@ package com.example.hibernate.dominio;
 
 import java.util.List;
 
+import static com.example.hibernate.dominio.ClasificacionConfianza.CONFIABLENIVEL2;
+
 public class Usuario {
+
+    private int id;
+    private List<Incidente> actividadIncidentes;
+    private NivelConfianza nivelConfianza;
+    private Comunidad comunidad;
+
+    public Comunidad getComunidad() {
+        return comunidad;
+    }
+
+    public void setComunidad(Comunidad comunidad_) {
+        this.comunidad = comunidad_;
+    }
+
+    private void setInicial(){
+        NivelConfianza nivel = new NivelConfianza();
+        nivel.setNivelNumerico(5);
+        nivel.setClasificacion(CONFIABLENIVEL2);
+    }
+
+    private boolean malandra=false;
     public int getId() {
         return id;
     }
@@ -11,7 +34,6 @@ public class Usuario {
         this.id = id;
     }
 
-    private int id;
 
     public boolean isMalandra() {
         return malandra;
@@ -22,8 +44,7 @@ public class Usuario {
     }
 
     //agregamos lista de incidentes
-    private boolean malandra=false;
-    private NivelConfianza nivelConfianza = new NivelConfianza();
+
 
     public List<Incidente> getActividadIncidentes() {
         return actividadIncidentes;
@@ -34,7 +55,7 @@ public class Usuario {
         this.actividadIncidentes = actividadIncidentes;
     }
 
-    private List<Incidente> actividadIncidentes;
+
 
     //hacer builder o inicializar
     public void actualizar_puntos(double puntos){

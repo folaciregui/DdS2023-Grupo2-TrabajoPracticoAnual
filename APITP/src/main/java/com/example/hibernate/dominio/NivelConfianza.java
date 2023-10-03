@@ -3,6 +3,10 @@ package com.example.hibernate.dominio;
 import static java.lang.Double.max;
 
 public class NivelConfianza {
+
+    private ClasificacionConfianza clasificacion;
+    private double nivelNumerico;
+
     public ClasificacionConfianza getClasificacion() {
         return clasificacion;
     }
@@ -11,7 +15,7 @@ public class NivelConfianza {
         this.clasificacion = clasificacion;
     }
 
-    private ClasificacionConfianza clasificacion;
+
 
     public double getNivelNumerico() {
         return nivelNumerico;
@@ -21,7 +25,7 @@ public class NivelConfianza {
         this.nivelNumerico = nivelNumerico;
     }
 
-    private double nivelNumerico;
+
     public NivelConfianza( ){
         nivelNumerico=5;
         this.setClasificacion(ClasificacionConfianza.CONFIABLENIVEL2);

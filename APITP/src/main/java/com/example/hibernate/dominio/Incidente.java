@@ -4,6 +4,14 @@ import java.time.LocalDateTime;
 
 import java.time.Duration;
 public class Incidente {
+
+    private int id;
+    private Usuario usuarioCreador;
+    private Usuario usuarioCerrador;
+    private LocalDateTime fechaInicio;
+    private LocalDateTime fechaCierre;
+    private boolean estaCerrado;
+    private Monitoreable monitoreable;
     public int getId() {
         return id;
     }
@@ -28,11 +36,6 @@ public class Incidente {
         this.estaCerrado = estaCerrado;
     }
 
-    private int id;
-    private Usuario usuarioCreador;
-    private Usuario usuarioCerrador;
-    private LocalDateTime fechaInicio;
-
     public LocalDateTime getFechaInicio() {
         return fechaInicio;
     }
@@ -49,8 +52,7 @@ public class Incidente {
         this.fechaCierre = fechaCierre;
     }
 
-    private LocalDateTime fechaCierre;
-    private boolean estaCerrado;
+
 
     public Monitoreable getMonitoreable() {
         return monitoreable;
@@ -60,7 +62,7 @@ public class Incidente {
         this.monitoreable = monitoreable;
     }
 
-    private Monitoreable monitoreable;
+
     public boolean getEstaCerrado(){
         return estaCerrado;
     }
