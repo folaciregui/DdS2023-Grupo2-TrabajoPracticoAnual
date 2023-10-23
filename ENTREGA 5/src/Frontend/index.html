@@ -14,20 +14,21 @@
     <input type="email" id="emailLogin" placeholder="Correo Electrónico">
     <input type="password" id="passwordLogin" placeholder="Contraseña">
     <button onclick="loginWeb()">Iniciar Sesión</button>
-    <button onclick="loginGoogle()">Iniciar Sesión con google</button>
+    <button onclick="loginGoogle()">Iniciar Sesión con Google</button>
+    <button onclick="loginMicrosoft()">Iniciar Sesión con Microsoft</button>
     <h1 id="userState"></h1>
 
 </div>
 
-<div id="user-info" style="display: none;">
-    <p>Bienvenido, <span id="user-displayname"></span> (Estado email:<span id="user-email"></span> :<span id="texto-verificado"></span>)</p>
-    <button onclick="logout()">Cerrar Sesión</button>
-    <p>¿Olvidaste tu contraseña? <span onclick="reestablecerPassword()">Haz clic aquí</span></p>
-    <button onclick="abrirIncidente()">Abrir Incidente</button>
-    <button onclick="cerrarIncidente()">Cerrar Incidente</button>
-    <button onclick="consultarIncidentes()">Consultar incidentes</button>
+<!--<div id="user-info" style="display: none;">-->
+<!--    <p>Bienvenido, <span id="user-displayname"></span> (Estado email:<span id="user-email"></span> :<span id="texto-verificado"></span>)</p>-->
+<!--    <button onclick="logout()">Cerrar Sesión</button>-->
+<!--    <p>¿Olvidaste tu contraseña? <span onclick="reestablecerPassword()">Haz clic aquí</span></p>-->
+<!--    <button onclick="abrirIncidente()">Abrir Incidente</button>-->
+<!--    <button onclick="cerrarIncidente()">Cerrar Incidente</button>-->
+<!--    <button onclick="consultarIncidentes()">Consultar incidentes</button>-->
 
-</div>
+<!--</div>-->
 
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
@@ -36,7 +37,7 @@
 <!-- ... Otros scripts de Firebase, como storage, messaging, functions, y analytics, si los necesitas ... -->
 
 <script>
-    var provider = new firebase.auth.GoogleAuthProvider();
+
     const firebaseConfig = {
         apiKey: "AIzaSyCqXg0sZXtSOxHPEjkKKS0S4jdHER1z-VU",
         authDomain: "dds-sistema-monitoreables.firebaseapp.com",
@@ -48,6 +49,8 @@
 
     // Inicializa Firebase
     firebase.initializeApp(firebaseConfig);
+    var providerGoogle = new firebase.auth.GoogleAuthProvider();
+    var providerMicrosoft = new firebase.auth.OAuthProvider('microsoft.com');
     // Manejo base de datos
     //  const database = firebase.database();
     // const ref = database.ref('/ruta/a/tu/datos'); // Reemplaza con la ruta de tus datos
@@ -110,26 +113,29 @@
     function loginWeb() {
         const email = document.getElementById("emailLogin").value;
         const password = document.getElementById("passwordLogin").value;
-        alert("el email es: " + email + " y la password es: " + password);
-
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then((userCredential) => {
-                const user = userCredential.user;
-                inicioSesion();
+                const user = userCredential.user; //cuando se registra via web no tiene como un nombre de usuario
+                console.log("valor " + userCredential.user);
+                inicioSesion(user);
             })
             .catch((error) => {
                 alert("Error al iniciar sesión: " + error.message);
             });
+            console.log("sali");
+            console.log("valor " + userCredential);
     }
-    function loginGoogle(){
-        firebase.auth().signInWithPopup(provider)
+    function loginGoogle(){ //abrir consola y chequear error
+        firebase.auth().signInWithPopup(providerGoogle)
             .then((result) => {
                 //capaz es util mas adelante
                 var credential = result.credential;
                 var token = credential.accessToken;
                 var user = result.user;
-                inicioSesion();
+                console.log("iniciando sesion con google el usuario tiene: email="+user.email);
+                inicioSesion(user);
             }).catch((error) => {
+            alert("Error al iniciar sesión con google: " + error.message);
                 //manejar errores
             var errorCode = error.code;
             var errorMessage = error.message;
@@ -137,45 +143,28 @@
             var credential = error.credential;
         });
     }
-    function inicioSesion(){
-        loginForm.style.display = "none";
-        userInfo.style.display = "block";
-        userDisplayName.innerText = user.displayName;
-        userEmail.innerText = user.email;
-    }
-    // Función para cerrar sesión
-    function logout() {
-        firebase.auth().signOut().then(() => {
-            loginForm.style.display = "block";
-            userInfo.style.display = "none";
-        }).catch((error) => {
-            alert("Error al cerrar sesión: " + error.message);
-        });
-    }
-    function reestablecerPassword(){
-        const email = document.getElementById("emailLogin").value;
-        console.log("llegue loco");
-        firebase.auth().sendPasswordResetEmail(email)
-            .then(() => {
-                // Password reset email sent!
-                alert("Revisa tu casilla de correo y utiliza el link para reestablecer la contraseña");
-                console.log("actua");
+    function loginMicrosoft() {
+        firebase.auth().signInWithPopup(providerMicrosoft)
+            .then((result) => {
+                console.log("logeado con exito: ");
+                const user = result.user;
+                // Realiza acciones adicionales con el usuario si es necesario
+                inicioSesion(user);
             })
             .catch((error) => {
-                var errorCode = error.code;
-                var errorMessage = error.message;
-                // ..
+                console.log("codigo Error: " + error.code);
+                console.log("Error: " + error.message);
+                alert("Error al iniciar sesión con Microsoft: " + error.message);
+                console.log("Error: " + error.message);
             });
     }
-    function abrirIncidente(){
-
+    function inicioSesion(user){
+        localStorage.setItem('user', JSON.stringify(user));
+        window.location.href = "pagina-principal.html";
     }
-    function cerrarIncidente(){
 
-    }
-    function consultarIncidentes(){
 
-    }
+
 </script>
 </body>
 </html>
