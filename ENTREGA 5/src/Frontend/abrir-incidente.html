@@ -5,10 +5,15 @@
 </head>
 <body>
     <h1>Pagina para abrir los Incidentes</h1>
+    <a href="pagina-principal.html">Ir a Pagina Principal</a>
+    <input for="">Descripcion:</input>
+    <input type="date" id="fecha-inicio" name="fecha-inicio"/>Fecha inicio: </input>
+    <input type="date" id="fecha-fin" name="fecha-fin"/>Fecha fin: </input>
     <label for="selectMonitoreable">Selecciona un Monitoreable:</label>
     <select id="selectMonitoreable">
         <!-- Aquí se llenará la lista de monitoreables con JavaScript -->
     </select>
+
     <button onclick="abrirFormulario()">Abrir Formulario</button>
 
     <div id="formularioIncidente" style="display: none;">
@@ -45,8 +50,6 @@
         }
 
         function guardarIncidente() {
-            // Aquí puedes recopilar los datos del formulario y guardarlos en tu base de datos.
-            // Puedes utilizar Firebase o la tecnología que prefieras para realizar la gestión de datos.
             const descripcion = document.getElementById('descripcion').value;
 
             // Guarda los datos en la base de datos.
