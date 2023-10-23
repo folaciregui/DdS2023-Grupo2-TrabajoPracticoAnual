@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Abrir Incidente</title>
+</head>
+<body>
+    <h1>Pagina para abrir los Incidentes</h1>
+    <label for="selectMonitoreable">Selecciona un Monitoreable:</label>
+    <select id="selectMonitoreable">
+        <!-- Aquí se llenará la lista de monitoreables con JavaScript -->
+    </select>
+    <button onclick="abrirFormulario()">Abrir Formulario</button>
+
+    <div id="formularioIncidente" style="display: none;">
+        <!-- Aquí se mostrará el formulario de incidente -->
+    </div>
+
+    <!--<script src="abrir-incidente.js"></script> quizas abstraer la logica en un archivo aparte-->
+    <script>
+        const selectMonitoreable = document.getElementById('selectMonitoreable');
+        const formularioIncidente = document.getElementById('formularioIncidente');
+
+        // Aquí puedes obtener la lista de monitoreables desde tu base de datos y llenar el desplegable.
+        // Ejemplo:
+        const monitoreables = ["Monitoreable 1", "Monitoreable 2", "Monitoreable 3"];
+        monitoreables.forEach(monitoreable => {
+            const option = document.createElement('option');
+            option.value = monitoreable;
+            option.textContent = monitoreable;
+            selectMonitoreable.appendChild(option);
+        });
+
+        function abrirFormulario() {
+            // Cuando se hace clic en el botón "Abrir Formulario," se muestra el formulario.
+            formularioIncidente.style.display = 'block';
+
+            // Aquí puedes cargar el formulario y manejar los datos del incidente.
+            // Puedes añadir campos, validaciones y lógica según tus necesidades.
+            formularioIncidente.innerHTML = `
+        <h2>Formulario de Incidente</h2>
+        <label for="descripcion">Descripción:</label>
+        <input type="text" id="descripcion"><br>
+        <button onclick="guardarIncidente()">Guardar Incidente</button>
+    `;
+        }
+
+        function guardarIncidente() {
+            // Aquí puedes recopilar los datos del formulario y guardarlos en tu base de datos.
+            // Puedes utilizar Firebase o la tecnología que prefieras para realizar la gestión de datos.
+            const descripcion = document.getElementById('descripcion').value;
+
+            // Guarda los datos en la base de datos.
+            // Ejemplo con Firebase:
+            // firebase.firestore().collection('incidentes').add({ monitoreable: selectMonitoreable.value, descripcion: descripcion })
+        }
+
+    </script>
+</body>
+</html>
