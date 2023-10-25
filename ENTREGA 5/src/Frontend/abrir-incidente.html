@@ -1,24 +1,71 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="estilosRequerimientos.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
     <title>Abrir Incidente</title>
 </head>
 <body>
-    <h1>Pagina para abrir los Incidentes</h1>
-    <a href="pagina-principal.html">Ir a Pagina Principal</a>
-    <input for="">Descripcion:</input>
-    <input type="date" id="fecha-inicio" name="fecha-inicio"/>Fecha inicio: </input>
-    <input type="date" id="fecha-fin" name="fecha-fin"/>Fecha fin: </input>
-    <label for="selectMonitoreable">Selecciona un Monitoreable:</label>
-    <select id="selectMonitoreable">
-        <!-- Aquí se llenará la lista de monitoreables con JavaScript -->
-    </select>
+    <a class="botonIrAPagPrincipal" href="pagina-principal.html">Ir a Pagina Principal</a>
+    <h1 class="titulo">Abrir incidente</h1>
 
-    <button onclick="abrirFormulario()">Abrir Formulario</button>
+        <div class="contenedorColumna">
+            <div class="columna1">
+                <div class="contenedorColumna1">
+                    <a class="referencia" href="cargar-datos-entidades.html">Cargar datos Entidades y Organismos</a>
+                    <a class="referenciaElegida" href="abrir-incidente.html">Abrir Incidente</a>
+                    <a class="referencia" href="cerrar-incidente.html">Cerrar Incidente</a>
+                    <a class="referencia" href="consultar-incidente.html">Consultar Incidente</a>
+                    <a class="referencia" href="sugerencia-incidente.html">Sugerencia Incidente</a>
+                    <a class="referencia" href="administracion-usuarios.html">Administrar Usuarios</a>
+                    <a class="referencia" href="visualizacion-rankings.html">Rankings</a>
+                </div>
+            </div>
+            <div class="columna2">
+                    <div class="opciones">
+                        <label class="label">Descripcion</label>
+                        <input class="input" for="" placeholder="Ingrese descripción"></input>
+                    </div>
+                    <div class="opciones">
+                        <label class="label">Fecha de inicio</label>
+                        <input class="date" type="date" id="fecha-inicio" name="fecha-inicio"/></input>
+                    </div>
+                    <div class="opciones">
+                        <label class="label">Fecha de fin</label>
+                        <input class="date" type="date" id="fecha-fin" name="fecha-fin"/></input>
+                    </div>
+                    <div class="opciones">
+                        <label class="label" for="selectMonitoreable">Selecciona un Monitoreable:</label>
+                        <select class="input" id="selectMonitoreable">
+                            <!-- Aquí se llenará la lista de monitoreables con JavaScript -->
+                        </select>
+                    </div>
 
-    <div id="formularioIncidente" style="display: none;">
-        <!-- Aquí se mostrará el formulario de incidente -->
-    </div>
+            </div>
+        </div>
+
+
+
+
+
+        <!-- No entendi bien para que es lo de abajo -->
+        <button style="display: none;" onclick="abrirFormulario()">Abrir Formulario</button>
+
+        <div id="formularioIncidente" style="display: none;">
+            <!-- Aquí se mostrará el formulario de incidente -->
+        </div>
+
+
+
+
+
+
+
+
+
 
     <!--<script src="abrir-incidente.js"></script> quizas abstraer la logica en un archivo aparte-->
     <script>

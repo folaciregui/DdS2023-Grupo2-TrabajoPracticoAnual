@@ -1,24 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="estilos.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
     <title>Iniciar Sesión</title>
 </head>
 <body>
-<h1>Pagina encargada de Registrar/Iniciar Sesión</h1>
-<div id="login-form">
-    <h1>REGISTRARSE</h1>
-    <input type="email" id="emailRegister" placeholder="Correo Electrónico">
-    <input type="password" id="passwordRegister" placeholder="Contraseña">
-    <button onclick="register()">Registrarse</button>
-    <h1>LOGUEARSE</h1>
-    <input type="email" id="emailLogin" placeholder="Correo Electrónico">
-    <input type="password" id="passwordLogin" placeholder="Contraseña">
-    <button onclick="loginWeb()">Iniciar Sesión</button>
-    <button onclick="loginGoogle()">Iniciar Sesión con Google</button>
-    <button onclick="loginMicrosoft()">Iniciar Sesión con Microsoft</button>
-    <h1 id="userState"></h1>
-
-</div>
+    <h1 class="tituloPrincipal">Registro/Inicio de Sesión</h1>
+    <!--
+    <div class="recuadro">
+        <h1 class="subtitulo">REGISTRARSE</h1>
+        <input type="email" id="emailRegister" placeholder="Correo Electrónico">
+        <input type="password" id="passwordRegister" placeholder="Contraseña">
+        <button onclick="register()">Registrarse</button>
+        <h1 class="subtitulo">LOGUEARSE</h1>
+        <input type="email" id="emailLogin" placeholder="Correo Electrónico">
+        <input type="password" id="passwordLogin" placeholder="Contraseña">
+        <button onclick="loginWeb()">Iniciar Sesión</button>
+        <button onclick="loginGoogle()">Iniciar Sesión con Google</button>
+        <button onclick="loginMicrosoft()">Iniciar Sesión con Microsoft</button>
+        <h1 id="userState"></h1>
+    </div>
+    -->
+    <div id="login-form" class="contenedor">
+        <div class="columna">
+            <h1 class="subtitulo">REGISTRARSE</h1>
+            <div class="formulario">
+                <input class="input" type="email" id="emailRegister" placeholder="Correo Electrónico">
+                <input class="input" type="password" id="passwordRegister" placeholder="Contraseña">
+                <button class="boton" onclick="register()">Registrarse</button>
+            </div>
+        </div>
+        <div class="columna">
+            <h1 class="subtitulo">INICIAR SESIÓN</h1>
+            <div class="formulario">
+                <input class="input" type="email" id="emailLogin" placeholder="Correo Electrónico">
+                <input class="input" type="password" id="passwordLogin" placeholder="Contraseña">
+                <button class="boton" onclick="loginWeb()">Iniciar Sesión</button>
+                <div class="subcolumna">
+                    <button class="boton" onclick="loginGoogle()">Iniciar Sesión con Google</button>
+                    <button class="boton" onclick="loginMicrosoft()">Iniciar Sesión con Microsoft</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 <!--<div id="user-info" style="display: none;">-->
 <!--    <p>Bienvenido, <span id="user-displayname"></span> (Estado email:<span id="user-email"></span> :<span id="texto-verificado"></span>)</p>-->
@@ -30,13 +58,13 @@
 
 <!--</div>-->
 
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-<!-- <script src="https://www.gstatic.com/firebasejs/9.6.5/firebase-database.js"></script> -->
-<!-- ... Otros scripts de Firebase, como storage, messaging, functions, y analytics, si los necesitas ... -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/9.6.5/firebase-database.js"></script> -->
+    <!-- ... Otros scripts de Firebase, como storage, messaging, functions, y analytics, si los necesitas ... -->
 
-<script>
+    <script>
 
     const firebaseConfig = {
         apiKey: "AIzaSyCqXg0sZXtSOxHPEjkKKS0S4jdHER1z-VU",
@@ -165,6 +193,6 @@
 
 
 
-</script>
+    </script>
 </body>
 </html>

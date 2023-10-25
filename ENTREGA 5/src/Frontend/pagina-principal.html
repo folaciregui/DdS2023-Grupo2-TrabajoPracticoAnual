@@ -2,33 +2,35 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="estilosPagPrincipal.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
     <title class="title">Pagina principal</title>
 </head>
 <body>
-    <h1>Pagina Principal</h1>
-    <div id="user-infoPrincipal">
-        <p>Bienvenido, <span id="user-displayname"></span> (Estado email:<span id="user-email"></span> :<span id="texto-verificado"></span>)</p>
-        <button onclick="logout()">Cerrar Sesión</button>
-        <p id="restablecer-Password"><span onclick="reestablecerPassword()">¿Olvidaste tu contraseña? Haz clic aquí</span></p>
-        <a href="abrir-incidente.html">Abrir Incidente</a>
-        <a href="cerrar-incidente.html">Cerrar Incidente</a>
-        <a href="consultar-incidente.html">Consultar Incidente</a>
-        <a href="cargar-datos-entidades.html">Cargar datos Entidades Prestadoras y Organismos de Control</a>
-        <a href="sugerencia-incidente.html">Sugerencia Incidente</a>
-        <a href="administracion-usuarios.html">Administrar Usuarios</a>
-        <a href="visualizacion-rankings.html">Rankings</a>
-<!--        <button onclick="cerrarIncidente()">Cerrar Incidente</button>-->
-<!--        <button onclick="consultarIncidentes()">Consultar incidentes</button>-->
-        <a href="index.html">Ir a index</a>
+    <button class="boton" onclick="logout()">Cerrar Sesión</button>
+    <h1 class="tituloPrincipal">Menú</h1>
+    <div class="contenedor" id="user-infoPrincipal">
+        <div class="subcontenedor">
+            <a class="referencia" href="cargar-datos-entidades.html">Cargar datos Entidades Prestadoras y Organismos de Control</a>
+            <br></br>
+            <a class="referencia" href="abrir-incidente.html">Abrir Incidente</a>
+            <br></br>
+            <a class="referencia" href="cerrar-incidente.html">Cerrar Incidente</a>
+            <br></br>
+            <a class="referencia" href="consultar-incidente.html">Consultar Incidente</a>
+            <br></br>
+            <a class="referencia" href="sugerencia-incidente.html">Sugerencia Incidente</a>
+            <br></br>
+            <a class="referencia" href="administracion-usuarios.html">Administrar Usuarios</a>
+            <br></br>
+            <a class="referencia" href="visualizacion-rankings.html">Rankings</a>
+        </div>
     </div>
-    <div id="seleccion-monitoreable" style="display: none;">
-    <select id="monitoreables">
-        <!-- Opciones se generarán dinámicamente aquí -->
-    </select>
 
 
-    </div>
+
 
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>

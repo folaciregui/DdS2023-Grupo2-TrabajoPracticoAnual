@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+body {
+    background-color: #fff;
+    margin: 0; /* Elimina márgenes predeterminados que pueda tener el body */
+    padding: 0; /* Elimina relleno predeterminado que pueda tener el body */
+}
+.tituloPrincipal {
+    color: #4300d2;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 50px;
+}
+.boton{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: #4300d2;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+}
+.boton:hover {
+    background-color: #fff;
+    color: #4300d2;
+}
+.contenedor{
+    display: flex;
+    background-color: #A780FF;
+    justify-content: center;
+    align-items: center;
+}
+.subcontenedor {
+    flex: 1; /* Para que ambas columnas ocupen el mismo ancho */
+    padding: 10px; /* Espacio entre las columnas */
+    margin: 20px;
+    margin-left: 350px;
+    margin-right: 350px;
+    background-color: #4300d2;
+    border-radius: 20px;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    text-align: center;
+}
+.referencia {
+    color: #fff; /* Cambia el color del enlace a azul */
+    text-decoration: none; /* Elimina la subrayado predeterminado */
+    font-size: 20px; /* Tamaño de fuente */
+    font-family: 'Open Sans', sans-serif;
+    padding: 10px 20px; /* Relleno para crear un botón */
+    border: none; /* Borde del botón */
+    background-color: #fa503f; /* Fondo blanco */
+    border-radius: 20px; /* Bordes redondeados */
+    display: inline-block; /* Hace que el enlace se comporte como un bloque en línea */
+    width: 500px;
+}
+.referencia:hover {
+    background-color: #fff;
+    color: #fa503f;
+}
