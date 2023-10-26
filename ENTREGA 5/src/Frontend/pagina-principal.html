@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="imagenes/logoUTN.png">
     <link rel="stylesheet" href="estilosPagPrincipal.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
@@ -23,9 +24,9 @@
             <br></br>
             <a class="referencia" href="sugerencia-incidente.html">Sugerencia Incidente</a>
             <br></br>
-            <a class="referencia" href="administracion-usuarios.html">Administrar Usuarios</a>
-            <br></br>
             <a class="referencia" href="visualizacion-rankings.html">Rankings</a>
+            <br></br>
+            <a class="referencia" href="mi-cuenta.html">Mi cuenta</a>
         </div>
     </div>
 
@@ -49,8 +50,8 @@
         const user = JSON.parse(localStorage.getItem('user'));
         if(user){
             console.log("el usuario tiene: "+user);
-            console.log("nombre usuario"+user.displayName);
-            console.log("correo usuario"+user.email);
+            console.log("nombre usuario: "+user.displayName);
+            console.log("correo usuario: "+user.email);
             document.getElementById("user-displayname").textContent = user.displayName;
             document.getElementById("user-email").textContent = user.email;
             // a partir de aca trabajo el resto de cosas

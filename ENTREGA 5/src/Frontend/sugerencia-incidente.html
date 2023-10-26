@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="imagenes/logoUTN.png">
     <link rel="stylesheet" href="estilosRequerimientos.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
@@ -19,15 +20,33 @@
                 <a class="referencia" href="cerrar-incidente.html">Cerrar Incidente</a>
                 <a class="referencia" href="consultar-incidente.html">Consultar Incidente</a>
                 <a class="referenciaElegida" href="sugerencia-incidente.html">Sugerencia Incidente</a>
-                <a class="referencia" href="administracion-usuarios.html">Administrar Usuarios</a>
                 <a class="referencia" href="visualizacion-rankings.html">Rankings</a>
+                <a class="referencia" href="mi-cuenta.html">Mi cuenta</a>
             </div>
         </div>
         <div class="columna2">
-            <div class="subcontenedor">
-                FALTA!!
+            <div class="opciones">
+                <label class="label">Incidentes cercanos a revisar</label>
+                <select class="input" id="selectIncidente">
+                    <!-- Aquí se llenará la lista de incidentes con JavaScript -->
+                </select>
+                <button class="botonCargar" type="submit" class="btn btn-sm btn-outline-primary text-nowrap mt-5">Actualizar</button>
             </div>
         </div>
+        <div class="mapa">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3281.8058592213542!2d-58.470550524898655!3d-34.65960557293423!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcc966bf151d67%3A0x255fef772508e89c!2sNational%20Technological%20University!5e0!3m2!1sen!2sar!4v1698345224360!5m2!1sen!2sar" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
     </div>
+<script>
+    //aca cargo la lista para mostrar los incidentes
+    const selectIncidente = document.getElementById('selectIncidente');
+    const incidentes = ["Incidente 1", "Incidente 2"];
+    incidentes.forEach(incidente => {
+        const option = document.createElement('option');
+        option.value = incidente;
+        option.textContent = incidente;
+        selectIncidente.appendChild(option);
+    });
+</script>
 </body>
 </html>

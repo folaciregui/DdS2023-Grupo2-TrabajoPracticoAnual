@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="imagenes/logoUTN.png">
     <link rel="stylesheet" href="estilosRequerimientos.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
@@ -20,8 +21,8 @@
                     <a class="referencia" href="cerrar-incidente.html">Cerrar Incidente</a>
                     <a class="referencia" href="consultar-incidente.html">Consultar Incidente</a>
                     <a class="referencia" href="sugerencia-incidente.html">Sugerencia Incidente</a>
-                    <a class="referencia" href="administracion-usuarios.html">Administrar Usuarios</a>
                     <a class="referencia" href="visualizacion-rankings.html">Rankings</a>
+                    <a class="referencia" href="mi-cuenta.html">Mi cuenta</a>
                 </div>
             </div>
             <div class="columna2">
@@ -43,7 +44,6 @@
                             <!-- Aquí se llenará la lista de monitoreables con JavaScript -->
                         </select>
                     </div>
-
             </div>
         </div>
 
@@ -54,7 +54,7 @@
         <!-- No entendi bien para que es lo de abajo -->
         <button style="display: none;" onclick="abrirFormulario()">Abrir Formulario</button>
 
-        <div id="formularioIncidente" style="display: none;">
+        ><div id="formularioIncidente" style="display: none;">
             <!-- Aquí se mostrará el formulario de incidente -->
         </div>
 
@@ -69,17 +69,33 @@
 
     <!--<script src="abrir-incidente.js"></script> quizas abstraer la logica en un archivo aparte-->
     <script>
+        //cargo lista monitoreables
         const selectMonitoreable = document.getElementById('selectMonitoreable');
         const formularioIncidente = document.getElementById('formularioIncidente');
-
-        // Aquí puedes obtener la lista de monitoreables desde tu base de datos y llenar el desplegable.
-        // Ejemplo:
         const monitoreables = ["Monitoreable 1", "Monitoreable 2", "Monitoreable 3"];
         monitoreables.forEach(monitoreable => {
             const option = document.createElement('option');
             option.value = monitoreable;
             option.textContent = monitoreable;
             selectMonitoreable.appendChild(option);
+        });
+        //cargo lista entidad
+        const selectEntidad = document.getElementById('selectEntidad');
+        const entidades = ["Medio de Transporte", "Empresa"];
+        monitoreables.forEach(entidad => {
+            const option = document.createElement('option');
+            option.value = entidad;
+            option.textContent = entidad;
+            selectEntidad.appendChild(option);
+        });
+        //cargo lista establecimiento
+        const selectEstablecimiento = document.getElementById('selectEstablecimiento');
+        const establecimientos = ["Establecimiento 1", "Establecimiento 2"]; //faltaria ver como hacemos para que muestre solo o establecimientos o sucursales segun lo elegido antes
+        monitoreables.forEach(establecimiento => {
+            const option = document.createElement('option');
+            option.value = establecimiento;
+            option.textContent = establecimiento;
+            selectEstablecimiento.appendChild(option);
         });
 
         function abrirFormulario() {

@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="imagenes/logoUTN.png">
     <link rel="stylesheet" href="estilosRequerimientos.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
@@ -19,15 +20,45 @@
                 <a class="referencia" href="cerrar-incidente.html">Cerrar Incidente</a>
                 <a class="referenciaElegida" href="consultar-incidente.html">Consultar Incidente</a>
                 <a class="referencia" href="sugerencia-incidente.html">Sugerencia Incidente</a>
-                <a class="referencia" href="administracion-usuarios.html">Administrar Usuarios</a>
                 <a class="referencia" href="visualizacion-rankings.html">Rankings</a>
+                <a class="referencia" href="mi-cuenta.html">Mi cuenta</a>
             </div>
         </div>
         <div class="columna2">
-            <div class="subcontenedor">
-                FALTA!!
+            <div class="opciones">
+                <label class="label" for="selectEntidad">Selecciona una Entidad:</label>
+                <select class="input" id="selectEntidad">
+                    <!-- Aquí se llenará la lista de entidades con JavaScript -->
+                </select>
             </div>
+            <div class="opciones">
+                <label class="label" for="selectEstablecimiento">Selecciona un Establecimiento:</label>
+                <select class="input" id="selectEstablecimiento">
+                    <!-- Aquí se llenará la lista de establecimientos con JavaScript -->
+                </select>
+            </div>
+            <a class="referencia" href="incidentes-filtrados.html">Filtrar</a>
         </div>
     </div>
+<script>
+    //cargo lista entidad
+    const selectEntidad = document.getElementById('selectEntidad');
+    const entidades = ["Medio de Transporte", "Empresa"];
+    entidades.forEach(entidad => {
+        const option = document.createElement('option');
+        option.value = entidad;
+        option.textContent = entidad;
+        selectEntidad.appendChild(option);
+    });
+    //cargo lista establecimiento
+    const selectEstablecimiento = document.getElementById('selectEstablecimiento');
+    const establecimientos = ["Establecimiento 1", "Establecimiento 2"]; //faltaria ver como hacemos para que muestre solo o establecimientos o sucursales segun lo elegido antes
+    establecimientos.forEach(establecimiento => {
+        const option = document.createElement('option');
+        option.value = establecimiento;
+        option.textContent = establecimiento;
+        selectEstablecimiento.appendChild(option);
+    });
+</script>
 </body>
 </html>

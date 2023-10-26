@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="estilos.css">
+    <link rel="icon" type="image/x-icon" href="imagenes/logoUTN.png">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
@@ -116,19 +117,26 @@
     const userEmail = document.getElementById("user-email");
 
     // Función para registarse
-    function register(){
+    function register() {
         const email = document.getElementById("emailRegister").value;
         const password = document.getElementById("passwordRegister").value;
         firebase.auth().createUserWithEmailAndPassword(email, password)
-            .catch(function(error){
+            .then((userCredential) => {
+                // Creación del usuario exitosa
+                const user = userCredential.user;
+                verificarCorreo();
+                alert("Registrado con exito");
+                inicioSesion(user);
+            })
+            .catch(function(error) {
                 var errorCode = error.code;
                 var errorMessage = error.message;
-                alert(errorMessage);
-            })
-            .then(function (){
-                verificarCorreo()
-            })
+                alert("Error al registrar la cuenta: " + errorMessage);
+                document.getElementById("emailLogin").innerHTML= "";//no terminado
+                document.getElementById("passwordLogin").innerHTML="";
+            });
     }
+
     // Función para iniciar sesión
     function verificarCorreo(){
         var user = firebase.auth().currentUser;

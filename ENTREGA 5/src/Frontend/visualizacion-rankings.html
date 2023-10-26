@@ -2,6 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="imagenes/logoUTN.png">
     <link rel="stylesheet" href="estilosRequerimientos.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
@@ -20,25 +21,37 @@
                 <a class="referencia" href="cerrar-incidente.html">Cerrar Incidente</a>
                 <a class="referencia" href="consultar-incidente.html">Consultar Incidente</a>
                 <a class="referencia" href="sugerencia-incidente.html">Sugerencia Incidente</a>
-                <a class="referencia" href="administracion-usuarios.html">Administrar Usuarios</a>
                 <a class="referenciaElegida" href="visualizacion-rankings.html">Rankings</a>
+                <a class="referencia" href="mi-cuenta.html">Mi cuenta</a>
             </div>
         </div>
         <div class="columna2">
-            <div class="contenedorRanking">
-                <div class="ranking">
-                    RANKING 1
-                </div>
-                <div class="ranking">
-                    RANKING 2
-                </div>
-                <div class="ranking">
-                    RANKING 3
-                </div>
+            <div class="opciones">
+
+                <label class="label" for="selectRanking">Selecciona un Ranking:</label>
+                <select class="input" id="selectRanking">
+                    <!-- Aquí se llenará la lista de rankings con JavaScript -->
+                </select>
             </div>
+            <div class="opciones">
+                <label class="label">Fecha de ranking</label>
+                <input class="date" type="date" id="fecha-ranking" name="fecha-ranking"/></input>
+            </div>
+            <button class="botonCargar" type="submit" class="btn btn-sm btn-outline-primary text-nowrap mt-5">Buscar Ranking</button>
         </div>
     </div>
 
+
+    <script>
+        const selectRanking = document.getElementById('selectRanking');
+        const rankings = ["Ranking de promedios", "Ranking de impactos", "Ranking mayor cantidad de incidentes"];
+        rankings.forEach(ranking => {
+            const option = document.createElement('option');
+            option.value = ranking;
+            option.textContent = ranking;
+            selectRanking.appendChild(option);
+        });
+    </script>
 
 
 
