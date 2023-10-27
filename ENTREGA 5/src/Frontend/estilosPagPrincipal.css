@@ -65,3 +65,41 @@ body {
     background-color: #fff;
     color: #fa503f;
 }
+/* CSS para celulares igual cambiar hasta max 480px y hacer para tablets */
+@media screen and (max-width: 600px) {
+    body {
+        padding: 0;
+    }
+
+    .tituloPrincipal {
+        font-size: 45px; /* Reduce el tamaño de fuente para dispositivos móviles */
+    }
+
+    .boton {
+        position: static; /* Restaura la posición normal */
+        width: 100%; /* Ocupa todo el ancho disponible */
+        margin: 10px 0; /* Añade espacio entre el botón y el título */
+        font-size: 15px;
+    }
+
+    .subcontenedor {
+        margin: 20px; /* Espaciado ajustado para dispositivos móviles */
+        margin-left: 20px; /* Ajusta los márgenes izquierdos y derechos */
+        margin-right: 20px;
+        text-align: center; /* Centra el contenido */
+    }
+
+    .referencia {
+        width: 80%;
+        font-size: 18px;
+    }
+
+    .referencia {
+        color: #fff;
+        background-color: #fa503f;
+    }
+    .referencia:hover {
+        background-color: #fff;
+        color: #fa503f;
+    }
+}

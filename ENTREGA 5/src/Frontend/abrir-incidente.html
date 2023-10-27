@@ -46,28 +46,6 @@
                     </div>
             </div>
         </div>
-
-
-
-
-
-        <!-- No entendi bien para que es lo de abajo -->
-        <button style="display: none;" onclick="abrirFormulario()">Abrir Formulario</button>
-
-        ><div id="formularioIncidente" style="display: none;">
-            <!-- Aquí se mostrará el formulario de incidente -->
-        </div>
-
-
-
-
-
-
-
-
-
-
-    <!--<script src="abrir-incidente.js"></script> quizas abstraer la logica en un archivo aparte-->
     <script>
         //cargo lista monitoreables
         const selectMonitoreable = document.getElementById('selectMonitoreable');
@@ -98,28 +76,12 @@
             selectEstablecimiento.appendChild(option);
         });
 
-        function abrirFormulario() {
-            // Cuando se hace clic en el botón "Abrir Formulario," se muestra el formulario.
-            formularioIncidente.style.display = 'block';
-
-            // Aquí puedes cargar el formulario y manejar los datos del incidente.
-            // Puedes añadir campos, validaciones y lógica según tus necesidades.
-            formularioIncidente.innerHTML = `
-        <h2>Formulario de Incidente</h2>
-        <label for="descripcion">Descripción:</label>
-        <input type="text" id="descripcion"><br>
-        <button onclick="guardarIncidente()">Guardar Incidente</button>
-    `;
-        }
 
         function guardarIncidente() {
             const descripcion = document.getElementById('descripcion').value;
 
             // Guarda los datos en la base de datos.
-            // Ejemplo con Firebase:
-            // firebase.firestore().collection('incidentes').add({ monitoreable: selectMonitoreable.value, descripcion: descripcion })
         }
-
     </script>
 </body>
 </html>

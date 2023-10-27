@@ -250,3 +250,27 @@ body {
     background-color: #fff;
     color: #fa503f;
 }
+/* Estilos para el botón de mostrar/ocultar en tamaños menores o iguales a 600px */
+@media screen and (max-width: 600px) {
+    .titulo{
+        text-align: center;
+    }
+    .columna1 {
+        display: none;
+    }
+    .date {
+        width: 65%;
+        font-size: 15px;
+    }
+
+    .botonIrAPagPrincipal {
+        display: block;
+        position: relative;
+        top: auto;
+        margin: 20px auto;
+        text-align: center;
+    }
+   .opciones{
+       width: 60%;
+   }
+}
