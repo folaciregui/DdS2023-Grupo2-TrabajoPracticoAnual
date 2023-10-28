@@ -79,7 +79,7 @@ body {
     background-color: #A780FF;
     justify-content: center;
     align-items: center;
-    height: 600px;
+    height: 700px;
 }
 .contenedorColumna1{
     display: flex;
@@ -114,7 +114,7 @@ body {
 
 .columna2 {
     flex: 1;
-    background-color: #A780FF; /* Color de fondo para la segunda columna */
+    background-color: #A780FF;
     align-content: center;
     align-items: center;
     text-align: center;
@@ -199,6 +199,20 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-size: 20px;
 }
+.label2{
+    display: flex;
+    color: #4300d2;
+    justify-content: left;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+}
+.label3{
+    display: flex;
+    color: black;
+    justify-content: left;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+}
 .botonIrAPagPrincipal{
     position: absolute;
     top: 0;
@@ -250,6 +264,24 @@ body {
     background-color: #fff;
     color: #fa503f;
 }
+.miCuenta {
+    flex: 1;
+    padding: 10px;
+    margin: 50px;
+    background-color: #fff;
+    border-radius: 20px;
+    text-align: center;
+}
+.columna2-v2 {
+    flex: 1;
+    display: inline-block;
+    grid-template-columns: 1fr 70% 1fr 30%;
+    /*gap: 10px;*/
+    background-color: #A780FF;
+    vertical-align: top;
+}
+
+
 /* Estilos para el botón de mostrar/ocultar en tamaños menores o iguales a 600px */
 @media screen and (max-width: 600px) {
     .titulo{
