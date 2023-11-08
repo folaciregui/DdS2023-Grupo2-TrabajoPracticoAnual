@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "dds-sistema-monitoreables",
+  "private_key_id": "7274a19754c1fa2385d201ca50662e133ffee697",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDhr36KYaJj0jbH\ngH+vLfFQ9HN/jluGBdcrvnMDM8ndAmYDA1IwQh1Wlkk7939BZC3pl86BYqs2Alpp\n90E8obVqPg9jgaHJQEtyvbP2kxQLM0kUaNQSiYklx31PNL6xD+0hzy0cyuxqDeQq\nLzc9S8Pi6oo3nDk9S+9ibU2V6lagce+TzrsGay2+x9b6ZEK2LTc/VbUL8Y1lKgXQ\nyMmu5+M+QnfjtMUMAIWWPy7k3m09phlZ0m4aZbeChPUF6pRt1vMROKrUfdg55Du5\n/BBtY2qfGSve2Lq0QoLU+wAqcnbrjLWZ6tA6mFRwqxNy1HTDwL9duJeGnHrYZ/nC\n9A15xI8NAgMBAAECggEALvguvk8elGbSJsgsCsHliMMvbHssuiJqCz0aQ67aEsim\ngXcF+mwwHe6uNDBIyEu4sHZ7MHtgBaAMwCQI7Dz9fCyJWFzI1pEugqVPmIA4ujIE\nwh4lEOyV4gp4Hm1sSH53jENJcMYc2N+mPk9QUE396TKF7JfzY7nziskTziEUwVRB\nBseQAK9Uf1utxzcIWGigj1Z9a8jMoDoME83aKAvdDE/RmBD/KmYM4ONiNEJgaOPc\nzyBGCPMkTseme6SarChm75xd/ZjZvM/7XL3HrcCsdDpekMLaY2pgcGpdBXyN4vNV\nXEjeoL9fBI0+L45aFwDxPA1scyYHdKGxEuJ20ap6MwKBgQD0pQ74Kdd4o7e19MDa\n9ye8tVkSVuJ6HM+jGyzMFz47M3Szmbx0VRbs9kju15vE2rRS3WZu5rNyv/L4PpKp\nifWH/FehV0ne5mTVbcYPsdkJV+aqxpo2DDRy9U+RWHId9WUMBbZdOqAnPubkzPMi\nIpZs7kk1vnGwfRuUF4eYFPu9rwKBgQDsKSgVXZbF00veQzt9TbHQ/WC501ar4jV2\nEouiVuGO43AyEjI2nj72PImaoN4n6FcRZxur/qR1isyF5k0g+kB2e8ZFQnpN9kSQ\nmU+3yUNysC9iE5J/Ui6EMG+61nBV0VENOK7OWxo381OJFxqCXKOX8kopt63QpCgw\nF4+GT7+KAwKBgQDN9eACYQd8Eyjo0OND9OvJXUtduzPz5imQgaJXOAI2SP2o7nbP\n4Yrpd/ayzWXgdtd1I9vG5gaRRrRA9jz26qSBFZqYxCn2tDST0lT6hZnY2d3iTE0r\nz16goZGZJcL9IckuM+jx2BdYswYj/b97L29AyeNskaaZFNqQ9LY8/P1rFQKBgQCD\nqtKhTuOv+gVzrzJswzOfnJUgJddNz7oU0XQul5f8bYvxLrn2P7ZE3S2vG3+g6mYY\n2s7PzxJsQm2TPfrEpyHnrUy28sBz1RkXMZMDmd/UAqz4Voc4G1657rNsjQBmqGQz\nJeY4QQzWIwDxDwOFqRbAsaJtre3nxI5vecNYk//rdwKBgBsGiY5yDDlOesJOo/Mj\n9k9Z9YlKTeHnJlIPmJ9rdUHyVfk0jp/X1c84vKkhi11MG4YoxVAKmsPjuPIFWkjM\nKFzAlGu0FE/DhdHl3yE2h0DJ0ZMGzyXc2eXK840erXc3JwMgVkZJt3AlT/bBQsmQ\n4EUVpfy7tF9YIiMEk6p/ZMer\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-ccepe@dds-sistema-monitoreables.iam.gserviceaccount.com",
+  "client_id": "101206701882911659738",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-ccepe%40dds-sistema-monitoreables.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

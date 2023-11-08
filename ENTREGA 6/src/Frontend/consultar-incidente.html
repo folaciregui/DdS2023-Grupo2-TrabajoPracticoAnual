@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="imagenes/logoUTN.png">
+    <link rel="stylesheet" href="estilosRequerimientos.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <title>Consultar Incidente</title>
+</head>
+<body style="margin: 0 ; padding: 0 ; text-align: center ; background-image: url('imagenes/subte2.jpg') ; background-size: cover">
+    <header style="background-color: rgba(255,255,255,0.5) ; text-align: left ; display: flex; flex-direction: row">
+        <img src="imagenes/logoUTN.png" alt="Imagen en color" style="height: 100px; text-align: left"></img>
+        <div style="align-items: center; flex: 1; text-align: right;">
+            <a class="boton" href="pagina-inicio.html" style="text-decoration: none; background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Cerrar Sesión</a>
+            <h1 class="titulo">Consultar Incidentes por Estado</h1>
+        </div>
+    </header>
+
+    <div class="contenedorColumna" style="background: rgba(255,255,255,0.5)">
+        <div class="columna1" style="background: none">
+            <div class="contenedorColumna1">
+                <a class="referencia" href="cargar-datos-entidades.html">Cargar datos Entidades y Organismos</a>
+                <a class="referencia" href="abrir-incidente.html">Abrir Incidente</a>
+                <a class="referencia" href="cerrar-incidente.html">Cerrar Incidente</a>
+                <a class="referenciaElegida" href="consultar-incidente.html">Consultar Incidente</a>
+                <a class="referencia" href="sugerencia-incidente.html">Sugerencia Incidente</a>
+                <a class="referencia" href="visualizacion-rankings.html">Rankings</a>
+                <a class="referencia" href="mi-cuenta.html">Mi cuenta</a>
+            </div>
+        </div>
+        <div class="columna2" style="background: none">
+            <div class="opciones">
+                <label class="label" for="selectEntidad">Selecciona una Entidad:</label>
+                <select class="input" id="selectEntidad">
+                    <!-- Aquí se llenará la lista de entidades con JavaScript -->
+                </select>
+            </div>
+            <div style="height: 20px"></div>
+            <div class="opciones">
+                <label class="label" for="selectEstablecimiento">Selecciona un Establecimiento:</label>
+                <select class="input" id="selectEstablecimiento">
+                    <!-- Aquí se llenará la lista de establecimientos con JavaScript -->
+                </select>
+            </div>
+            <div style="height: 20px"></div>
+            <a class="botonCargar" style="text-decoration: none" href="incidentes-filtrados.html">Filtrar</a>
+        </div>
+    </div>
+
+
+
+
+<script>
+    //cargo lista entidad
+    const selectEntidad = document.getElementById('selectEntidad');
+    const entidades = ["Medio de Transporte", "Empresa"];
+    entidades.forEach(entidad => {
+        const option = document.createElement('option');
+        option.value = entidad;
+        option.textContent = entidad;
+        selectEntidad.appendChild(option);
+    });
+    //cargo lista establecimiento
+    const selectEstablecimiento = document.getElementById('selectEstablecimiento');
+    const establecimientos = ["Establecimiento 1", "Establecimiento 2"]; //faltaria ver como hacemos para que muestre solo o establecimientos o sucursales segun lo elegido antes
+    establecimientos.forEach(establecimiento => {
+        const option = document.createElement('option');
+        option.value = establecimiento;
+        option.textContent = establecimiento;
+        selectEstablecimiento.appendChild(option);
+    });
+</script>
+</body>
+</html>
