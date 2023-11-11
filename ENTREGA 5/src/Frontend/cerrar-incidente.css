@@ -209,7 +209,18 @@ body {
     background-color: #fff;
     color: #4300d2;
 }
-
+.boton{
+    margin: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: #656565;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    display: inline-block;
+}
 .boton:hover {
     background-color: #fff;
     color: #656565;

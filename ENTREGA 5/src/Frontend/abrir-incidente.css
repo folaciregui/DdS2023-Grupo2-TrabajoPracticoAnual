@@ -60,19 +60,7 @@ body {
     width: 100%;
     height: 100%;
 }
-.ranking{
-    flex: 1;
-    padding: 10px;
-    margin: 20px;
-    background-color: #fff;
-    border-radius: 20px;
-    justify-content: center;
-    align-items: center;
-    align-self: center;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-}
+
 .contenedorColumna{
     display: flex;
     flex-direction: row;
@@ -100,9 +88,11 @@ body {
     text-align: center;
     margin: 20px;
     border-radius: 20px;
+    width: 70%;
 }
 .columna1 {
-    width: 20%;
+    /*width: 20%;
+    flex: 0 0 35%;*/
     background-color: #A780FF;
     justify-content: center;
     align-items: center;
@@ -110,49 +100,59 @@ body {
     text-align: center;
     display: flex;
     flex-direction: column;
+    padding: 3px;
 }
 
+/*.columna2 {*/
+/*    flex:1;*/
+/*    background-color: #A780FF; !* Color de fondo para la segunda columna *!*/
+/*    align-content: center;*/
+/*    align-items: center;*/
+/*    text-align: center;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*}*/
 .columna2 {
-
-    flex: 1;
-    background-color: #A780FF;
+    flex: 0 0 65%; /* Establece el ancho en 65% */
     align-content: center;
     align-items: center;
     text-align: center;
     display: flex;
     flex-direction: column;
+    margin-left: auto; /* Alinea la columna en el lado derecho */
 }
+
 .referencia {
     color: #fff; /* Cambia el color del enlace a azul */
     text-decoration: none; /* Elimina la subrayado predeterminado */
     font-size: 15px; /* Tamaño de fuente */
     font-family: 'Open Sans', sans-serif;
-    padding: 10px 20px; /* Relleno para crear un botón */
+    padding: 10px 16px; /* Relleno para crear un botón */
     border: none; /* Borde del botón */
     background-color: #fa503f; /* Fondo blanco */
     border-radius: 20px; /* Bordes redondeados */
     display: block; /* Hace que el enlace se comporte como un bloque en línea */
     margin: 5px;
-    width: 200px;
+    width: 80%;
 }
 .referenciaElegida {
     color: #fa503f; /* Cambia el color del enlace a azul */
     text-decoration: none; /* Elimina la subrayado predeterminado */
     font-size: 15px; /* Tamaño de fuente */
     font-family: 'Open Sans', sans-serif;
-    padding: 10px 20px; /* Relleno para crear un botón */
+    padding: 10px 16px; /* Relleno para crear un botón */
     border: 2px solid #fa503f; /* Borde del botón */
     background-color: #fff; /* Fondo blanco */
     border-radius: 20px; /* Bordes redondeados */
     display: block; /* Hace que el enlace se comporte como un bloque en línea */
     margin: 5px;
-    width: 200px;
+    width: 80%;
 }
 
 .opciones{
     flex: 1;
     padding: 10px;
-    margin: 20px;
+    margin: 12px;
     background-color: #fff;
     border-radius: 20px;
     justify-content: center;
@@ -200,20 +200,6 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-size: 20px;
 }
-.label2{
-    display: flex;
-    color: #4300d2;
-    justify-content: left;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 15px;
-}
-.label3{
-    display: flex;
-    color: black;
-    justify-content: left;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 15px;
-}
 .botonIrAPagPrincipal{
     position: absolute;
     top: 0;
@@ -249,47 +235,24 @@ body {
     background-color: #fff;
     color: #656565;
 }
-.botonCargar{
-    margin: 10px;
-    border: none;
-    border-radius: 20px;
-    background-color: #fa503f;
-    color: #fff;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-family: 'Open Sans', sans-serif;
-    font-size: 20px;
-    display: inline-block;
-}
-.botonCargar:hover {
-    background-color: #fff;
-    color: #fa503f;
-}
-.miCuenta {
-    flex: 1;
-    padding: 10px;
-    margin: 50px;
-    background-color: #fff;
-    border-radius: 20px;
-    text-align: center;
-}
-.columna2-v2 {
-    flex: 1;
-    display: inline-block;
-    grid-template-columns: 1fr 70% 1fr 30%;
-    /*gap: 10px;*/
-    background-color: #A780FF;
-    vertical-align: top;
-}
-
 
 /* Estilos para el botón de mostrar/ocultar en tamaños menores o iguales a 600px */
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 1050px)and (min-width: 601px){
+    .botonIrAPagPrincipal{
+        padding: 7px 20px;
+        width: 15%;
+        text-align: center;
+    }
+}
+@media screen and (max-width: 600px) {
     .titulo{
         text-align: center;
     }
     .columna1 {
         display: none;
+    }
+    .columna2{
+        margin-left: unset;
     }
     .date {
         width: 65%;
@@ -303,7 +266,7 @@ body {
         margin: 20px auto;
         text-align: center;
     }
-   .opciones{
-       width: 60%;
-   }
+    .opciones{
+        width: 60%;
+    }
 }

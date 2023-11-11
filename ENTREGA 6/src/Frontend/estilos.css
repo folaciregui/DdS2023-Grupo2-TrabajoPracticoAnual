@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+.tituloPrincipal {
+    color: #4300d2;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 50px;
+}
+.subtitulo{
+    color: #F5F5F5;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+}
+body {
+    background-color: #fff;
+    margin: 0; /* Elimina márgenes predeterminados que pueda tener el body */
+    padding: 0; /* Elimina relleno predeterminado que pueda tener el body */
+}
+.recuadro{
+    background-color: #F99417;
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-right: 10px;
+    margin-bottom: 30px;
+    margin-left: 15px;
+
+}
+.contenedor {
+    display: flex;
+    /*background-color: #A780FF;*/
+}
+
+.columna {
+    flex: 1; /* Para que ambas columnas ocupen el mismo ancho */
+    padding: 10px; /* Espacio entre las columnas */
+    margin: 50px;
+    background-color: rgba(67, 0, 210, 0.51);
+    border-radius: 20px;
+}
+.formulario input,
+.formulario button {
+    display: block; /* Muestra los elementos como bloques, uno debajo del otro */
+    margin: 10px 0; /* Agrega un poco de espacio entre los elementos */
+}
+.formulario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.boton{
+    margin: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: #fa503f;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+}
+.boton:hover {
+    background-color: #fff;
+    color: #fa503f;
+}
+.input{
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 8px;
+    background-color: #fff;
+    width: 75%;
+}
+.subcolumna button{
+    margin: 15px;
+}
+.subcolumna {
+    display: flex;
+    justify-content: space-between;
+}
+@media screen and (max-width:480px){
+    .tituloPrincipal {
+        color: #4300d2;
+        text-align: center;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 36px; /* Tamaño de fuente ajustado para dispositivos móviles */
+    }
+
+    .subtitulo {
+        color: #F5F5F5;
+        text-align: center;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 18px; /* Tamaño de fuente ajustado para dispositivos móviles */
+    }
+
+    body {
+        background-color: #fff;
+        margin: 0;
+        padding: 0;
+    }
+
+    .recuadro {
+        background-color: #F99417;
+        border-radius: 20px;
+        margin: 20px 10px 30px 15px;
+    }
+
+    .contenedor {
+        display: flex;
+        flex-direction: column; /* Cambia la disposición a una sola columna en dispositivos móviles */
+        background-color: #A780FF;
+    }
+
+    .columna {
+        flex: 1;
+        padding: 10px;
+        margin: 10px 20px; /* Espaciado reducido para dispositivos móviles */
+        background-color: rgba(67, 0, 210, 0.51);
+        border-radius: 20px;
+    }
+
+    .formulario input,
+    .formulario button {
+        display: block;
+        margin: 10px 0;
+        width: 100%; /* Ajusta el ancho al 100% para dispositivos móviles */
+    }
+
+    .formulario {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .boton {
+        margin: 10px;
+        border: none;
+        border-radius: 20px;
+        background-color: #fa503f;
+        color: #fff;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 20px;
+        width: 100%; /* Ajusta el ancho al 100% para dispositivos móviles */
+    }
+
+    .boton:hover {
+        background-color: #fff;
+        color: #fa503f;
+    }
+
+    .boton-violeta{
+        margin: 10px;
+        border: none;
+        border-radius: 20px;
+        background-color: #4300d2;
+        color: #fff;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 20px;
+        width: 100%;
+    }
+    .boton-violeta:hover{
+        background-color: #fff;
+        color: #4300d2;
+    }
+
+    .input {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 8px;
+        background-color: #fff;
+        width: 100%; /* Ajusta el ancho al 100% para dispositivos móviles */
+    }
+
+    .subcolumna button {
+        margin: 15px;
+    }
+
+    .subcolumna {
+        display: flex;
+        flex-direction: column; /* Cambia la disposición a una sola columna en dispositivos móviles */
+        align-items: center; /* Centra los elementos en dispositivos móviles */
+    }
+
+}
+/* Estilos para tamaños de pantalla entre 481px y 768px (Tabletas) */
+@media screen and (min-width: 481px) and (max-width: 768px) {
+    .tituloPrincipal {
+        font-size: 24px; /* Tamaño de fuente ajustado para tabletas */
+    }
+
+    .subtitulo {
+        font-size: 16px; /* Tamaño de fuente ajustado para tabletas */
+    }
+
+    .recuadro {
+        margin: 20px 10px; /* Espaciado ajustado para tabletas */
+    }
+
+    .contenedor {
+        flex-direction: column; /* Cambia la disposición a una sola columna en tabletas */
+    }
+
+    .columna {
+        margin: 10px 20px; /* Espaciado ajustado para tabletas */
+    }
+
+    .formulario input,
+    .formulario button,
+    .boton,
+    .input {
+        width: 80%; /* Ajusta el ancho al 80% para tabletas */
+    }
+
+    .subcolumna {
+        flex-direction: column; /* Cambia la disposición a una sola columna en tabletas */
+        align-items: center; /* Centra los elementos en tabletas */
+    }
+}
