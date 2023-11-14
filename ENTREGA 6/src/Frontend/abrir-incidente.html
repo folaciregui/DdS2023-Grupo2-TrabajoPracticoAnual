@@ -32,6 +32,30 @@
         </div>
         <div class="columna2" style="background: none">
             <div class="opciones">
+                <label class="label" for="selectEntidad">Selecciona Negocio o Transporte:</label>
+                <select class="input" id="selectEntidad" v-model="entidadSeleccionada" @change="actualizarEstablecimientos">
+                    <option value="Medio de Transporte">Medio de Transporte</option>
+                    <option value="Empresa">Empresa</option>
+                    <!-- Aquí se llenará la lista de monitoreables/servicios con JavaScript -->
+                </select>
+            </div>
+            <div style="height: 20px"></div>
+            <div class="opciones">
+                <label class="label" for="selectEstablecimiento">Selecciona la estacion o sucursal:</label>
+                <select class="input" id="selectEstablecimiento" v-model="establecimientoSeleccionado">
+                    <!-- Aquí se llenará la lista de monitoreables/servicios con JavaScript -->
+                    <option v-for="establecimiento in establecimientosFiltrados" :value="establecimiento">{{ establecimiento }}</option>
+                </select>
+            </div>
+            <div style="height: 20px"></div>
+            <div class="opciones">
+                <label class="label" for="selectMonitoreable">Selecciona un Servicio:</label>
+                <select class="input" id="selectMonitoreable">
+                    <!-- Aquí se llenará la lista de monitoreables/servicios con JavaScript -->
+                </select>
+            </div>
+            <div style="height: 20px"></div>
+            <div class="opciones">
                 <label class="label">Descripcion</label>
                 <input class="input" for="" placeholder="Ingrese descripción"></input>
             </div>
@@ -41,57 +65,83 @@
                 <input class="date" type="date" id="fecha-inicio" name="fecha-inicio"/></input>
             </div>
             <div style="height: 20px"></div>
+            <!--
             <div class="opciones">
                 <label class="label">Fecha de fin</label>
                 <input class="date" type="date" id="fecha-fin" name="fecha-fin"/></input>
             </div>
-            <div style="height: 20px"></div>
-            <div class="opciones">
-                <label class="label" for="selectMonitoreable">Selecciona un Monitoreable:</label>
-                <select class="input" id="selectMonitoreable">
-                    <!-- Aquí se llenará la lista de monitoreables con JavaScript -->
-                </select>
-            </div>
-            <div style="height: 20px"></div>
+            <div style="height: 20px"></div>-->
+
             <button class="botonCargar">Abrir incidente</button>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <script>
-        //cargo lista monitoreables
-        const selectMonitoreable = document.getElementById('selectMonitoreable');
-        const formularioIncidente = document.getElementById('formularioIncidente');
-        const monitoreables = ["Monitoreable 1", "Monitoreable 2", "Monitoreable 3"];
-        monitoreables.forEach(monitoreable => {
-            const option = document.createElement('option');
-            option.value = monitoreable;
-            option.textContent = monitoreable;
-            selectMonitoreable.appendChild(option);
+        new Vue({
+            el: '#app',
+            data: {
+                entidadSeleccionada: 'Medio de Transporte',
+                establecimientos: {
+                    'Medio de Transporte': ["Estacion 1", "Estacion 2"],
+                    'Empresa': ["Sucursal 1", "Sucursal 2"]
+                },
+                establecimientoSeleccionado: '',
+                descripcion: ''
+            },
+            computed: {
+                establecimientosFiltrados() {
+                    return this.establecimientos[this.entidadSeleccionada];
+                }
+            },
+            methods: {
+                actualizarEstablecimientos() {
+                    // Cambiar la selección de establecimiento cuando cambia la entidad
+                    this.establecimientoSeleccionado = '';
+                },
+                guardarIncidente() {
+                    // Aquí puedes usar this.descripcion y this.establecimientoSeleccionado para guardar el incidente.
+                    console.log('Descripción:', this.descripcion);
+                    console.log('Establecimiento seleccionado:', this.establecimientoSeleccionado);
+                }
+            }
         });
-        //cargo lista entidad
-        const selectEntidad = document.getElementById('selectEntidad');
-        const entidades = ["Medio de Transporte", "Empresa"];
-        monitoreables.forEach(entidad => {
-            const option = document.createElement('option');
-            option.value = entidad;
-            option.textContent = entidad;
-            selectEntidad.appendChild(option);
-        });
-        //cargo lista establecimiento
-        const selectEstablecimiento = document.getElementById('selectEstablecimiento');
-        const establecimientos = ["Establecimiento 1", "Establecimiento 2"]; //faltaria ver como hacemos para que muestre solo o establecimientos o sucursales segun lo elegido antes
-        monitoreables.forEach(establecimiento => {
-            const option = document.createElement('option');
-            option.value = establecimiento;
-            option.textContent = establecimiento;
-            selectEstablecimiento.appendChild(option);
-        });
-
-
-        function guardarIncidente() {
-            const descripcion = document.getElementById('descripcion').value;
-
-            // Guarda los datos en la base de datos.
-        }
     </script>
+<!--    <script>-->
+<!--        //cargo lista monitoreables-->
+<!--        const selectMonitoreable = document.getElementById('selectMonitoreable');-->
+<!--        const formularioIncidente = document.getElementById('formularioIncidente');-->
+<!--        const monitoreables = ["Monitoreable 1", "Monitoreable 2", "Monitoreable 3"];-->
+<!--        monitoreables.forEach(monitoreable => {-->
+<!--            const option = document.createElement('option');-->
+<!--            option.value = monitoreable;-->
+<!--            option.textContent = monitoreable;-->
+<!--            selectMonitoreable.appendChild(option);-->
+<!--        });-->
+<!--        //cargo lista entidad-->
+<!--        const selectEntidad = document.getElementById('selectEntidad');-->
+<!--        const entidades = ["Medio de Transporte", "Empresa"];-->
+<!--        entidades.forEach(entidad => {-->
+<!--            const option = document.createElement('option');-->
+<!--            option.value = entidad;-->
+<!--            option.textContent = entidad;-->
+<!--            selectEntidad.appendChild(option);-->
+<!--        });-->
+<!--        //cargo lista establecimiento-->
+<!--        const selectEstablecimiento = document.getElementById('selectEstablecimiento');-->
+<!--        const establecimientos = ["Establecimiento 1", "Establecimiento 2"]; //faltaria ver como hacemos para que muestre solo o establecimientos o sucursales segun lo elegido antes-->
+<!--        establecimientos.forEach(establecimiento => {-->
+<!--            const option = document.createElement('option');-->
+<!--            option.value = establecimiento;-->
+<!--            option.textContent = establecimiento;-->
+<!--            selectEstablecimiento.appendChild(option);-->
+<!--        });-->
+
+
+<!--        function guardarIncidente() {-->
+<!--            const descripcion = document.getElementById('descripcion').value;-->
+
+<!--            // Guarda los datos en la base de datos.-->
+<!--        }-->
+<!--    </script>-->
 </body>
 </html>

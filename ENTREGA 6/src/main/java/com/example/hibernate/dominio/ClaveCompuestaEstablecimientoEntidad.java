@@ -5,6 +5,7 @@ import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 public class ClaveCompuestaEstablecimientoEntidad implements Serializable {
-    private Entidad id_entidad;
-    private Establecimiento id_establecimiento;
+    private Long id_entidad;
+    private Long id_establecimiento;
+
 }
