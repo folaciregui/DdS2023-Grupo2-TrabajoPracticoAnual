@@ -41,14 +41,15 @@
         <div class="opciones">
             <label class="label" for="selectEstablecimiento">Selecciona la estacion o sucursal:</label>
             <select class="input" id="selectEstablecimiento" v-model="establecimientoSeleccionado">
-                <option v-for="establecimiento in establecimientosFiltrados" :value="establecimiento">{{ establecimiento }}</option>
+                <option v-for="establecimiento in establecimientosFiltrados" :value="establecimiento">{{ establecimiento.nombre }}</option>
             </select>
         </div>
         <div style="height: 20px"></div>
         <div class="opciones">
             <label class="label" for="selectMonitoreable">Selecciona un Servicio:</label>
-            <select class="input" id="selectMonitoreable">
+            <select class="input" id="selectMonitoreable" v-model="servicioSeleccionado">
                 <!-- Aquí se llenará la lista de monitoreables/servicios con JavaScript -->
+                <option v-for="servicio in servicios" :value="servicio">{{ servicio.nombre }}</option>
             </select>
         </div>
         <div style="height: 20px"></div>
@@ -67,32 +68,137 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<!--<script> ESTA PARTE ERA MODELO VISUAL-->
+<!--    new Vue({-->
+<!--        el: '#app',-->
+<!--        data: {-->
+<!--            entidadSeleccionada: 'Medio de Transporte',-->
+<!--            entidades: ["Medio de Transporte", "Empresa"],-->
+<!--            establecimientos: {-->
+<!--                'Medio de Transporte': ["Estacion 1", "Estacion 2"],-->
+<!--                'Empresa': ["Sucursal 1", "Sucursal 2"]-->
+<!--            },-->
+<!--            establecimientoSeleccionado: '',-->
+<!--            descripcion: ''-->
+<!--        },-->
+<!--        computed: {-->
+<!--            establecimientosFiltrados() {-->
+<!--                return this.establecimientos[this.entidadSeleccionada];-->
+<!--            }-->
+<!--        },-->
+<!--        methods: {-->
+<!--            actualizarEstablecimientos() {-->
+<!--                this.establecimientoSeleccionado = '';-->
+<!--            },-->
+<!--            guardarIncidente() {-->
+<!--                console.log('Descripción:', this.descripcion);-->
+<!--                console.log('Establecimiento seleccionado:', this.establecimientoSeleccionado);-->
+<!--            }-->
+<!--        }-->
+<!--    });-->
+<!--</script>-->
 <script>
     new Vue({
         el: '#app',
         data: {
-            entidadSeleccionada: 'Medio de Transporte',
-            entidades: ["Medio de Transporte", "Empresa"],
-            establecimientos: {
-                'Medio de Transporte': ["Estacion 1", "Estacion 2"],
-                'Empresa': ["Sucursal 1", "Sucursal 2"]
-            },
+            entidadSeleccionada: '',//el id
+            entidades: [], //   cargar las entidades etc
+            establecimientos: [],
             establecimientoSeleccionado: '',
+            servicios: [],
+            servicioSeleccionado: '',
             descripcion: ''
         },
         computed: {
             establecimientosFiltrados() {
-                return this.establecimientos[this.entidadSeleccionada];
+                return this.establecimientos.filter(establecimiento => establecimiento.entidad === this.entidadSeleccionada);
             }
         },
         methods: {
             actualizarEstablecimientos() {
-                this.establecimientoSeleccionado = '';
+                // Hacer un fetch para obtener los establecimientos de la entidad seleccionada
+                fetch(`http://localhost:3000/api/entidades/${this.entidadSeleccionada}/establecimientos`)
+                    .then(response => response.json())
+                    .then(establecimientos => {
+                        this.establecimientos = establecimientos;
+                        this.establecimientoSeleccionado = ''; // Resetear la selección
+                        this.servicios = []; // Resetear la lista de servicios
+                    })
+                    .catch(error => {
+                        console.error('Error en la solicitud:', error);
+                        alert(`Hubo un error en la solicitud:\n\n${error.message}`);
+                    });
+
+
+            },
+            actualizarServicios() {
+                // Hacer un fetch para obtener los servicios del establecimiento seleccionado
+                fetch(`http://localhost:3000/api/establecimientos/${this.establecimientoSeleccionado}/servicios`)
+                    .then(response => response.json())
+                    .then(servicios => {
+                        this.servicios = servicios;
+                    });
             },
             guardarIncidente() {
-                console.log('Descripción:', this.descripcion);
-                console.log('Establecimiento seleccionado:', this.establecimientoSeleccionado);
+                // Enviar los datos al servidor (puedes usar fetch o axios)
+                const incidente = {
+                    entidad: this.entidadSeleccionada,
+                    establecimiento: this.establecimientoSeleccionado,
+                    servicio: this.servicioSeleccionado,
+                    descripcion: this.descripcion,
+                    fechaInicio: document.getElementById('fecha-inicio').value
+                };
+
+                fetch('http://localhost:3000/incidentes', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(incidente),
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log('Incidente creado con éxito:', data);
+                        // Aquí podrías redirigir o realizar otras acciones después de crear el incidente
+                    })
+                    .catch((error) => {
+                        console.error('Error al crear el incidente:', error);
+                    });
             }
+        },
+        mounted() {
+            // Cuando el componente se monta, obtener la lista inicial de entidades
+            // fetch('http://localhost:3000/api/entidades')
+            //     .then(response => {
+            //         if (!response.ok) {
+            //             throw new Error(`Error en la solicitud primer then: ${response.status} ${response.statusText}`);
+            //         }
+            //         return response.json();
+            //     })
+            //     .then(entidades => {
+            //         this.entidades = entidades;
+            //     })
+            //     .catch(error => {
+            //         console.error('Error en la solicitud:', error);
+            //         alert(`Hubo un error en la solicitud:\n\n${error.message}`);
+            //     });
+            fetch(`http://localhost:3000/api/entidades`)
+                .then(response => {
+                    if (response.status >= 400) {
+                        alert("Hubo un error en el API")
+                    } else {
+                        return response.json()
+                    }
+                })
+                .then(entidades => {
+                    this.entidades = entidades;
+                })
+                .catch(error => {
+                    console.error('Error en la solicitud:', error);
+                    alert(`Hubo un error en la solicitud:\n\n${error.message}`);
+                });
+
         }
     });
 </script>
