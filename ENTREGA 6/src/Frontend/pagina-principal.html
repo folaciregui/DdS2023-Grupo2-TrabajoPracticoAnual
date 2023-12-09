@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/x-icon" href="imagenes/logoUTN.png">
-    <link rel="stylesheet" href="estilosPagPrincipal.css">
+    <link rel="stylesheet" href="pagina-principal.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
@@ -22,22 +22,25 @@
 
     <div class="contenedor" style="background-color:rgba(255,255,255,0.5); height: 638px; display: flex; flex-direction: column;" id="user-infoPrincipal">
         <h1 class="tituloPrincipal" style="height: 10px">MENÚ</h1>
-        <div class="subcontenedor" style="background-color: rgba(67,0,210,0.5); width: 850px; display: flex; flex-direction: column;">
-            <a class="referencia" style="width: 700px" href="cargar-datos-entidades.html">Cargar datos Entidades Prestadoras y Organismos de Control</a>
+        <div class="subcontenedor" style="background-color: rgba(67,0,210,0.5); display: flex; flex-direction: column;">
+            <a class="referencia" href="cargar-datos-entidades.html">Cargar datos Entidades Prestadoras y Organismos de Control</a>
             <div style="height: 20px"></div>
-            <a class="referencia" style="width: 700px" href="abrir-incidente.html">Abrir Incidente</a>
+            <a class="referencia" href="abrir-incidente.html">Abrir Incidente</a>
             <div style="height: 20px"></div>
-            <a class="referencia" style="width: 700px" href="cerrar-incidente.html">Cerrar Incidente</a>
+            <a class="referencia" href="cerrar-incidente.html">Cerrar Incidente</a>
             <div style="height: 20px"></div>
-            <a class="referencia" style="width: 700px" href="consultar-incidente.html">Consultar Incidente</a>
+            <a class="referencia" href="consultar-incidente.html">Consultar Incidente</a>
             <div style="height: 20px"></div>
-            <a class="referencia" style="width: 700px" href="sugerencia-incidente.html">Sugerencia Incidente</a>
+            <a class="referencia" href="sugerencia-incidente.html">Sugerencia Incidente</a>
             <div style="height: 20px"></div>
-            <a class="referencia" style="width: 700px" href="visualizacion-rankings.html">Rankings</a>
+            <a class="referencia" href="visualizacion-rankings.html">Rankings</a>
             <div style="height: 20px"></div>
-            <a class="referencia" style="width: 700px" href="mi-cuenta.html">Mi cuenta</a>
+            <a class="referencia" href="mi-cuenta.html">Mi cuenta</a>
         </div>
     </div>
+    <footer class="mi-footer">
+        <img src="imagenes/logoUTN.png" alt="Imagen en color" style="height: 100px; margin-bottom: 140px">
+    </footer>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>

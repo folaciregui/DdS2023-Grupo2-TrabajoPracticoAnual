@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/x-icon" href="imagenes/logoUTN.png">
-    <link rel="stylesheet" href="estilosRequerimientos.css">
+    <link rel="stylesheet" href="abrir-incidente.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
@@ -39,7 +39,7 @@
                     <!-- Aquí se llenará la lista de monitoreables/servicios con JavaScript -->
                 </select>
             </div>
-            <div style="height: 20px"></div>
+            <div style="height: 10px"></div>
             <div class="opciones">
                 <label class="label" for="selectEstablecimiento">Selecciona la estacion o sucursal:</label>
                 <select class="input" id="selectEstablecimiento" v-model="establecimientoSeleccionado">
@@ -47,32 +47,25 @@
                     <option v-for="establecimiento in establecimientosFiltrados" :value="establecimiento">{{ establecimiento }}</option>
                 </select>
             </div>
-            <div style="height: 20px"></div>
+            <div style="height: 10px"></div>
             <div class="opciones">
                 <label class="label" for="selectMonitoreable">Selecciona un Servicio:</label>
                 <select class="input" id="selectMonitoreable">
                     <!-- Aquí se llenará la lista de monitoreables/servicios con JavaScript -->
                 </select>
             </div>
-            <div style="height: 20px"></div>
+            <div style="height: 10px"></div>
             <div class="opciones">
                 <label class="label">Descripcion</label>
                 <input class="input" for="" placeholder="Ingrese descripción"></input>
             </div>
-            <div style="height: 20px"></div>
+            <div style="height: 10px"></div>
             <div class="opciones">
                 <label class="label">Fecha de inicio</label>
                 <input class="date" type="date" id="fecha-inicio" name="fecha-inicio"/></input>
             </div>
-            <div style="height: 20px"></div>
-            <!--
-            <div class="opciones">
-                <label class="label">Fecha de fin</label>
-                <input class="date" type="date" id="fecha-fin" name="fecha-fin"/></input>
-            </div>
-            <div style="height: 20px"></div>-->
-
-            <button class="botonCargar">Abrir incidente</button>
+            <div style="height: 10px"></div>
+            <button class="boton">Abrir incidente</button>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>

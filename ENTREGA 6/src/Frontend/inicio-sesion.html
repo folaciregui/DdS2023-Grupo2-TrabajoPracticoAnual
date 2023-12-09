@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="estilos.css">
+    <link rel="stylesheet" href="inicio-sesion.css">
     <link rel="icon" type="image/x-icon" href="imagenes/logoUTN.png">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
@@ -11,7 +11,7 @@
 </head>
 <body style="margin: 0 ; padding: 0 ; text-align: center ; background-image: url('imagenes/subte2.jpg') ; background-size: cover">
     <header style="background-color: rgba(255,255,255,0.5) ; text-align: left ; display: flex; flex-direction: row">
-        <img src="imagenes/logoUTN.png" alt="Imagen en color" style="height: 100px; text-align: left"></img>
+        <img class ="logoUtn" src="imagenes/logoUTN.png" alt="Imagen en color" style="height: 100px; text-align: left"></img>
         <div style="align-items: center; flex: 1; text-align: right;">
         <!--<h1 class="tituloPrincipal" style="text-align: center; font-family: 'Open Sans', sans-serif; font-size: 36px; color: #fff"></h1>
         <button class="boton" style="background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">INICIAR SESIÓN</button>
@@ -19,16 +19,17 @@
 
         </div>
     </header>
-    <div class="contenedor" style="background: rgba(255,255,255,0.5); height: 638px; text-align: center; align-content: center; align-items: center">
+    <div class="contenedor" style="background: rgba(255,255,255,0.5); text-align: center; align-content: center; align-items: center">
         <div class="columna">
             <h1 class="subtitulo">INICIAR SESIÓN</h1>
             <div class="formulario">
                 <input class="input" type="email" id="emailLogin" placeholder="Correo Electrónico">
                 <input class="input" type="password" id="passwordLogin" placeholder="Contraseña">
-                <button class="boton" onclick="loginWeb()">Iniciar Sesión</button>
                 <div class="subcolumna">
+                    <button class="boton" onclick="loginWeb()">Iniciar Sesión</button>
                     <button class="boton" onclick="loginGoogle()">Iniciar Sesión con Google</button>
                     <button class="boton" onclick="loginMicrosoft()">Iniciar Sesión con Microsoft</button>
+                    <button class="boton" onclick="window.location.href='pagina-inicio.html'">Ir a Página Inicio</button>
                 </div>
             </div>
         </div>
