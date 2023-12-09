@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/x-icon" href="imagenes/logoUTN.png">
-    <link rel="stylesheet" href="estilosRequerimientos.css">
+    <link rel="stylesheet" href="cerrar-incidente.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
@@ -11,9 +11,10 @@
 </head>
 <body style="margin: 0 ; padding: 0 ; text-align: center ; background-image: url('imagenes/subte2.jpg') ; background-size: cover">
     <header style="background-color: rgba(255,255,255,0.5) ; text-align: left ; display: flex; flex-direction: row">
-        <img src="imagenes/logoUTN.png" alt="Imagen en color" style="height: 100px; text-align: left"></img>
-        <div style="align-items: center; flex: 1; text-align: right;">
+        <img class= "logoUTN" src="imagenes/logoUTN.png" alt="Imagen en color" style=" text-align: left"></img>
+        <div style="align-items: center; flex: 1; text-align: right; margin-top: 20px;">
             <a class="boton" href="pagina-inicio.html" style="text-decoration: none; background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Cerrar Sesión</a>
+            <a class="botonMenu" href="pagina-principal.html" style="text-decoration: none; background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Volver al menu</a>
             <h1 class="titulo">Cerrar incidente</h1>
         </div>
     </header>
@@ -32,12 +33,29 @@
         </div>
         <div class="columna2" style="background: none">
             <div class="opciones">
-                <label class="label" for="selectMonitoreable">Selecciona un Monitoreable:</label>
-                <select class="input" id="selectMonitoreable">
-                    <!-- Aquí se llenará la lista de monitoreables con JavaScript -->
+                <label class="label" for="selectEntidad">Selecciona Negocio o Transporte:</label>
+                <select class="input" id="selectEntidad" v-model="entidadSeleccionada" @change="actualizarEstablecimientos">
+                    <option value="Medio de Transporte">Medio de Transporte</option>
+                    <option value="Empresa">Empresa</option>
+                    <!-- Aquí se llenará la lista de monitoreables/servicios con JavaScript -->
                 </select>
             </div>
-            <button class="botonCargar">Cerrar incidente</button>
+            <div style="height: 10px"></div>
+            <div class="opciones">
+                <label class="label" for="selectEstablecimiento">Selecciona la estacion o sucursal:</label>
+                <select class="input" id="selectEstablecimiento" v-model="establecimientoSeleccionado">
+                    <!-- Aquí se llenará la lista de monitoreables/servicios con JavaScript -->
+                    <option v-for="establecimiento in establecimientosFiltrados" :value="establecimiento">{{ establecimiento }}</option>
+                </select>
+            </div>
+            <div style="height: 10px"></div>
+            <div class="opciones">
+                <label class="label" for="selectMonitoreable">Selecciona un Servicio:</label>
+                <select class="input" id="selectMonitoreable">
+                    <!-- Aquí se llenará la lista de monitoreables/servicios con JavaScript -->
+                </select>
+            </div>
+            <button class="boton">Cerrar incidente</button>
         </div>
     </div>
     <script>
