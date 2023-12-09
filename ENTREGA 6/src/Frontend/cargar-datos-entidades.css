@@ -28,6 +28,7 @@ body {
     align-items: center;
     font-family: 'Open Sans', sans-serif;
     font-size: 40px;
+    margin-right: 97px;
 }
 /* background-image: url("https://i.pinimg.com/originals/79/0c/6b/790c6bf979d503794b22cc21fc67c08b.jpg"); */
 .contenedor{
@@ -41,8 +42,6 @@ body {
     flex: 1; /* Para que ambas columnas ocupen el mismo ancho */
     padding: 10px; /* Espacio entre las columnas */
     margin: 20px;
-    margin-left: 350px;
-    margin-right: 350px;
     background-color: #fff;
     border-radius: 20px;
     justify-content: center;
@@ -51,6 +50,7 @@ body {
     text-align: center;
     display: flex;
     flex-direction: column;
+    width: 70%;
 }
 .contenedorRanking{
     display: flex;
@@ -82,13 +82,13 @@ body {
 .contenedorColumna2{
     display: flex;
     flex-direction: row;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.5);
     justify-content: center;
     align-items: center;
     text-align: center;
     margin: 20px;
     border-radius: 20px;
-    width: 70%;
+    width: 73%;
 }
 .columna1 {
     /*width: 20%;
@@ -120,6 +120,7 @@ body {
     display: flex;
     flex-direction: column;
     margin-left: auto; /* Alinea la columna en el lado derecho */
+    width: 80%;
 }
 
 .referencia {
@@ -232,33 +233,18 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-size: 20px;
 }
-/*.boton{ boton naranja*/
-/*    margin: 10px;*/
-/*    border: none;*/
-/*    border-radius: 20px;*/
-/*    background-color: #fa503f;*/
-/*    color: #fff;*/
-/*    padding: 10px 20px;*/
-/*    cursor: pointer;*/
-/*    font-family: 'Open Sans', sans-serif;*/
-/*    font-size: 20px;*/
-/*}*/
-/*.boton:hover {*/
-/*    background-color: #fff;*/
-/*    color: #fa503f;*/
-/*}*/
 .boton{
-     margin: 10px;
-     border: none;
-     border-radius: 20px;
-     background-color: rgba(67, 0, 210, 0.5);
-     color: #fff;
-     padding: 10px 20px;
-     cursor: pointer;
-     font-family: 'Open Sans', sans-serif;
-     font-size: 20px;
-
- }
+    margin: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: rgba(67, 0, 210, 0.5);
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    width: 80%;
+}
 .boton:hover {
     background-color: #fff;
     color: #656565;
@@ -282,12 +268,7 @@ body {
 .logoUTN{
     height: 100px;
 }
-/* Estilos para el botón de mostrar/ocultar en tamaños menores o iguales a 600px */
-@media screen and (max-width: 1050px)and (min-width: 601px){
-    .label{
-        font-size: 15px;
-    }
-}
+
 @media screen and (max-width: 600px) {
     .titulo{
         text-align: center;
@@ -296,12 +277,16 @@ body {
     .contenedorColumna{
         align-items: baseline;
     }
+    .contenedorColumna2{
+        width: 90%;
+    }
     .columna1 {
         display: none;
     }
     .columna2{
         margin-left: unset;
         flex-direction: column;
+        width: 90%;
     }
     .date {
         width: 65%;
@@ -328,6 +313,7 @@ body {
     }
     .boton{
         margin-top: 20px;
+        word-wrap: break-word;
     }
     .botonMenu{
         display: inline-flex;

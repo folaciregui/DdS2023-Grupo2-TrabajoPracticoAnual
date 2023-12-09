@@ -28,6 +28,7 @@ body {
     align-items: center;
     font-family: 'Open Sans', sans-serif;
     font-size: 40px;
+    margin-right: 97px;
 }
 /* background-image: url("https://i.pinimg.com/originals/79/0c/6b/790c6bf979d503794b22cc21fc67c08b.jpg"); */
 .contenedor{
@@ -118,7 +119,7 @@ body {
     align-items: center;
     text-align: center;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin-left: auto; /* Alinea la columna en el lado derecho */
 }
 
@@ -232,7 +233,7 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-size: 20px;
 }
-/*.boton{ boton naranja*/
+/*.boton{BOTON NARANJA*/
 /*    margin: 10px;*/
 /*    border: none;*/
 /*    border-radius: 20px;*/
@@ -248,17 +249,17 @@ body {
 /*    color: #fa503f;*/
 /*}*/
 .boton{
-     margin: 10px;
-     border: none;
-     border-radius: 20px;
-     background-color: rgba(67, 0, 210, 0.5);
-     color: #fff;
-     padding: 10px 20px;
-     cursor: pointer;
-     font-family: 'Open Sans', sans-serif;
-     font-size: 20px;
+    margin: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: rgba(67, 0, 210, 0.5);
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
 
- }
+}
 .boton:hover {
     background-color: #fff;
     color: #656565;
@@ -282,10 +283,36 @@ body {
 .logoUTN{
     height: 100px;
 }
+.contenedorMapa{
+    border: 3px solid #4300d2;
+    width: 600px ;
+    height: 450px;
+}
+.mapa{
+    width: 600px ;
+    height: 450px;
+}
 /* Estilos para el botón de mostrar/ocultar en tamaños menores o iguales a 600px */
 @media screen and (max-width: 1050px)and (min-width: 601px){
     .label{
         font-size: 15px;
+    }
+    .titulo{
+        text-align: center;
+        margin-right: 0px;
+    }
+    .columna2{
+        flex: 0 0 65%;
+        flex-direction: column;
+    }
+    .opciones{
+        width: 60%;
+    }
+    .contenedorMapa{
+        width: 90%;
+    }
+    .mapa{
+        width: 90%;
     }
 }
 @media screen and (max-width: 600px) {
@@ -332,5 +359,11 @@ body {
     .botonMenu{
         display: inline-flex;
         margin-top: 20px;
+    }
+    .contenedorMapa{
+        width: 95%;
+    }
+    .mapa{
+        width: 98%;
     }
 }

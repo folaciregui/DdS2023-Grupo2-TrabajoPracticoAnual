@@ -231,20 +231,36 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-size: 20px;
 }
+/*.boton{ BOTON NARANJA*/
+/*    margin: 10px;*/
+/*    border: none;*/
+/*    border-radius: 20px;*/
+/*    background-color: #fa503f;*/
+/*    color: #fff;*/
+/*    padding: 10px 20px;*/
+/*    cursor: pointer;*/
+/*    font-family: 'Open Sans', sans-serif;*/
+/*    font-size: 20px;*/
+/*}*/
+/*.boton:hover {*/
+/*    background-color: #fff;*/
+/*    color: #fa503f;*/
+/*}*/
 .boton{
     margin: 10px;
     border: none;
     border-radius: 20px;
-    background-color: #fa503f;
+    background-color: rgba(67, 0, 210, 0.5);
     color: #fff;
     padding: 10px 20px;
     cursor: pointer;
     font-family: 'Open Sans', sans-serif;
     font-size: 20px;
+
 }
 .boton:hover {
     background-color: #fff;
-    color: #fa503f;
+    color: #656565;
 }
 .botonMenu{
     display: none;
@@ -274,6 +290,7 @@ body {
 @media screen and (max-width: 600px) {
     .titulo{
         text-align: center;
+        margin-right: 50px;
     }
     .contenedorColumna{
         align-items: baseline;

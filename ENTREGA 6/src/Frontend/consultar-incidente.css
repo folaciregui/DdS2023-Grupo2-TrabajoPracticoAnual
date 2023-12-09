@@ -28,6 +28,7 @@ body {
     align-items: center;
     font-family: 'Open Sans', sans-serif;
     font-size: 40px;
+    margin-right: 97px;
 }
 /* background-image: url("https://i.pinimg.com/originals/79/0c/6b/790c6bf979d503794b22cc21fc67c08b.jpg"); */
 .contenedor{
@@ -232,20 +233,36 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-size: 20px;
 }
+/*.boton{ BOTON NARANJA*/
+/*    margin: 10px;*/
+/*    border: none;*/
+/*    border-radius: 20px;*/
+/*    background-color: #fa503f;*/
+/*    color: #fff;*/
+/*    padding: 10px 20px;*/
+/*    cursor: pointer;*/
+/*    font-family: 'Open Sans', sans-serif;*/
+/*    font-size: 20px;*/
+/*}*/
+/*.boton:hover {*/
+/*    background-color: #fff;*/
+/*    color: #fa503f;*/
+/*}*/
 .boton{
     margin: 10px;
     border: none;
     border-radius: 20px;
-    background-color: #fa503f;
+    background-color: rgba(67, 0, 210, 0.5);
     color: #fff;
     padding: 10px 20px;
     cursor: pointer;
     font-family: 'Open Sans', sans-serif;
     font-size: 20px;
+
 }
 .boton:hover {
     background-color: #fff;
-    color: #fa503f;
+    color: #656565;
 }
 .botonMenu{
     display: none;
@@ -275,6 +292,7 @@ body {
 @media screen and (max-width: 600px) {
     .titulo{
         text-align: center;
+        margin-right: 50px;
     }
     .contenedorColumna{
         align-items: baseline;

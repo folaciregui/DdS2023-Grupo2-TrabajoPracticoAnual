@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/x-icon" href="imagenes/logoUTN.png">
-    <link rel="stylesheet" href="estilosRequerimientos.css">
+    <link rel="stylesheet" href="cargar-datos-entidades.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
@@ -12,9 +12,10 @@
 <body style="margin: 0 ; padding: 0 ; text-align: center ; background-image: url('imagenes/subte2.jpg') ; background-size: cover">
 
     <header style="background-color: rgba(255,255,255,0.5) ; text-align: left ; display: flex; flex-direction: row">
-        <img src="imagenes/logoUTN.png" alt="Imagen en color" style="height: 100px; text-align: left"></img>
-        <div style="align-items: center; flex: 1; text-align: right;">
+        <img class="logoUTN" src="imagenes/logoUTN.png" alt="Imagen en color" style="text-align: left"></img>
+        <div style="align-items: center; flex: 1; text-align: right; margin-top: 20px;">
             <a class="boton" href="pagina-inicio.html" style="text-decoration: none; background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Cerrar Sesión</a>
+            <a class="botonMenu" href="pagina-principal.html" style="text-decoration: none; background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Volver al menu</a>
             <h1 class="titulo">Formulario</h1>
         </div>
     </header>
@@ -37,7 +38,7 @@
                     <label class="label" style="color: #4300d2" for="archivo-entidades">Inserte a continuación la planilla CSV</label>
                     <input class="boton" style="border: 3px solid rgba(67, 0, 210, 0.5);" type="file" id="archivo-entidades" name="archivo-entidades" required
                            accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" />
-                    <button class="botonCargar" type="submit" >Cargar entidades</button>
+                    <button class="boton" type="submit" >Cargar entidades</button>
                 </div>
             </div>
         </div>
