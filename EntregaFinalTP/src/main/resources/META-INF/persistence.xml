@@ -1,0 +1,56 @@
+<!--
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+    <persistence-unit name="db_tp" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <properties>
+            <property name="hibernate.archive.autodetection" value="class"/>
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/db_tp?serverTimezone=America/Buenos_Aires"/>
+            <property name="hibernate.connection.username" value="root"/>
+            <property name="hibernate.connection.password" value="root"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL57Dialect"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+            //<property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence> -->
+
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd" version="2.0">
+    <persistence-unit name="simple-persistence-unit" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <properties>
+            <property name="hibernate.archive.autodetection" value="class"/>
+            <!--  PARA USAR LA DB DE RENDER.COM (TAMBIEN CAMBIAR DIALECTO MAS ABAJO)  -->
+            <!--
+                        <property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
+                        <property name="hibernate.connection.url" value="jdbc:postgresql://dpg-clgf2mef27hc739jst00-a.oregon-postgres.render.com:5432/db_5gv0" />
+                        <property name="hibernate.connection.username" value="db_5gv0_user" />
+                        <property name="hibernate.connection.password" value="i8AP36ZDAKRYqHRroluGxcT4o0f5QcAl" />
+                   -->
+            <!--  PARA USAR LA DB LOCAL (TAMBIEN CAMBIAR DIALECTO MAS ABAJO)  -->
+            <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/db_tp?serverTimezone=UTC"/>
+            <property name="hibernate.connection.username" value="root"/>
+            <property name="hibernate.connection.password" value="root"/>
+            <!--  PARA USAR LA DB EN MEMORIA  -->
+            <!--
+                  <property name="hibernate.connection.driver_class" value="org.hsqldb.jdbcDriver"/>
+                  <property name="hibernate.connection.url" value="jdbc:hsqldb:mem:app-db"/>
+                  <property name="hibernate.connection.username" value="root"/>
+                  <property name="hibernate.connection.password" value="admin"/>  -->
+            <!--  PARA USAR DB LOCAL  -->
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+            <!--  PARA USAR DB EN RENDER.COM  -->
+            <!-- s
+                  <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+                   -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="use_sql_comments" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="update"/> <!-- create / create-drop / update-->
+        </properties>
+    </persistence-unit>
+</persistence>
