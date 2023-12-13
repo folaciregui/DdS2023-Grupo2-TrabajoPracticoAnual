@@ -114,6 +114,10 @@ body {
     margin-left: auto; /* Alinea la columna en el lado derecho */
     background-color: #A780FF;
 }
+.areaComunidad{
+    display: flex;
+    flex-direction: row;
+}
 .columna2-v2 {
     flex: 1;
     display: inline-block;

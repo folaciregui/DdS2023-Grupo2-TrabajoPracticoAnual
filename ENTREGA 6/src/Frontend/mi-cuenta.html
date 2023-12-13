@@ -13,7 +13,7 @@
     <header style="background-color: rgba(255,255,255,0.5) ; text-align: left ; display: flex; flex-direction: row">
         <img class="logoUTN" src="imagenes/logoUTN.png" alt="Imagen en color" style=" text-align: left"></img>
         <div style="align-items: center; flex: 1; text-align: right; margin-top: 20px;">
-            <a class="boton" href="pagina-inicio.html" style="text-decoration: none; background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Cerrar Sesión</a>
+            <button class="boton" onclick="logout()" style="background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Cerrar Sesión</button>
             <a class="botonMenu" href="pagina-principal.html" style="text-decoration: none; background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Volver al menu</a>
             <h1 class="titulo">Mi cuenta</h1>
         </div>
@@ -35,7 +35,7 @@
             <div class="miCuenta" style="background: none; margin: 0">
                 <img src="imagenes/usuarioSinFoto.png" alt="Imagen no disponible" width=80px height=80px>
             </div>
-            <div class="miCuentaContenedor" style="background-color: rgba(255,255,255,0.5);">
+            <div id="perfilArea" class="miCuentaContenedor" style="background-color: rgba(255,255,255,0.5);">
                 <p class="label2" style="margin-bottom: 0">NOMBRE</p>
                 <p id="label-nombre" class="label3" style="margin-top: 0">Nombre</p>
                 <input type="text" id="edit-name" style="display: none">
@@ -49,19 +49,103 @@
 
                 <p class="label2" style="margin-bottom: 0">TELÉFONO</p>
                 <p id="label-telefono" class="label3" style="margin-top: 0">Teléfono</p>
+            </div>
+            <div class= "areaComunidad" id="comunidadesArea" style="display: none;">
+                <!-- Contenido de las comunidades -->
+                <select id="comunidadesDropdown" v-model="comunidadSeleccionada" @change="actualizarRol">
+                    <!-- Opciones del desplegable -->
+                    <option value="comunidad1">Comunidad 1</option>
+                    <option value="comunidad2">Comunidad 2</option>
+                </select>
+                <!-- Actualización dinámica del rol -->
+                <p id="rolActual">Rol actual: {{ rolesPorComunidad[comunidadSeleccionada] }}</p>
 
+                <button id="boton-modificarRol" @click="modificarRol">Modificar Rol</button>
 
+                <select id="selectRoles" style="display: none;"></select>
+                <button id="boton-guardarRol" class="boton" @click="guardarRol" style="display: none; font-size: 14px;"> Guardar Cambios</button>
             </div>
             <button id="boton-editar" class="boton" onclick="editarPerfil()">Editar perfil</button>
+            <button id="boton-comunidades" class="boton" onclick="verComunidades()">Mis comunidades</button>
             <button id="boton-guardar" class="boton" onclick="actualizarPerfil()" style="display: none">Guardar</button>
+            <button id="boton-atras" class="boton" onclick="ocultarComunidades()" style="display: none">Atras</button>
         </div>
     </div>
 
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script><!-- para firebase    -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-<script>
-    const firebaseConfig = {
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script><!-- para vue    -->
+
+    <script>
+        const app = new Vue({
+            el: '#comunidadesArea',
+            data: {
+                comunidadSeleccionada: 'comunidad1', // Establecer una comunidad predeterminada la primera de la lista seria
+                rolesPorComunidad: {
+                    comunidad1: 'observador', // Define los roles por comunidad
+                    comunidad2: 'observador'
+                }
+            },
+            methods: {
+                actualizarRol() {
+                    const rolActualElement = document.getElementById('rolActual');
+                    const rolComunidad = this.rolesPorComunidad[this.comunidadSeleccionada];
+                    rolActualElement.textContent = `Rol actual: ${rolComunidad}`;
+                },
+                guardarRol() {
+                    const nuevoRol = document.getElementById('selectRoles').value;
+                    const rolActualElement = document.getElementById('rolActual');
+                    const comunidadSeleccionada = document.getElementById('comunidadesDropdown').value;
+                    this.$set(this.rolesPorComunidad, comunidadSeleccionada, nuevoRol);
+                    // aca persistir el rol y la comunidad
+                    // rolesPorComunidad[comunidadSeleccionada] = nuevoRol;
+                    rolActualElement.textContent = `Rol actual: ${rolesPorComunidad[comunidadSeleccionada]}`;
+                    // Aquí puedes enviar el nuevo rol a tu backend para actualizarlo en la base de datos
+                    console.log(`Nuevo rol seleccionado: ${nuevoRol} para la comunidad ${comunidadSeleccionada}`);
+                    document.getElementById('selectRoles').style.display = 'none';
+                    document.getElementById("boton-modificarRol").style.display = "block";
+                    document.getElementById('boton-guardarRol').style.display = 'none';
+                },
+                modificarRol() {
+                    // Mostrar el rol actual
+                    const rolActualElement = document.getElementById('rolActual');
+                    const comunidadSeleccionada = this.comunidadSeleccionada;
+                    const rolComunidad = this.rolesPorComunidad[comunidadSeleccionada]; //no se modifica este
+
+                    rolActualElement.textContent = `Rol actual: ${rolComunidad}`;
+                    document.getElementById("boton-modificarRol").style.display = "none";
+                    document.getElementById("boton-guardarRol").style.display = "block";
+                    // Obtener el select de roles
+                    const selectRoles = document.getElementById('selectRoles');
+
+                    // Limpiar el select antes de agregar nuevas opciones
+                    selectRoles.innerHTML = '';
+
+                    // Opciones de roles
+                    const roles = ['observador', 'afectado']; // Puedes tener más roles según tu lógica
+
+                    // Agregar las opciones al select
+                    roles.forEach((rol) => {
+                        const option = document.createElement('option');
+                        option.value = rol;
+                        option.textContent = rol.charAt(0).toUpperCase() + rol.slice(1); // Formatear la primera letra en mayúscula
+                        selectRoles.appendChild(option);
+                    });
+
+                    // Mostrar el select
+                    selectRoles.value = rolComunidad;
+                    selectRoles.style.display = 'block';
+                }
+            },
+            mounted() {
+                // Mostrar el rol actual al cargar la página
+                const rolActualElement = document.getElementById('rolActual');
+                rolActualElement.textContent = `Rol actual: ${this.rolesPorComunidad[this.comunidadSeleccionada]}`;
+            }
+        });
+
+        const firebaseConfig = {
         apiKey: "AIzaSyCqXg0sZXtSOxHPEjkKKS0S4jdHER1z-VU",
         authDomain: "dds-sistema-monitoreables.firebaseapp.com",
         projectId: "dds-sistema-monitoreables",
@@ -72,8 +156,8 @@
     firebase.initializeApp(firebaseConfig);
     const user = JSON.parse(localStorage.getItem('user'));
     if(user){
-        console.log("el usuario tiene: "+user);
-        console.log("El usuario tiene: ", JSON.stringify(user, null, 2)); //permite ver toda la info guardada en un despliegue lo eliminariamos
+        //console.log("el usuario tiene: "+user);
+       // console.log("El usuario tiene: ", JSON.stringify(user, null, 2)); //permite ver toda la info guardada en un despliegue lo eliminariamos
         console.log("nombre usuario: "+user.displayName);
         console.log("correo usuario: "+user.email);
         document.getElementById("label-nombre").textContent = user.displayName || "Nombre no disponible";
@@ -85,6 +169,18 @@
     }else{
         alert("Sucedio un error por favor vuelva a iniciar sesion");//ver si lo mandamos a index o que hacemos
         console.log("el usuario no existe");
+        window.location.href = "pagina-inicio.html";
+    }
+    function logout() {
+        console.log("cerrando");
+        firebase.auth().signOut().then(() => {
+            localStorage.removeItem('user');
+            console.log("El usuario tiene: ", JSON.stringify(user, null, 2)); //permite ver toda la info guardada en un despliegue lo eliminariamos
+            console.log(localStorage.getItem('user'));
+            window.location.href = "pagina-inicio.html"
+        }).catch((error) => {
+            alert("Error al cerrar sesión: " + error.message);
+        });
     }
 
     function editarPerfil() {
@@ -94,6 +190,7 @@
         const editNameInput = document.getElementById("edit-name");
         const editLastnameInput = document.getElementById("edit-lastname");
         const botonEditar = document.getElementById("boton-editar");
+        const botonComunidades = document.getElementById("boton-comunidades");
         const botonGuardar = document.getElementById("boton-guardar");
         // Obtener datos actuales del usuario
         const userName = userNameLabel.textContent;
@@ -104,6 +201,7 @@
         editLastnameInput.style.display = "block";
         botonGuardar.style.display = "block";
         botonEditar.style.display = "none";
+        botonComunidades.style.display = "none";
         userNameLabel.style.display = "none";
         userLastnameLabel.style.display = "none";
 
@@ -117,6 +215,7 @@
         const editNameInput = document.getElementById("edit-name");
         const editLastnameInput = document.getElementById("edit-lastname");
         const botonEditar = document.getElementById("boton-editar");
+        const botonComunidades = document.getElementById("boton-comunidades");
         const botonGuardar = document.getElementById("boton-guardar");
 
         const userName = editNameInput.value;
@@ -133,6 +232,7 @@
         editNameInput.style.display = "none";
         editLastnameInput.style.display = "none";
         botonGuardar.style.display = "none";
+        botonComunidades.style.display = "block";
         botonEditar.style.display = "block";
         userNameLabel.style.display = "block";
         userLastnameLabel.style.display = "block";
@@ -141,6 +241,44 @@
         userLastnameLabel.style.textAlign = "left";
 
     }
+    // Función para mostrar las comunidades
+    // Objeto para almacenar los roles por comunidad
+
+
+
+    function verComunidades() {
+        // Ocultar otros elementos y mostrar comunidades
+        document.getElementById("boton-editar").style.display = "none";
+        document.getElementById("boton-comunidades").style.display = "none";
+        document.getElementById("boton-guardar").style.display = "none";
+
+        // Mostrar el área de las comunidades
+        document.getElementById("comunidadesArea").style.display = "flex";
+        document.getElementById("perfilArea").style.display="none";
+        document.getElementById("boton-atras").style.display = "block";
+    }
+    function ocultarComunidades(){
+        document.getElementById("boton-editar").style.display = "block";
+        document.getElementById("boton-comunidades").style.display = "block";
+        document.getElementById("boton-guardar").style.display = "none";
+
+        // Mostrar el área de las comunidades
+        document.getElementById("comunidadesArea").style.display = "none";
+        document.getElementById("perfilArea").style.display="block";
+        document.getElementById("boton-atras").style.display = "none";
+    }
+
+    // Función para modificar el rol
+    // Suponiendo que tienes una variable que almacena el rol actual del usuario en esa comunidad
+    let rolActual = 'observador'; // Puedes obtener esta información de tu lógica de backend o base de datos
+    document.addEventListener('DOMContentLoaded', function() {
+        const rolActualElement = document.getElementById('rolActual');
+        rolActualElement.textContent = `Rol actual: ${rolActual}`;
+    });
+    let rolesPorComunidad = {
+        comunidad1: 'observador',
+        comunidad2: 'observador'
+    };
 
 </script>
 </body>

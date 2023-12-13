@@ -13,7 +13,7 @@
     <header style="background-color: rgba(255,255,255,0.5) ; text-align: left ; display: flex; flex-direction: row">
         <img class="logoUTN" src="imagenes/logoUTN.png" alt="Imagen en color" style="text-align: left"></img>
         <div style="align-items: center; flex: 1; text-align: right; margin-top: 20px;">
-            <a class="boton" href="pagina-inicio.html" style="text-decoration: none; background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Cerrar Sesión</a>
+            <button class="boton" onclick="logout()" style="background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Cerrar Sesión</button>
             <a class="botonMenu" href="pagina-principal.html" style="text-decoration: none; background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Volver al menu</a>
             <h1 class="titulo">Sugerencia Incidentes</h1>
         </div>
@@ -47,6 +47,45 @@
         </div>
 
     </div>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCqXg0sZXtSOxHPEjkKKS0S4jdHER1z-VU",
+            authDomain: "dds-sistema-monitoreables.firebaseapp.com",
+            projectId: "dds-sistema-monitoreables",
+            storageBucket: "dds-sistema-monitoreables.appspot.com",
+            messagingSenderId: "625925036616",
+            appId: "1:625925036616:web:8a61a46d81a4c752b9167d"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const user = JSON.parse(localStorage.getItem('user'));
+        if(user){
+            console.log("el usuario tiene: "+user);
+            console.log("El usuario tiene: ", JSON.stringify(user, null, 2)); //permite ver toda la info guardada en un despliegue lo eliminariamos
+            console.log("nombre usuario: "+user.displayName);
+            console.log("correo usuario: "+user.email);
+            // a partir de aca trabajo el resto de cosas
+
+        }else{
+            alert("Sucedio un error por favor vuelva a iniciar sesion");//ver si lo mandamos a index o que hacemos
+            console.log("el usuario no existe");
+            window.location.href = "pagina-inicio.html";
+        }
+        function logout() {
+            console.log("cerrando");
+            firebase.auth().signOut().then(() => {
+                localStorage.removeItem('user');
+                console.log("El usuario tiene: ", JSON.stringify(user, null, 2)); //permite ver toda la info guardada en un despliegue lo eliminariamos
+                console.log(localStorage.getItem('user'));
+                window.location.href = "pagina-inicio.html"
+            }).catch((error) => {
+                alert("Error al cerrar sesión: " + error.message);
+            });
+        }
+    </script>
 <script>
     //aca cargo la lista para mostrar los incidentes
     const selectIncidente = document.getElementById('selectIncidente');
