@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Selección desde Base de Datos</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <!-- Importa la librería Axios para hacer solicitudes HTTP -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+
+<div id="app">
+    <div>
+        <label for="selectEntidad">Selecciona Negocio o Transporte:</label>
+        <select id="selectEntidad" v-model="entidadSeleccionada" @change="actualizarEstablecimientos">
+            <option v-for="option in opcionesEntidad" :value="option.value">{{ option.label }}</option>
+        </select>
+    </div>
+    <div>
+        <label for="selectEstablecimiento">Selecciona la estación o sucursal:</label>
+        <select id="selectEstablecimiento" v-model="establecimientoSeleccionado" :disabled="!establecimientos.length">
+            <option v-for="establecimiento in establecimientos" :value="establecimiento.id">{{ establecimiento.nombre }}</option>
+        </select>
+    </div>
+    <div>
+        <label for="selectServicio">Selecciona un Servicio:</label>
+        <select id="selectServicio" v-model="servicioSeleccionado" :disabled="!servicios.length || !establecimientoSeleccionado">
+            <option v-for="servicio in servicios" :value="servicio.id">{{ servicio.nombre }}</option>
+        </select>
+    </div>
+    <button @click="cerrarIncidente">Cerrar Incidente</button>
+</div>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            entidadSeleccionada: '',
+            establecimientoSeleccionado: '',
+            servicioSeleccionado: '',
+            opcionesEntidad: [
+                { label: 'Medio de Transporte', value: 'transporte' },
+                { label: 'Empresa', value: 'empresa' }
+            ],
+            establecimientos: [],
+            servicios: [],
+            incidente: null
+        },
+        methods: {
+            async actualizarEstablecimientos() {
+                try {
+                    const response = await fetch(`/obtenerEstablecimientos?entidad=${this.entidadSeleccionada}`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        this.establecimientos = data;
+                        this.establecimientoSeleccionado = '';
+                        this.servicioSeleccionado = '';
+                    } else {
+                        console.error('Error al obtener establecimientos:', response.status);
+                    }
+                } catch (error) {
+                    console.error('Error al obtener establecimientos:', error);
+                }
+            },
+            async actualizarServicios() {
+                try {
+                    const response = await fetch(`/obtenerServicios?establecimiento=${this.establecimientoSeleccionado}`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        this.servicios = data;
+                        this.servicioSeleccionado = '';
+                    } else {
+                        console.error('Error al obtener servicios:', response.status);
+                    }
+                } catch (error) {
+                    console.error('Error al obtener servicios:', error);
+                }
+            },
+            async actualizarIncidenteEnBD() {
+                try {
+                    const response = await fetch(`/api/incidentes/${this.incidente.id}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(this.incidente)
+                    });
+                    if (response.ok) {
+                        console.log('Incidente actualizado en la base de datos');
+                    } else {
+                        console.error('Error al actualizar el incidente en la base de datos:', response.status);
+                    }
+                } catch (error) {
+                    console.error('Error al actualizar el incidente en la base de datos:', error);
+                }
+            },
+
+            async obtenerIncidenteRelacionado() {
+                try {
+                    const response = await fetch(`/obtenerIncidente?idServicio=${this.servicioSeleccionado}`);
+                    if (response.ok) {
+                        const incidente = await response.json();
+                        this.incidente = incidente;
+                        this.incidente.estado = 'Cerrado';
+                        this.incidente.fechaCierre = new Date();
+                        console.log('Incidente cerrado:', this.incidente);
+                        await this.actualizarIncidenteEnBD(); // Llama a la función para actualizar el incidente en la base de datos
+                    } else {
+                        console.error('Error al obtener el incidente:', response.status);
+                    }
+                } catch (error) {
+                    console.error('Error al obtener el incidente:', error);
+                }
+            },
+
+            cerrarIncidente() {
+                this.obtenerIncidenteRelacionado();
+                console.log("BOTON");
+            }
+        }
+    });
+</script>
+<script src="fetch.js"></script>
+</body>
+</html>
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="es">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Simulación Selección</title>-->
+<!--    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div id="app">-->
+<!--    <div>-->
+<!--        <label for="selectEntidad">Selecciona Negocio o Transporte:</label>-->
+<!--        <select id="selectEntidad" v-model="entidadSeleccionada" @change="actualizarEstablecimientos">-->
+<!--            <option value="Medio de Transporte">Medio de Transporte</option>-->
+<!--            <option value="Empresa">Empresa</option>-->
+<!--        </select>-->
+<!--    </div>-->
+<!--    <div>-->
+<!--        <label for="selectEstablecimiento">Selecciona la estacion o sucursal:</label>-->
+<!--        <select id="selectEstablecimiento" v-model="establecimientoSeleccionado" :disabled="!establecimientos.length" @change="actualizarServicios">-->
+<!--            <option v-for="establecimiento in establecimientos" :value="establecimiento.nombre">{{ establecimiento.nombre }}</option>-->
+<!--        </select>-->
+
+<!--    </div>-->
+<!--    <div>-->
+<!--        <label for="selectServicio">Selecciona un Servicio:</label>-->
+<!--        <select id="selectServicio" v-model="servicioSeleccionado" :disabled="!servicios.length || !establecimientoSeleccionado">-->
+<!--            <option v-for="servicio in servicios" :value="servicio.id">{{ servicio.nombre }}</option>-->
+<!--        </select>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<script>-->
+<!--    new Vue({-->
+<!--        el: '#app',-->
+<!--        data: {-->
+<!--            entidadSeleccionada: '',-->
+<!--            establecimientoSeleccionado: '',-->
+<!--            servicioSeleccionado: '',-->
+<!--            establecimientos: [],-->
+<!--            servicios: []-->
+<!--        },-->
+<!--        methods: {-->
+<!--            actualizarEstablecimientos() {-->
+<!--                // Simulación de datos - Establecimientos según la entidad seleccionada-->
+<!--                if (this.entidadSeleccionada === 'Medio de Transporte') {-->
+<!--                    this.establecimientos = [-->
+<!--                        { id: 1, nombre: 'Estación A' },-->
+<!--                        { id: 2, nombre: 'Estación B' },-->
+<!--                        { id: 3, nombre: 'Estación C' }-->
+<!--                    ];-->
+<!--                } else if (this.entidadSeleccionada === 'Empresa') {-->
+<!--                    this.establecimientos = [-->
+<!--                        { id: 4, nombre: 'Sucursal 1' },-->
+<!--                        { id: 5, nombre: 'Sucursal 2' },-->
+<!--                        { id: 6, nombre: 'Sucursal 3' }-->
+<!--                    ];-->
+<!--                }-->
+<!--                // Reseteamos la selección de establecimiento y servicio al cambiar la entidad-->
+<!--                this.establecimientoSeleccionado = '';-->
+<!--                this.servicioSeleccionado = '';-->
+<!--            },-->
+<!--            actualizarServicios() {-->
+<!--                // Simulación de datos - Servicios según el establecimiento seleccionado-->
+<!--                if (this.establecimientoSeleccionado === 'Estación A') {-->
+<!--                    this.servicios = [-->
+<!--                        { id: 101, nombre: 'Servicio 1 Estación A' },-->
+<!--                        { id: 102, nombre: 'Servicio 2 Estación A' },-->
+<!--                        { id: 103, nombre: 'Servicio 3 Estación A' }-->
+<!--                    ];-->
+<!--                } else if (this.establecimientoSeleccionado === 'Estación B') {-->
+<!--                    this.servicios = [-->
+<!--                        { id: 201, nombre: 'Servicio 1 Estación B' },-->
+<!--                        { id: 202, nombre: 'Servicio 2 Estación B' },-->
+<!--                        { id: 203, nombre: 'Servicio 3 Estación B' }-->
+<!--                    ];-->
+<!--                }-->
+<!--                // Reseteamos la selección de servicio al cambiar el establecimiento-->
+<!--                this.servicioSeleccionado = '';-->
+<!--            }-->
+<!--        }-->
+<!--    });-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->

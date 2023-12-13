@@ -64,26 +64,6 @@
         //     // Procesa y muestra los datos en tu página web
         // });
 
-        // Verifica estado de sesion
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                // User is signed in, see docs for a list of available properties
-                var uid = user.uid;
-                var textoVerificado="";
-                document.getElementById("userState").innerHTML="Hizo login"
-                console.log(user);//para ver datos de usuario, despues borrar esta linea
-                if(user.emailVerified){
-                    textoVerificado="Estas verificado";
-                }else {
-                    textoVerificado="No estas verificado"
-                }
-                document.getElementById("texto-verificado").textContent = textoVerificado;
-            } else {
-                // User is signed out
-                document.getElementById("userState").innerHTML="Deslogueado"
-
-            }
-        });
 
         // Referencias a elementos HTML
         const loginForm = document.getElementById("login-form");
@@ -128,13 +108,13 @@
                 .then((userCredential) => {
                     const user = userCredential.user; //cuando se registra via web no tiene como un nombre de usuario
                     console.log("valor " + userCredential.user);
+                    console.log("valor " + userCredential);
                     inicioSesion(user);
                 })
                 .catch((error) => {
                     alert("Error al iniciar sesión: " + error.message);
                 });
             console.log("sali");
-            console.log("valor " + userCredential);
         }
         function loginGoogle(){ //abrir consola y chequear error
             firebase.auth().signInWithPopup(providerGoogle)

@@ -47,37 +47,6 @@
 
     // Inicializa Firebase
     firebase.initializeApp(firebaseConfig);
-    var providerGoogle = new firebase.auth.GoogleAuthProvider();
-    var providerMicrosoft = new firebase.auth.OAuthProvider('microsoft.com');
-    // Manejo base de datos
-    //  const database = firebase.database();
-    // const ref = database.ref('/ruta/a/tu/datos'); // Reemplaza con la ruta de tus datos
-    //
-    // ref.on('value', (snapshot) => {
-    //     const data = snapshot.val();
-    //     // Procesa y muestra los datos en tu página web
-    // });
-
-    // Verifica estado de sesion
-    firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-            // User is signed in, see docs for a list of available properties
-            var uid = user.uid;
-            var textoVerificado="";
-            document.getElementById("userState").innerHTML="Hizo login"
-            console.log(user);//para ver datos de usuario, despues borrar esta linea
-            if(user.emailVerified){
-                textoVerificado="Estas verificado";
-            }else {
-                textoVerificado="No estas verificado"
-            }
-            document.getElementById("texto-verificado").textContent = textoVerificado;
-        } else {
-            // User is signed out
-            document.getElementById("userState").innerHTML="Deslogueado"
-
-        }
-    });
 
     // Referencias a elementos HTML
     const loginForm = document.getElementById("login-form");
@@ -101,8 +70,6 @@
                 var errorCode = error.code;
                 var errorMessage = error.message;
                 alert("Error al registrar la cuenta: " + errorMessage);
-                document.getElementById("emailLogin").innerHTML= "";//no terminado
-                document.getElementById("passwordLogin").innerHTML="";
             });
     }
 
@@ -114,54 +81,6 @@
         }).catch(function (error){
             // Hubo algun error, manejarlo
         })
-    }
-    function loginWeb() {
-        const email = document.getElementById("emailLogin").value;
-        const password = document.getElementById("passwordLogin").value;
-        firebase.auth().signInWithEmailAndPassword(email, password)
-            .then((userCredential) => {
-                const user = userCredential.user; //cuando se registra via web no tiene como un nombre de usuario
-                console.log("valor " + userCredential.user);
-                inicioSesion(user);
-            })
-            .catch((error) => {
-                alert("Error al iniciar sesión: " + error.message);
-            });
-        console.log("sali");
-        console.log("valor " + userCredential);
-    }
-    function loginGoogle(){ //abrir consola y chequear error
-        firebase.auth().signInWithPopup(providerGoogle)
-            .then((result) => {
-                //capaz es util mas adelante
-                var credential = result.credential;
-                var token = credential.accessToken;
-                var user = result.user;
-                console.log("iniciando sesion con google el usuario tiene: email="+user.email);
-                inicioSesion(user);
-            }).catch((error) => {
-            alert("Error al iniciar sesión con google: " + error.message);
-            //manejar errores
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            var email = error.email;
-            var credential = error.credential;
-        });
-    }
-    function loginMicrosoft() {
-        firebase.auth().signInWithPopup(providerMicrosoft)
-            .then((result) => {
-                console.log("logeado con exito: ");
-                const user = result.user;
-                // Realiza acciones adicionales con el usuario si es necesario
-                inicioSesion(user);
-            })
-            .catch((error) => {
-                console.log("codigo Error: " + error.code);
-                console.log("Error: " + error.message);
-                alert("Error al iniciar sesión con Microsoft: " + error.message);
-                console.log("Error: " + error.message);
-            });
     }
     function inicioSesion(user){
         localStorage.setItem('user', JSON.stringify(user));

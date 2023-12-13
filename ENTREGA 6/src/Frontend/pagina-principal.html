@@ -58,46 +58,41 @@
         const user = JSON.parse(localStorage.getItem('user'));
         if(user){
             console.log("el usuario tiene: "+user);
+            console.log("El usuario tiene: ", JSON.stringify(user, null, 2)); //permite ver toda la info guardada en un despliegue lo eliminariamos
             console.log("nombre usuario: "+user.displayName);
             console.log("correo usuario: "+user.email);
             document.getElementById("user-displayname").textContent = user.displayName;
             document.getElementById("user-email").textContent = user.email;
             // a partir de aca trabajo el resto de cosas
 
-            //arranco monitoreables
-
-            const monitoreables = [
-                { nombre: "Monitoreable 1", descripcion: "Descripción 1" },
-                { nombre: "Monitoreable 2", descripcion: "Descripción 2" },
-                { nombre: "Monitoreable 3", descripcion: "Descripción 3" },
-                // Agrega más monitoreables según tus datos
-            ];
-
-
-            const botonAbrirIncidente = document.getElementById('boton-abrir-incidente');
-            const seleccionMonitoreable = document.getElementById('seleccion-monitoreable');
-            botonAbrirIncidente.addEventListener('click', () => {
-                // Limpia cualquier opción existente en la lista desplegable
-                seleccionMonitoreable.style.display = 'block';
-
-                // Genera las opciones de la lista desplegable
-                monitoreables.forEach(monitoreable => {
-                    const opcion = document.createElement('option');
-                    opcion.value = monitoreable.nombre; // Valor que se enviará al servidor si se selecciona
-                    opcion.textContent = `${monitoreable.nombre} - ${monitoreable.descripcion}`;
-                    seleccionMonitoreable.appendChild(opcion);
-                });
-
-                // Muestra la lista desplegable
-                seleccionMonitoreable.style.display = 'block';
-            });
-
-
         }else{
             alert("Sucedio un error por favor vuelva a iniciar sesion");//ver si lo mandamos a index o que hacemos
             console.log("el usuario no existe");
+            window.location.href = "pagina-inicio.html";
         }
+        // Verifica estado de sesion
 
+
+        firebase.auth().onAuthStateChanged((user) => { //REVISAR ESTE METODO
+            if (user) {
+                var uid = user.uid;
+                var textoVerificado="";
+                document.getElementById("userState").innerHTML="Hizo login"
+                console.log(user);//para ver datos de usuario, despues borrar esta linea
+                if(user.emailVerified){
+                    textoVerificado="Estas verificado";
+                    console.log("esta verificado");
+                }else {
+                    textoVerificado="No estas verificado"
+                    console.log("no esta verificado");
+                }
+                document.getElementById("texto-verificado").textContent = textoVerificado;
+            } else {
+                // User is signed out
+                document.getElementById("userState").innerHTML="Deslogueado"
+
+            }
+        });
         // Función para cerrar sesión
         function logout() {
             firebase.auth().signOut().then(() => {

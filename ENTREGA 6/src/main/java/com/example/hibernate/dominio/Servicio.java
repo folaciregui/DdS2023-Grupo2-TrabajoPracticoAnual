@@ -4,6 +4,32 @@ import javax.persistence.*;
 
 @Entity
 public class Servicio {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne
+    private Tramo tramo;
+    @Enumerated(EnumType.STRING)
+    private TipoServicio tipoDeServicio;
+    @Enumerated(EnumType.STRING)
+    private Disponibilidad estado;
+
+    @ManyToOne
+    private Establecimiento servicios;
+
+    @Enumerated(EnumType.STRING)
+    private CategoriaServicio categoria;
+    @Column
+    private String nombre; //porque es fk? en el der
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
     public Tramo getTramo() {
         return tramo;
     }
@@ -50,32 +76,5 @@ public class Servicio {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @ManyToOne
-    private Tramo tramo;
-    @Enumerated(EnumType.STRING)
-    private TipoServicio tipoDeServicio;
-    @Enumerated(EnumType.STRING)
-    private Disponibilidad estado;
-
-    @ManyToOne
-    private Establecimiento servicios;
-
-    @Enumerated(EnumType.STRING)
-    private CategoriaServicio categoria;
-    @Column
-    private String nombre; //porque es fk? en el der
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
     }
 }

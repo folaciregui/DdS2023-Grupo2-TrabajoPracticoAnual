@@ -3,8 +3,9 @@ package com.example.hibernate.dominio;
 
 import javax.persistence.*;
 
-@Entity
-public class Entidad {
+
+    @Entity
+    public class Entidad {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,7 +13,18 @@ public class Entidad {
 
     @Column(name="nombre")
     private String nombre;
+    @ManyToOne
+    private Organizacion empresaPrestadora;
 
+    @ManyToOne
+    private Organizacion organismoDeControl;
+
+    @Column(name="tipoEntidad")
+    private String tipoEntidad;
+
+    @Enumerated(EnumType.STRING)
+    private TipoMedio tipoMedio;
+    //getters y setters
     public String getNombre() {
         return nombre;
     }
@@ -25,16 +37,16 @@ public class Entidad {
         return empresaPrestadora;
     }
 
-    public void setEmpresaPrestadora(Organizacion empresaPrestadora) {
-        this.empresaPrestadora = empresaPrestadora;
+    public void setEmpresaPrestadora(Organizacion unaEmpresaPrestadora) {
+        empresaPrestadora = unaEmpresaPrestadora;
     }
 
     public Organizacion getOrganismoDeControl() {
         return organismoDeControl;
     }
 
-    public void setOrganismoDeControl(Organizacion organismoDeControl) {
-        this.organismoDeControl = organismoDeControl;
+    public void setOrganismoDeControl(Organizacion unOrganismoDeControl) {
+        organismoDeControl = unOrganismoDeControl;
     }
 
     public String getTipoEntidad() {
@@ -53,18 +65,6 @@ public class Entidad {
         this.tipoMedio = tipoMedio;
     }
 
-
-    @ManyToOne
-    private Organizacion empresaPrestadora;
-
-    @ManyToOne
-    private Organizacion organismoDeControl;
-
-    @Column(name="tipoEntidad")
-    private String tipoEntidad;
-
-    @Enumerated(EnumType.STRING)
-    private TipoMedio tipoMedio;
 
     public void setId_entidad(Long idEntidad) {
         this.id_entidad = idEntidad;

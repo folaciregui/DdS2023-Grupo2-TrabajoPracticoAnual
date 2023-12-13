@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="imagenes/logoUTN.png">
+    <link rel="stylesheet" href="cerrar-incidente.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <title>Cerrar Incidente PRUEBAA</title>
+</head>
+<body style="margin: 0 ; padding: 0 ; text-align: center ; background-image: url('imagenes/subte2.jpg') ; background-size: cover">
+<header style="background-color: rgba(255,255,255,0.5) ; text-align: left ; display: flex; flex-direction: row">
+    <img class= "logoUTN" src="imagenes/logoUTN.png" alt="Imagen en color" style=" text-align: left"></img>
+    <div style="align-items: center; flex: 1; text-align: right; margin-top: 20px;">
+        <a class="boton" href="pagina-inicio.html" style="text-decoration: none; background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Cerrar Sesión</a>
+        <a class="botonMenu" href="pagina-principal.html" style="text-decoration: none; background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Volver al menu</a>
+        <h1 class="titulo">Cerrar incidente</h1>
+    </div>
+</header>
+
+<div id="app" class="contenedorColumna" style="background: rgba(255,255,255,0.5)">
+    <div class="columna1" style="background: none">
+        <div class="contenedorColumna1">
+            <a class="referencia" href="cargar-datos-entidades.html">Cargar datos Entidades y Organismos</a>
+            <a class="referencia" href="abrir-incidente.html">Abrir Incidente</a>
+            <a class="referenciaElegida" href="cerrar-incidente.html">Cerrar Incidente</a>
+            <a class="referencia" href="consultar-incidente.html">Consultar Incidente</a>
+            <a class="referencia" href="sugerencia-incidente.html">Sugerencia Incidente</a>
+            <a class="referencia" href="visualizacion-rankings.html">Rankings</a>
+            <a class="referencia" href="mi-cuenta.html">Mi cuenta</a>
+        </div>
+    </div>
+    <div class="columna2" style="background: none">
+        <div class="opciones">
+            <label class="label" for="selectEntidad">Selecciona Negocio o Transporte:</label>
+            <select class="input" id="selectEntidad" v-model="entidadSeleccionada" @change="actualizarEstablecimientos">
+                <option value="Medio de Transporte">Medio de Transporte</option>
+                <option value="Empresa">Empresa</option>
+            </select>
+        </div>
+        <div style="height: 10px"></div>
+        <div class="opciones">
+            <label class="label" for="selectEstablecimiento">Selecciona la estacion o sucursal:</label>
+            <select class="input" id="selectEstablecimiento" v-model="establecimientoSeleccionado">
+                <option v-for="establecimiento in establecimientosFiltrados" :value="establecimiento.id">{{ establecimiento.nombre }}</option>
+            </select>
+        </div>
+        <div style="height: 10px"></div>
+        <div class="opciones">
+            <label class="label" for="selectMonitoreable">Selecciona un Servicio:</label>
+            <select class="input" id="selectMonitoreable" v-model="servicioSeleccionado">
+                <option v-for="servicio in servicios" :value="servicio.id">{{ servicio.nombre }}</option>
+            </select>
+        </div>
+        <button class="boton" @click="cerrarIncidente">Cerrar incidente</button>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            entidadSeleccionada: '',
+            establecimientoSeleccionado: '',
+            servicioSeleccionado: '',
+            establecimientos: [], // Aquí se almacenarán los establecimientos filtrados por la entidad seleccionada
+            servicios: [] // Aquí se almacenarán los servicios relacionados con el establecimiento seleccionado
+        },
+        computed: {
+            establecimientosFiltrados() {
+                return this.establecimientos.filter(establecimiento => establecimiento.entidad === this.entidadSeleccionada);
+            }
+        },
+        methods: {
+            actualizarEstablecimientos() {
+                // Hacer una solicitud al servidor para obtener los establecimientos de la entidad seleccionada
+                // Luego actualizar el array de establecimientos con la respuesta
+            },
+            cerrarIncidente() {
+                // Aquí se realizaría la lógica para cerrar el incidente utilizando la información seleccionada
+                // Puedes enviar una solicitud POST al servidor con los datos del incidente a cerrar
+            }
+        },
+        mounted() {
+            // Puedes realizar acciones al cargar la página, como cargar datos iniciales si es necesario
+        }
+    });
+</script>
+</body>
+</html>
