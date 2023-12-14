@@ -24,17 +24,24 @@
     <div class="subcontenedor" style="background-color: rgba(67,0,210,0.5); display: flex; flex-direction: column;">
         <a class="referencia" href="/cargarDatosEntidades">Cargar datos Entidades Prestadoras y Organismos de Control</a>
         <div style="height: 20px"></div>
-        <a class="referencia" href="abrir-incidente.html">Abrir Incidente</a>
+        <a class="referencia" href="/abrirIncidente">Abrir Incidente</a>
         <div style="height: 20px"></div>
-        <a class="referencia" href="cerrar-incidente.html">Cerrar Incidente</a>
+        <a class="referencia" href="/cerrarIncidente">Cerrar Incidente</a>
         <div style="height: 20px"></div>
         <a class="referencia" href="/consultaIncidentesPorEstado">Consultar Incidente</a>
         <div style="height: 20px"></div>
-        <a class="referencia" href="sugerencia-incidente.html">Sugerencia Incidente</a>
+        <a class="referencia" href="/sugerenciaIncidente">Sugerencia Incidente</a>
         <div style="height: 20px"></div>
-        <a class="referencia" href="/rankings">Rankings</a>
+        <div>
+            <a class="referencia" href="/rankingsCL">Rankings</a>
+            <a class="referencia" href="/rankingsCP">Rankings</a>
+        </div>
         <div style="height: 20px"></div>
-        <a class="referencia" href="/miCuenta">Mi cuenta</a>
+        <div>
+            <a class="referencia" href="/miCuentaCL">Mi cuenta CL</a>
+            <a class="referencia" href="/miCuentaCP">Mi cuenta CP</a>
+        </div>
+
     </div>
 </div>
 
@@ -58,6 +65,7 @@
     const user = JSON.parse(localStorage.getItem('user'));
     if(user){
         console.log("el usuario tiene: "+user);
+        console.log("El usuario tiene: ", JSON.stringify(user, null, 2));
         console.log("nombre usuario: "+user.displayName);
         console.log("correo usuario: "+user.email);
         document.getElementById("user-displayname").textContent = user.displayName;

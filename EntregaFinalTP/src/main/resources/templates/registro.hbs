@@ -21,12 +21,14 @@
         <h1 class="subtitulo">REGISTRARSE</h1>
         <form method="POST" action="/login">
         <div class="formulario">
+            <input class="input" name="nombre" type="text" id="nombreRegister" placeholder="Nombre">
+            <input class="input" name="apellido" type="text" id="apellidoRegister" placeholder="Apellido">
             <input class="input" name="nombre_de_usuario" type="email" id="emailRegister" placeholder="Correo Electrónico">
             <input class="input" name="contrasenia" type="password" id="passwordRegister" placeholder="Contraseña">
         </div>
             <a href="/menu" style="text-decoration: none">
-                <!--<button class="boton" onclick="register()">Registrarse</button>-->
-                <button class="boton">Registrarse</button>
+                <button class="boton" onclick="register()">Registrarse</button>
+                <!--<button class="boton">Registrarse</button>-->
             </a>
 
         </form>
@@ -173,7 +175,7 @@
     }
     function inicioSesion(user){
         localStorage.setItem('user', JSON.stringify(user));
-        window.location.href = "menu.hbs.html";
+        window.location.href = "/menu";
     }
 </script>
 </body>

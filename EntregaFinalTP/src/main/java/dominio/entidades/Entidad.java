@@ -36,8 +36,8 @@ public class Entidad {
     @JoinColumn(name = "organismo_control_id", referencedColumnName = "id")
     private EmpPrest_X_OrgControl organismoDeControl_;*/
 
-    @OneToMany(mappedBy = "entidad")
-    private List<RankingsIncidente> rankingsSemanales;
+    //@OneToMany(mappedBy = "entidad")
+    //private List<RankingsIncidente> rankingsSemanales;
 
     //@Column(name = "medio_de_transporte")
     //private String medioDeTransporte;
@@ -45,5 +45,9 @@ public class Entidad {
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_entidad")
     private TipoDeEntidad tipoDeEntidad;
+
+    //@OneToMany(mappedBy = "entidad")
+    //private List<Entidad_X_Establecimiento> relacionEstablecimientos;
+
 
 }

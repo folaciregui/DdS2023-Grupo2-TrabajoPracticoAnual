@@ -1,0 +1,12 @@
+{{#partial "contenido" }}
+    <div>
+        <v-select v-bind:items = "lista"
+                  v-model = "seleccionado"
+                  label = "Select"
+                  single-line
+                  bottom
+        ></v-select>
+    </div>
+{{/partial}}
+{{> templates/base }}
+

@@ -1,12 +1,16 @@
 package dominio.usuariosycomunidades;
 
 import dominio.servicios.Incidente;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Table(name = "comunidad")
+@Getter
+@Setter
 public class Comunidad {
 
     @Id

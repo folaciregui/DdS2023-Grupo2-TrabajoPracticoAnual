@@ -1,5 +1,6 @@
 package dominio.usuariosycomunidades;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import dominio.entidades.EmpPrest_X_OrgControl;
 import dominio.validador.Cuenta;
 import lombok.Getter;
@@ -27,6 +28,7 @@ public class UsuarioGeneral {
     @Column(name = "email")
     private String email;
 
+    @JsonIgnore
     @OneToOne(mappedBy = "usuarioGeneral", cascade = CascadeType.ALL)
     private Cuenta cuenta;
 

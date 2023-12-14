@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="/img/logoUTN.png">
+    <link rel="stylesheet" href="/css/abrirIncidente.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <title>Abrir Incidente</title>
+</head>
+<body style="margin: 0 ; padding: 0 ; text-align: center ; background-image: url('/img/subte2.jpg') ; background-size: cover">
+<header style="background-color: rgba(255,255,255,0.5) ; text-align: left ; display: flex; flex-direction: row">
+    <img class= "logoUTN" src="/img/logoUTN.png" alt="Imagen en color" style="text-align: left"></img>
+    <div style="align-items: center; flex: 1; text-align: right;margin-top: 20px;">
+        <button class="boton" onclick="logout()" style="background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Cerrar Sesión</button>
+        <a class="botonMenu" href="pagina-principal.html" style="text-decoration: none; background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Volver al menu</a>
+        <h1 class="titulo">Abrir incidente</h1>
+    </div>
+</header>
+<div id="app" class="contenedorColumna" style="background: rgba(255,255,255,0.5)">
+    <div class="columna1" style="background: none">
+        <div class="contenedorColumna1">
+            <a class="referencia" href="cargar-datos-entidades.html">Cargar datos Entidades y Organismos</a>
+            <a class="referenciaElegida" href="abrir-incidente.html">Abrir Incidente</a>
+            <a class="referencia" href="cerrar-incidente.html">Cerrar Incidente</a>
+            <a class="referencia" href="consultar-incidente.html">Consultar Incidente</a>
+            <a class="referencia" href="sugerencia-incidente.html">Sugerencia Incidente</a>
+            <a class="referencia" href="visualizacion-rankings.html">Rankings</a>
+            <a class="referencia" href="mi-cuenta.html">Mi cuenta</a>
+        </div>
+    </div>
+    <div class="columna2" style="background: none; flex-direction: column">
+        <div class="opciones">
+            <label class="label">Selecciona Negocio o Transporte:</label>
+            <table class="table table-striped table-hover" style="background: none">
+                <tr style="background: none">
+                    <th style="background: rgba(101,101,101,0.66)">ENTIDAD</th>
+                    <th style="background: rgba(101,101,101,0.66)"></th>
+                </tr>
+                <tbody>
+                    <tr v-for="entidad in entidades" :key="entidad.id" @click="seleccionarEntidad(entidad)">
+                        <td class="list">
+                                <li>
+                                    <span v-text="entidad.nombre"></span>
+                                </li>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div style="height: 20px"></div>
+
+        <div class="opciones">
+            <label class="label" for="selectEstablecimiento">Selecciona la estacion o sucursal:</label>
+            <select class="input" id="selectEstablecimiento" v-model="establecimientoSeleccionado">
+                <option v-for="establecimiento in establecimientosFiltrados" :value="establecimiento">{{ establecimiento.nombre }}</option>
+            </select>
+            <!-- Mostrar los establecimientos relacionados con la entidad seleccionada -->
+            <ul>
+                <li v-for="establecimiento in establecimientos" :key="establecimiento.id" @click="seleccionarEstablecimiento(establecimiento)">
+                    <span v-text="establecimiento.nombre"></span>
+                </li>
+            </ul>
+        </div>
+
+        <div style="height: 20px"></div>
+
+        <div class="opciones">  <!-- OPCIONES SERVICIOS-->
+            <label class="label" for="selectMonitoreable">Selecciona un Servicio:</label>
+            <select class="input" id="selectMonitoreable" v-model="servicioSeleccionado">
+                <!-- Aquí se llenará la lista de monitoreables/servicios con JavaScript -->
+                <option v-for="servicio in servicios" :value="servicio">{{ servicio.nombre }}</option>
+            </select>
+            <ul>
+                <li v-for="servicio in servicios" :key="servicio.id">
+                    <span v-text="servicio.tipoDeServicio" @click="seleccionarServicio(servicio)"></span>
+                </li>
+            </ul>
+        </div>
+
+        <div style="height: 20px"></div>
+
+        <div class="opciones">
+            <label class="label">Descripcion</label>
+            <input class="input" v-model="descripcion" placeholder="Ingrese descripción">
+        </div>
+
+        <div style="height: 20px"></div>
+
+        <div style="height: 20px"></div>
+
+        <button class="botonCargar" @click="guardarIncidente">Abrir incidente</button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            entidadSeleccionada: null,//el id
+            entidades: [], //   cargar las e
+            establecimientos: [],
+            establecimientosFiltrados:[] ,
+            establecimientoSeleccionado: '',
+            servicios: [],
+            serviciosFiltrados:[],
+            servicioSeleccionado: '',
+            descripcion: '',
+        },
+        computed: {
+
+        },
+        methods: {
+            seleccionarServicio(servicioId){
+                this.servicioSeleccionado = servicioId;
+            },
+            seleccionarEntidad(entidadId) {
+                this.entidadSeleccionada = entidadId; // Actualiza la entidad seleccionada
+                this.actualizarEstablecimientos(); // Carga los establecimientos relacionados con la entidad seleccionada
+                establecimientosFiltrados = this.establecimientosFiltrados();
+            },
+            seleccionarEstablecimiento(establecimientoId) {
+                this.establecimientoSeleccionado = establecimientoId;
+                this.actualizarServicios2();
+                this.serviciosFiltrados=this.serviciosFiltrados();//agregado
+            },
+            establecimientosFiltrados() {
+                return this.establecimientos.filter(establecimiento => establecimiento.entidad.nombre === this.entidadSeleccionada.nombre);
+
+                },
+
+            serviciosFiltrados() {
+                console.log("entre a filtrar");
+                return this.servicios.filter(servicio => servicio.establecimiento === this.establecimientoSeleccionado);
+            },
+
+            actualizarEstablecimientos() {
+                // Hacer un fetch para obtener los establecimientos de la entidad seleccionada
+                fetch(`http://localhost:8080/api/entidades/${this.entidadSeleccionada.id}/establecimientos`)
+                        .then(response => response.json())
+                        .then(establecimientos => {
+                            console.log(establecimientos);
+                            this.establecimientos = establecimientos;
+                            this.establecimientoSeleccionado = ''; // Resetear la selección
+                            this.servicios = []; // Resetear la lista de servicios
+                        })
+                        .catch(error => {
+                            console.error('Error en la solicitud de los establecimientos:', error);
+                            alert(`Hubo un error en la solicitud al buscar los establecimientos:\n\n${error.message}`);
+                        });
+
+
+            },
+            actualizarServicios() {//trae todo los servicios luego los filtro
+                // Hacer un fetch para obtener los servicios del establecimiento seleccionado
+                fetch(`http://localhost:8080/api/servicios`)
+                        .then(response => response.json())
+                        .then(servicios => {
+                            console.log(servicios);
+                            this.servicios = servicios;
+                        })
+                        .catch(error => {
+                            console.error('Error en la solicitud de los servicios:', error);
+                            alert(`Hubo un error en la solicitud al buscar los servicios:\n\n${error.message}`);
+                        });
+            },
+            actualizarServicios2() {//trae todo los servicios luego los filtro
+                // Hacer un fetch para obtener los servicios del establecimiento seleccionado
+                fetch(`http://localhost:8080/api/establecimientos/${this.establecimientoSeleccionado.id}/servicios`)
+                        .then(response => response.json())
+                        .then(servicios => {
+                            console.log(servicios);
+                            this.servicios = servicios;
+                        })
+                        .catch(error => {
+                            console.error('Error en la solicitud de los servicios:', error);
+                            alert(`Hubo un error en la solicitud al buscar los servicios:\n\n${error.message}`);
+                        });
+            },
+            guardarIncidente() {
+                // Enviar los datos al servidor (puedes usar fetch o axios)
+                const incidente = {
+                   // entidad: this.entidadSeleccionada,
+                    //establecimiento: this.establecimientoSeleccionado
+                    usuarioCreador: {"id":1,"nombre":"Santi","apellido":"Blanco","email":"santi@gmail.com","horarioDeNotificacion":null,"tipoDeNotificacion":null,"frecuenciaNotificacion":null,"empresaDeInteres":null},
+                    servicio: this.servicioSeleccionado,
+                    descripcion: this.descripcion
+                };
+                console.log('Incidente creado con éxito 1:', incidente);
+                fetch(`http://localhost:8080/api/incidentes`,{
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(incidente),
+                })
+                        .then(response => response.json())
+                        .then(data => {
+                            //console.log('Incidente creado con éxito 2:', data);
+                            // Aquí podrías redirigir o realizar otras acciones después de crear el incidente
+                        })
+                        .catch((error) => {
+                            //console.error('Error al crear el incidente:', error);
+                        });
+            }
+        },
+        mounted() {
+            fetch(`http://localhost:8080/api/entidades`)
+                    .then(response => {
+                        if (response.status >= 400) {
+                            alert("Hubo un error en el API")
+                        } else {
+                            return response.json()
+                        }
+                    })
+                    .then(entidades => {
+                        console.log(entidades);
+                        console.log(entidades[0].nombre);
+                       // entidades.forEach(entidad);
+                        // const nombresEntidades = entidades.map(entidad => entidad.nombre);
+                        this.entidades = entidades;
+                    })
+                    .catch(error => {
+                        console.error('Error en la solicitud:', error);
+                        alert(`Hubo un error en la solicitud con fetch entidades:\n\n${error.message}`);
+                    });
+
+        }
+    });
+</script>
+</body>
+</html>

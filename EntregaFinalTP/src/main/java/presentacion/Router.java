@@ -1,6 +1,7 @@
 package presentacion;
 
 import presentacion.controllers.*;
+import presentacion.handlers.*;
 
 public class Router {
 
@@ -19,17 +20,19 @@ public class Router {
                 + ctx.pathParam("nombre")
         ));*/
 
+        Server.app().get("/prueba", ctx ->{ctx.render("prueba.hbs");});
+
+        // CLIENTE LIVIANO
         Server.app().get("/paginaInicio", ctx -> {ctx.render("inicio.hbs");});
 
         Server.app().get("/inicioSesion", ctx -> {
             // Lógica para manejar la ruta /inicioSesion
             ctx.render("inicioSesion.hbs");
         });
-        Server.app().get("/registro", ctx -> {
-            ctx.render("registro.hbs");
-        });
 
+        Server.app().get("/registro", ctx -> {ctx.render("registro.hbs");});
         Server.app().post("/login", ((LoginController) FactoryController.controller("Login"))::login);
+
         Server.app().post("/iniciarSesion", ((InicioSesionController) FactoryController.controller("IniciarSesion"))::validarUsuario);
 
         Server.app().get("/menu", ctx -> {ctx.render("menu.hbs");});
@@ -48,7 +51,33 @@ public class Router {
         Server.app().post("/rankingsFiltrados", ((RankingsController) FactoryController.controller("Rankings"))::filtrarRankings);
         Server.app().get("/rankingsFiltrados", ctx -> {ctx.render("rankingsFiltrados.hbs");});
 
-        Server.app().get("/miCuenta", ctx -> {ctx.render("miCuenta.hbs");});
+        Server.app().get("/miCuentaCL", ctx -> {ctx.render("miCuentaCL.hbs");});
+        Server.app().get("/miCuentaCP", ctx -> {ctx.render("miCuentaCP.hbs");});
+
+        Server.app().post("/comunidadesPorUsuario", ((MembresiasController) FactoryController.controller("Membresias"))::comunidadesPorUsuario);
+        Server.app().get("/comunidadesPorUsuario", ctx -> {ctx.render("comunidadesPorUsuario.hbs");});
+
+
+        //app.get("/api/entidades", new GetEntidadesHandler());
+        //app.get("/api/entidades/:entidadId/establecimientos", new GetEstablecimientosHandler());
+        //app.get("/api/establecimientos/:establecimientoId/servicios", new GetServiciosHandler());
+
+        // CLIENTE PESADO
+        Server.app().get("abrirIncidente", ctx ->{ctx.render("abrirIncidente.hbs");});
+        Server.app().get("/api/obtenerRoles", new GetMembresiasHandler());
+        Server.app().post("/api/incidentes", new PostIncidenteHandler());
+
+        Server.app().get("/api/incidentesFiltrados/{entidadId}/{establecimientoId}", new GetIncidentesHandler());
+
+        Server.app().get("/cerrarIncidente", ctx ->{ctx.render("cerrarIncidente.hbs");});
+        Server.app().put("/api/incidentes/{incidenteId}", new PutIncidentesHandler());
+
+        Server.app().get("/api/entidades", new GetEntidadesHandler());
+        Server.app().get("/api/entidades/{entidadId}/establecimientos", new GetEstablecimientosHandler());
+        Server.app().get("/api/establecimientos/{establecimientoId}/servicios", new GetServiciosHandler());
+        Server.app().get("/api/servicios", new GetServiciosHandler());
+
+
         /*
         Server.app().get("entidades", ((EntidadesController) FactoryController.controller("Entidades"))::index);
 

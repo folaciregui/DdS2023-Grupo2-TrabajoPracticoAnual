@@ -2,11 +2,15 @@ package dominio.servicios;
 
 
 import dominio.entidades.Establecimiento;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "servicio")
+@Getter
+@Setter
 public class Servicio extends Monitoreable{
 
     @Id

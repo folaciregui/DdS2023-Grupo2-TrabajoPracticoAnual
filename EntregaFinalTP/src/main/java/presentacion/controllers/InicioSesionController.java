@@ -8,7 +8,10 @@ import jakarta.servlet.http.HttpSession;
 import persistencia.repositories.RepositorioCuentas;
 import persistencia.repositories.RepositorioUsuariosGenerales;
 import presentacion.handlers.ICrudViewsHandler;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class InicioSesionController extends Controller implements ICrudViewsHandler {
 
@@ -31,15 +34,21 @@ public class InicioSesionController extends Controller implements ICrudViewsHand
             List<Cuenta> cuentas = repositorioCuentas.buscarTodos();
             for (Cuenta c : cuentas){
                 if (c.getNombre().equals(cuenta.getNombre()) && c.getContrasenia().equals(cuenta.getContrasenia())) {
-                    id_usuario = c.getId();
+                    id_usuario = c.getUsuarioGeneral().getId();
                 }
             }
 
-            UsuarioGeneral usuarioGeneral = this.repositorioUsuariosGenerales.buscarPorId(id_usuario);
+            //UsuarioGeneral usuarioGeneral = this.repositorioUsuariosGenerales.buscarPorId(id_usuario);
 
-            context.sessionAttribute("id", usuarioGeneral.getId());
+            context.sessionAttribute("id", id_usuario);
 
-            context.redirect("/menu");
+            UsuarioGeneral usuario = this.repositorioUsuariosGenerales.buscarPorId(id_usuario);
+
+            Map<String, Object> model = new HashMap<>();
+            model.put("miCuenta", usuario);
+            context.render("miCuentaCL.hbs", model);
+
+            //context.redirect("/menu");
         }else{
             context.html("<html><head><script>" +
                     "alert('El usuario no se encuentra registrado. Revise los datos e intente nuevamente.');" +

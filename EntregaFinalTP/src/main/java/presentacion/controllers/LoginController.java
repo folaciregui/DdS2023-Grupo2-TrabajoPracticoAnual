@@ -9,6 +9,9 @@ import persistencia.repositories.RepositorioEntidades;
 import persistencia.repositories.RepositorioUsuariosGenerales;
 import presentacion.handlers.ICrudViewsHandler;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class LoginController extends Controller implements ICrudViewsHandler {
 
     private RepositorioCuentas repositorioDeCuentas = null;
@@ -31,12 +34,22 @@ public class LoginController extends Controller implements ICrudViewsHandler {
         usuarioGeneral.setCuenta(cuenta);
         usuarioGeneral.setEmail(context.formParam("nombre_de_usuario"));
 
+        usuarioGeneral.setNombre(context.formParam("nombre"));
+        usuarioGeneral.setApellido(context.formParam("apellido"));
+
         this.repositorioUsuariosGenerales.guardar(usuarioGeneral);
 
-        context.sessionAttribute("id_usuario", this.repositorioUsuariosGenerales.buscar(usuarioGeneral));
+        context.sessionAttribute("id", this.repositorioUsuariosGenerales.buscar(usuarioGeneral));
 
         context.status(HttpStatus.CREATED);
-        context.redirect("/menu");
+
+        //UsuarioGeneral usuario = this.repositorioUsuariosGenerales.buscarPorId(id_usuario);
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("miCuenta", usuarioGeneral);
+        context.render("miCuentaCL.hbs", model);
+
+        //context.redirect("/menu");
     }
 
     @Override

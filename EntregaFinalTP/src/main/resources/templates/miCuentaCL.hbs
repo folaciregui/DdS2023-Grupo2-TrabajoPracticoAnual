@@ -36,16 +36,18 @@
             <img src="/img/usuarioSinFoto.png" alt="Imagen no disponible" width=80px height=80px>
         </div>
         <div class="miCuentaContenedor" style="background-color: rgba(255,255,255,0.5);">
+
+
             <p class="label2" style="margin-bottom: 0">NOMBRE</p>
-            <p id="label-nombre" class="label3" style="margin-top: 0">Nombre</p>
+            <p id="label-nombre" class="label3" style="margin-top: 0"></p>
             <input type="text" id="edit-name" style="display: none">
 
             <p class="label2" style="margin-bottom: 0">APELLIDO</p>
-            <p id="label-apellido" class="label3" style="margin-top: 0">Apellido</p>
+            <p id="label-apellido" class="label3" style="margin-top: 0">{{ miCuenta.apellido }}</p>
             <input type="text" id="edit-lastname" style="display: none">
 
             <p class="label2" style="margin-bottom: 0">CORREO ELECTRÓNICO</p>
-            <p id="label-correo" class="label3" style="margin-top: 0">Correo electrónico</p>
+            <p id="label-correo" class="label3" style="margin-top: 0">{{ miCuenta.email }}</p>
 
             <p class="label2" style="margin-bottom: 0">TELÉFONO</p>
             <p id="label-telefono" class="label3" style="margin-top: 0">Teléfono</p>
@@ -54,6 +56,10 @@
         </div>
         <button id="boton-editar" class="boton" onclick="editarPerfil()">Editar perfil</button>
         <button id="boton-guardar" class="boton" onclick="actualizarPerfil()" style="display: none">Guardar</button>
+
+        <form method="POST" action="/comunidadesPorUsuario">
+            <button class="referencia">Ver comunidades</button>
+        </form>
     </div>
 </div>
 

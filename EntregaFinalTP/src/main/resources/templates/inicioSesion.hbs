@@ -29,14 +29,14 @@
                     <input class="input" name="contrasenia" type="password" id="passwordLogin" placeholder="Contraseña">
                 </div>
 
-            <a href="/menu" style="text-decoration: none">
-                <button class="boton">Iniciar Sesión</button>
-                <!--<button class="boton" onclick="loginWeb()">Iniciar Sesión</button>-->
-            </a>
+                <!--<button class="boton">Iniciar Sesión</button>-->
+                <button class="boton" onclick="loginWeb()">Iniciar Sesión</button>
+
             </form>
             <div class="subcolumna">
-                <!--
+
                 <button class="boton" onclick="loginGoogle()">Iniciar Sesión con Google</button>
+                <!--
                 <button class="boton" onclick="loginMicrosoft()">Iniciar Sesión con Microsoft</button>
                 <button class="boton" onclick="window.location.href='pagina-inicio.html'">Ir a Página Inicio</button>
                 -->
@@ -182,7 +182,7 @@
     }
     function inicioSesion(user){
         localStorage.setItem('user', JSON.stringify(user));
-        window.location.href = "menu.hbs.html";
+        window.location.href = "/menu";
     }
 </script>
 </body>

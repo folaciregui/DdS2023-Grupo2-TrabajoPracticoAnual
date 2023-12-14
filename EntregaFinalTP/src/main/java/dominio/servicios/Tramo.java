@@ -1,10 +1,15 @@
 package dominio.servicios;
 
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "tramo")
+@Getter
+@Setter
 public class Tramo {
 
     @Id

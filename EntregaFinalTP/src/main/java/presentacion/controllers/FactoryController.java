@@ -12,6 +12,7 @@ public class FactoryController {
             case "IniciarSesion": controller = new InicioSesionController(new RepositorioCuentas(), new RepositorioUsuariosGenerales()); break;
             case "Incidentes": controller = new IncidentesController(new RepositorioIncidentes()); break;
             case "Rankings": controller = new RankingsController(new RepositorioRankings()); break;
+            case "Membresias": controller = new MembresiasController(new RepositorioMembresias(), new RepositorioUsuariosGenerales()); break;
             //case "Tareas": controller = new TareasController(new RepositorioEntidades()); break;
         }
         return controller;

@@ -7,6 +7,7 @@ import lombok.Setter;
 import persistencia.converters.LocalDateAttributeConverter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 
@@ -14,7 +15,7 @@ import java.util.Date;
 @Table(name = "incidente")
 @Getter
 @Setter
-public class Incidente {
+public class Incidente implements Serializable {
 
     @Id
     @GeneratedValue
@@ -39,12 +40,14 @@ public class Incidente {
     @Column(name = "observaciones")
     private String observaciones;
 
-    @Convert(converter = LocalDateAttributeConverter.class)
+
     @Column(name = "fecha_inicio")
+    @Convert(converter = LocalDateAttributeConverter.class)
     private Date fechaInicio;
 
-    @Convert(converter = LocalDateAttributeConverter.class)
+
     @Column(name = "fecha_cierre")
+    @Convert(converter = LocalDateAttributeConverter.class)
     private Date fechaCierre;
 
     @ManyToOne
