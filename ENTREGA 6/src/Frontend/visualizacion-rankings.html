@@ -31,21 +31,34 @@
                 <a class="referencia" href="mi-cuenta.html">Mi cuenta</a>
             </div>
         </div>
-        <div class="columna2" style="background: none">
+        <div id="app" class="columna2" style="background: none">
             <div class="opciones">
-                <label class="label" for="selectRanking">Selecciona un Ranking:</label>
-                <select class="input" id="selectRanking">
-                    <!-- Aquí se llenará la lista de rankings con JavaScript -->
+                <label class="label" for="selectTipoRanking">Selecciona un Ranking:</label>
+                <select id="selectTipoRanking" class="input" v-model="selectedTipoRanking">
+                    <option v-for="tipo in tiposDeRanking" :key="tipo.id" :value="tipo.id">{{ tipo.title }}</option>
                 </select>
             </div>
-            <div style="height: 20px"></div>
             <div class="opciones">
-                <label class="label">Fecha de ranking</label>
-                <input class="date" type="date" id="fecha-ranking" name="fecha-ranking"/></input>
+                <label class="label">Fecha de generación de ranking (Lunes)</label>
+                <input id= "fecha-ranking" class="date" type="date" v-model="selectedDate" @change="filterRankings" />
+            </div>
+            <button class="boton" @click="filterRankings">Buscar Ranking</button>
+            <!-- Aquí puedes mostrar los resultados -->
+            <div v-if="filteredRankings.length > 0">
+                <h2>Resultados del filtro:</h2>
+                <ul>
+                    <li v-for="(ranking, index) in filteredRankings" :key="index">
+                        <!-- Muestra la información de los rankings filtrados -->
+                        {{ ranking.title }}
+                    </li>
+                </ul>
+            </div>
+            <div v-else>
+                <p>No hay resultados.</p>
             </div>
             <div style="height: 20px"></div>
-            <button class="boton" type="submit">Buscar Ranking</button>
         </div>
+
     </div>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
@@ -74,6 +87,28 @@
             console.log("el usuario no existe");
             window.location.href = "pagina-inicio.html";
         }
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputFecha = document.getElementById('fecha-ranking');
+
+            inputFecha.addEventListener('change', function(event) {
+                const fechaSeleccionada = new Date(event.target.value);
+                const diaSeleccionado = fechaSeleccionada.getDay(); // 0 = Domingo, 1 = Lunes, ..., 6 = Sábado
+
+                if (diaSeleccionado !== 0) { // Si no es domingo
+                    const domingoMasCercano = buscarDomingoMasCercano(fechaSeleccionada);
+                    inputFecha.value = domingoMasCercano.toISOString().substring(0, 10); // Actualizar al domingo más cercano
+                }
+            });
+
+            function buscarDomingoMasCercano(fecha) {
+                const diaActual = fecha.getDay(); // Día seleccionado
+                const diferencia = 7 - diaActual; // Calcular la diferencia para llegar al domingo más cercano
+                fecha.setDate(fecha.getDate() + diferencia);
+                return fecha;
+            }
+        });
+
+
         function logout() {
             console.log("cerrando");
             firebase.auth().signOut().then(() => {
@@ -87,17 +122,64 @@
         }
     </script>
 
+<!--    <script>-->
+<!--        const selectRanking = document.getElementById('selectTipoRanking');-->
+<!--        const rankings = ["Ranking de promedios", "Ranking de impactos", "Ranking mayor cantidad de incidentes"];-->
+<!--        rankings.forEach(ranking => {-->
+<!--            const option = document.createElement('option');-->
+<!--            option.value = ranking;-->
+<!--            option.textContent = ranking;-->
+<!--            selectRanking.appendChild(option);-->
+<!--        });-->
+<!--    </script>-->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <script>
-        const selectRanking = document.getElementById('selectRanking');
-        const rankings = ["Ranking de promedios", "Ranking de impactos", "Ranking mayor cantidad de incidentes"];
-        rankings.forEach(ranking => {
-            const option = document.createElement('option');
-            option.value = ranking;
-            option.textContent = ranking;
-            selectRanking.appendChild(option);
-        });
-    </script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                selectedTipoRanking: null,
+                selectedDate: null,
+                tiposDeRanking: [
+                    { id: 1, title: 'Ranking de promedios' },
+                    { id: 2, title: 'Ranking de impactos' },
+                    { id: 3, title: 'Ranking mayor cantidad de incidentes' },
+                    // ... otros tipos de ranking
+                ], // Tipos de ranking para mostrar en el select
 
+                // Rankings obtenidos desde la base de datos
+                rankings: [
+                    { id: 1, tipoId: 1, title: 'Ranking A' },
+                    { id: 2, tipoId: 1, title: 'Ranking B' },
+                    { id: 3, tipoId: 2, title: 'Ranking C' },
+                    // ... otros rankings
+                ],
+                filteredRankings: [] // Aquí se almacenarán los rankings filtrados
+            },
+            methods: {
+                // Función para filtrar los rankings
+                filterRankings() {
+                    this.filteredRankings = this.rankings.filter(ranking => {
+                        // Verifica si el tipo del ranking coincide con el tipo seleccionado
+                        const matchesType = this.selectedRanking ? ranking.type === this.selectedRanking : true;
+
+                        // Verifica si la fecha de generación del ranking es un lunes
+                        const matchesDate = this.selectedDate ? this.isMonday(new Date(ranking.date)) : true;
+
+                        return matchesType && matchesDate;
+                    });
+                },
+                // Función para verificar si la fecha es un lunes
+                isMonday(date) {
+                    return date.getDay() === 1;
+                },
+                // ...resto de métodos, como obtener los rankings
+            },
+            mounted() {
+                // Lógica para obtener los rankings al cargar la página
+            }
+        });
+
+    </script>
 
 
 

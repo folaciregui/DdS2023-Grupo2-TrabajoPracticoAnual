@@ -93,8 +93,8 @@
         firebase.initializeApp(firebaseConfig);
         const user = JSON.parse(localStorage.getItem('user'));
         if(user){
-            console.log("el usuario tiene: "+user);
-            console.log("El usuario tiene: ", JSON.stringify(user, null, 2)); //permite ver toda la info guardada en un despliegue lo eliminariamos
+            // console.log("el usuario tiene: "+user);
+            // console.log("El usuario tiene: ", JSON.stringify(user, null, 2)); //permite ver toda la info guardada en un despliegue lo eliminariamos
             console.log("nombre usuario: "+user.displayName);
             console.log("correo usuario: "+user.email);
             // a partir de aca trabajo el resto de cosas

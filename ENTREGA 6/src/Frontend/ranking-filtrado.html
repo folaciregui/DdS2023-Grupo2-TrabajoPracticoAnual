@@ -3,19 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/x-icon" href="imagenes/logoUTN.png">
-    <link rel="stylesheet" href="sugerencia-incidente.css">
+    <link rel="stylesheet" href="visualizacion-rankings.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
-    <title>Sugerencia Incidente</title>
+    <title>Rankings</title>
 </head>
 <body style="margin: 0 ; padding: 0 ; text-align: center ; background-image: url('imagenes/subte2.jpg') ; background-size: cover">
     <header style="background-color: rgba(255,255,255,0.5) ; text-align: left ; display: flex; flex-direction: row">
-        <img class="logoUTN" src="imagenes/logoUTN.png" alt="Imagen en color" style="text-align: left"></img>
+        <img class= "logoUTN"src="imagenes/logoUTN.png" alt="Imagen en color" style=" text-align: left"></img>
         <div style="align-items: center; flex: 1; text-align: right; margin-top: 20px;">
             <button class="boton" onclick="logout()" style="background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Cerrar Sesión</button>
             <a class="botonMenu" href="pagina-principal.html" style="text-decoration: none; background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Volver al menu</a>
-            <h1 class="titulo">Sugerencia Incidentes</h1>
+            <h1 class="titulo">Rankings</h1>
         </div>
     </header>
 
@@ -26,45 +26,86 @@
                 <a class="referencia" href="abrir-incidente.html">Abrir Incidente</a>
                 <a class="referencia" href="cerrar-incidente.html">Cerrar Incidente</a>
                 <a class="referencia" href="consultar-incidente.html">Consultar Incidente</a>
-                <a class="referenciaElegida" href="sugerencia-incidente.html">Sugerencia Incidente</a>
-                <a class="referencia" href="visualizacion-rankings.html">Rankings</a>
+                <a class="referencia" href="sugerencia-incidente.html">Sugerencia Incidente</a>
+                <a class="referenciaElegida" href="visualizacion-rankings.html">Rankings</a>
                 <a class="referencia" href="mi-cuenta.html">Mi cuenta</a>
             </div>
         </div>
         <div class="columna2" style="background: none">
-            <div id="areaInformacion">
-                <div class="opciones">
-                    <label class="label">Incidentes cercanos a revisar</label>
-                    <select class="input" id="selectIncidente">
-                        <!-- Aquí se llenará la lista de incidentes con JavaScript -->
-                    </select>
-                    <button class="boton" type="submit" onclick="editarIncidente()">Actualizar incidente</button>
-                </div>
-                <div class="contenedorMapa" style="padding: 10px;">
-                    <div style="">
-                        <iframe class="mapa" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3281.8058592213542!2d-58.470550524898655!3d-34.65960557293423!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcc966bf151d67%3A0x255fef772508e89c!2sNational%20Technological%20University!5e0!3m2!1sen!2sar!4v1698345224360!5m2!1sen!2sar" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <div id="app">
+                <main>
+                    <div v-if="user">
+                        <h2>Bienvenido, {{ user.displayName }}</h2>
+                        <div>
+                            <label for="selectRanking">Selecciona un Ranking:</label>
+                            <select v-model="selectedRanking" @change="getRankingData">
+                                <option v-for="ranking in rankings" :key="ranking.id" :value="ranking.id">{{ ranking.title }}</option>
+                            </select>
+                        </div>
+                        <div v-if="rankingsData">
+                            <h3>{{ rankingsData.title }}</h3>
+                            <ul>
+                                <li v-for="(item, index) in rankingsData.items" :key="index">{{ item }}</li>
+                            </ul>
+                        </div>
                     </div>
-                </div>
+                    <div v-else>
+                        <p>Inicia sesión para acceder a los rankings.</p>
+                        <button @click="login">Iniciar Sesión</button>
+                    </div>
+                </main>
             </div>
-           <<div id="areaEdicion" style="display: none; height: 600px;">
-                <div class="opciones">
-                    <label class="label">El incidente ya terminó?</label>
-                    <a class="boton" href="cerrar-incidente.html" style="text-decoration: none; background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Cerrar Incidente</a>
-                </div>
-                <div class="opciones">
-                    <label class="label">Agregar información nueva de la situación</label>
-                    <input class="input" for="" placeholder="Ingrese descripción"></input>
-                </div>
-                <a class="boton" onclick="volverASugerencia()">Atrás</a>
-            </div>
-
         </div>
-
     </div>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script>
+        const app = new Vue({
+            el: '#app',
+            data: {
+                user: { displayName: 'Usuario de Prueba' }, // Simulación de usuario logueado
+                selectedRanking: 1,
+                rankings: [],
+                rankingsData: null
+            },
+            methods: {
+                login() {
+                    // Lógica para iniciar sesión
+                    // Podría ser con Firebase, una API, etc.
+                },
+                logout() {
+                    // Lógica para cerrar sesión
+                    // Limpiar this.user y realizar cualquier acción necesaria
+                },
+                async getRankingData() {
+                    try {
+                        const response = await fetch(`https://jsonplaceholder.typicode.com/posts/${this.selectedRanking}`);
+                        if (response.ok) {
+                            this.rankingsData = await response.json();
+                        } else {
+                            throw new Error('Error al obtener datos del ranking');
+                        }
+                    } catch (error) {
+                        console.error(error);
+                    }
+                }
+            },
+            async mounted() {
+                try {
+                    const response = await fetch('https://jsonplaceholder.typicode.com/posts');
+                    if (response.ok) {
+                        this.rankings = await response.json();
+                    } else {
+                        throw new Error('Error al obtener lista de rankings');
+                    }
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+        });
+    </script>
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyCqXg0sZXtSOxHPEjkKKS0S4jdHER1z-VU",
@@ -88,6 +129,8 @@
             console.log("el usuario no existe");
             window.location.href = "pagina-inicio.html";
         }
+
+
         function logout() {
             console.log("cerrando");
             firebase.auth().signOut().then(() => {
@@ -99,26 +142,11 @@
                 alert("Error al cerrar sesión: " + error.message);
             });
         }
-        function editarIncidente(){
-            document.getElementById("areaInformacion").style.display = 'none';
-            document.getElementById("areaEdicion").style.display = 'flex';
-            document.getElementById("areaEdicion").style.flexDirection = 'column';
-        }
-        function volverASugerencia(){
-            document.getElementById("areaInformacion").style.display = 'block';
-            document.getElementById("areaEdicion").style.display = 'none';
-        }
     </script>
-<script>
-    //aca cargo la lista para mostrar los incidentes
-    const selectIncidente = document.getElementById('selectIncidente');
-    const incidentes = ["Incidente 1", "Incidente 2"];
-    incidentes.forEach(incidente => {
-        const option = document.createElement('option');
-        option.value = incidente;
-        option.textContent = incidente;
-        selectIncidente.appendChild(option);
-    });
-</script>
+
+
+
+
+
 </body>
 </html>
