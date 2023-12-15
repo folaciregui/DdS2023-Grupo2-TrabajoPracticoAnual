@@ -3,15 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <link rel='stylesheet' href='/css/inicio-sesion.css' />
-    <link rel="icon" type="image/x-icon" href="../public/img/logoUTN.png">
+    <link rel="icon" type="image/x-icon" href="/img/logoUTN.png">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
     <title>Iniciar Sesión</title>
 </head>
 <body style="margin: 0 ; padding: 0 ; text-align: center ; background-image: url('/img/subte2.jpg') ; background-size: cover">
 <header style="background-color: rgba(255,255,255,0.5) ; text-align: left ; display: flex; flex-direction: row">
-    <img class ="logoUtn" src="/img/logoUTN.png" alt="Imagen en color" style="height: 100px; text-align: left"></img>
+    <img class ="logoUtn" src="/img/logoUTN.png" alt="Imagen en color" style="height: 90px; text-align: left"></img>
     <div style="align-items: center; flex: 1; text-align: right;">
         <!--<h1 class="tituloPrincipal" style="text-align: center; font-family: 'Open Sans', sans-serif; font-size: 36px; color: #fff"></h1>
         <button class="boton" style="background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">INICIAR SESIÓN</button>
@@ -21,25 +24,26 @@
 </header>
 
     <div class="contenedor" style="background: rgba(255,255,255,0.5); text-align: center; align-content: center; align-items: center">
-        <div class="columna">
+        <div class="columna" style="margin-left: 35%; margin-right: 35%">
             <h1 class="subtitulo">INICIAR SESIÓN</h1>
             <form method="POST" action="/iniciarSesion">
-                <div class="formulario">
+                <div class="formulario" style="margin-left: ">
                     <input class="input" name="nombre_de_usuario" type="email" id="emailLogin" placeholder="Correo Electrónico">
                     <input class="input" name="contrasenia" type="password" id="passwordLogin" placeholder="Contraseña">
                 </div>
-
-                <!--<button class="boton">Iniciar Sesión</button>-->
-                <button class="boton" onclick="loginWeb()">Iniciar Sesión</button>
-
+                <button class="boton" style="background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.75)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'" onclick="loginWeb()">Iniciar Sesión</button>
             </form>
-            <div class="subcolumna">
-
-                <button class="boton" onclick="loginGoogle()">Iniciar Sesión con Google</button>
-                <!--
-                <button class="boton" onclick="loginMicrosoft()">Iniciar Sesión con Microsoft</button>
-                <button class="boton" onclick="window.location.href='pagina-inicio.html'">Ir a Página Inicio</button>
-                -->
+            <div style="height: 15px; border-bottom: 2px solid rgba(255,255,255,0.8);"></div>
+            <div style="margin-top: 15px">
+                <label class="label1" style="width: 100%">O ingresá con</label>
+                <div>
+                    <button type="button" style="background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.75)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'" class="boton" onclick="loginGoogle()">
+                        <i class="fa-brands fa-google"></i>
+                    </button>
+                    <button type="button" style="background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.75)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'" class="boton" onclick="loginMicrosoft()">
+                        <i class="fa-brands fa-microsoft"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </div>

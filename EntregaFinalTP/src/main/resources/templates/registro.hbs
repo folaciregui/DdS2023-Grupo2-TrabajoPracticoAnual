@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/css/registro.css">
+    <link rel="stylesheet" href="/css/inicio-sesion.css">
     <link rel="icon" type="image/x-icon" href="/img/logoUTN.png">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
@@ -11,13 +11,13 @@
 </head>
 <body style="margin: 0 ; padding: 0 ; text-align: center ; background-image: url('/img/subte2.jpg') ; background-size: cover">
 <header style="background-color: rgba(255,255,255,0.5) ; text-align: left ; display: flex; flex-direction: row">
-    <img src="/img/logoUTN.png" alt="Imagen en color" style="height: 100px; text-align: left"></img>
+    <img src="/img/logoUTN.png" alt="Imagen en color" style="height: 90px; text-align: left"></img>
     <div style="align-items: center; flex: 1; text-align: right;">
 
     </div>
 </header>
 <div class="contenedor" style="background: rgba(255,255,255,0.5); height: 638px; text-align: center; align-content: center; align-items: center">
-    <div class="columna" style="justify-content: center">
+    <div class="columna" style="justify-content: center; margin-left: 35%; margin-right: 35%">
         <h1 class="subtitulo">REGISTRARSE</h1>
         <form method="POST" action="/login">
         <div class="formulario">
@@ -27,14 +27,14 @@
             <input class="input" name="contrasenia" type="password" id="passwordRegister" placeholder="Contraseña">
         </div>
             <a href="/menu" style="text-decoration: none">
-                <button class="boton" onclick="register()">Registrarse</button>
+                <button class="boton" style="background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.75)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'" onclick="register()">Registrarse</button>
                 <!--<button class="boton">Registrarse</button>-->
             </a>
 
         </form>
 
         <!--<a href="inicio-sesion.html" style="text-decoration: none">&ndash;&gt;-->
-        <button class="boton" onclick="window.location.href='pagina-inicio.html'">Ir a Página Inicio</button>
+        <!--<button class="boton" onclick="window.location.href='pagina-inicio.html'">Ir a Página Inicio</button>-->
 
     </div>
 </div>

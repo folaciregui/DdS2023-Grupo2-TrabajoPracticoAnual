@@ -35,8 +35,9 @@ body {
     flex: 1;
     padding: 10px;
     margin: 50px;
-    background-color: rgba(67, 0, 210, 0.51);
+    background-color: rgba(0, 0, 0, 0.35);
     border-radius: 20px;
+    width: 50px;
 }
 .formulario input,
 .formulario button {
@@ -48,6 +49,9 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
 }
 .boton{
     margin: 10px;
@@ -69,7 +73,7 @@ body {
     border-radius: 10px;
     padding: 8px;
     background-color: #fff;
-    width: 75%;
+    width: 100%;
 }
 .subcolumna button{
     margin: 15px;
@@ -77,6 +81,13 @@ body {
 .subcolumna {
     display: flex;
     justify-content: space-between;
+}
+
+.label1 {
+    color: #F5F5F5;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px; /* Tamaño de fuente ajustado para dispositivos móviles */
 }
 
 @media screen and (max-width:600px){
@@ -108,12 +119,22 @@ body {
 
     .contenedor {
         display: flex;
-        flex-direction: column;
+        justify-content: center; /* Centra los elementos a lo largo del eje principal (horizontal en este caso) */
+        align-items: center;
         background-color: #A780FF;
         height: 80%; /* Altura se ajustará según el contenido */
         padding-bottom: 20px; /* Espacio adicional opcional al fondo del contenedor */
     }
-
+    .contenedor::after {
+        content: '';
+        position: absolute;
+        top: 50%; /* Posiciona en la mitad vertical del contenedor */
+        left: 0; /* Comienza desde el extremo izquierdo del contenedor */
+        width: 100%; /* Ocupa todo el ancho del contenedor */
+        height: 2px; /* Ajusta el grosor de la línea según tus necesidades */
+        background-color: #000; /* Color de la línea */
+        transform: translateY(-50%); /* Alinea el centro de la línea con el centro vertical del contenedor */
+    }
 
     .columna {
         flex: 1;
@@ -123,14 +144,28 @@ body {
         background-color: rgba(67, 0, 210, 0.51);
         border-radius: 20px;
         height: 60%;
-        width: 80%;
+        /*width: 50%;*/
+        text-align: center;
+        align-items: center;
+        align-content: center;
     }
+    .columnaNueva{
+        flex: 1;
+        /*padding: 10px;
+        margin: 10px 20px; /* Espaciado reducido para dispositivos móviles */
+        margin-bottom: 200px;
+        background-color: rgba(255, 255, 255, 0.75);
+        border-radius: 20px;
+        height: 60%;
+  }
 
     .formulario input,
     .formulario button {
         display: block;
         margin: 10px 0;
-        width: 80%; /* Ajusta el ancho al 100% para dispositivos móviles */
+        width: 80%;
+        margin-left: 10%;
+        margin-right: 10%;
     }
 
     .formulario {
@@ -192,5 +227,7 @@ body {
         flex-direction: column; /* Cambia la disposición a una sola columna en dispositivos móviles */
         align-items: center; /* Centra los elementos en dispositivos móviles */
     }
+
+
 
 }

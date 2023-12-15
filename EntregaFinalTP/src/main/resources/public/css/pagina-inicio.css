@@ -140,7 +140,8 @@ body {
         display: flex;
         flex-direction: column; /* Cambia la disposición a una sola columna en dispositivos móviles */
         background-color: #A780FF;
-        height: 400px;
+        /*height: 400px;*/
+        height: 100%;
     }
 
     .columna {
@@ -165,7 +166,6 @@ body {
         font-size: 20px;
         width: 80%; /* Ajusta el ancho al 100% para dispositivos móviles */
     }
-
     .boton:hover {
         background-color: #fff;
         color: #fa503f;

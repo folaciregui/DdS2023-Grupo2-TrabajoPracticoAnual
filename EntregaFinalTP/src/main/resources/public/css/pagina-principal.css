@@ -32,7 +32,7 @@ body {
 }
 .contenedor{
     display: flex;
-    background-color: #A780FF;
+    background-color:rgba(255,255,255,0.5);
     justify-content: center;
     align-items: center;
 }
@@ -42,7 +42,7 @@ body {
     margin: 20px;
     margin-left: 350px;
     margin-right: 350px;
-    background-color: #4300d2;
+    background-color: rgba(0, 0, 0, 0.35);
     border-radius: 20px;
     justify-content: center;
     align-items: center;
@@ -57,7 +57,7 @@ body {
     font-family: 'Open Sans', sans-serif;
     padding: 10px 20px; /* Relleno para crear un botón */
     border: none; /* Borde del botón */
-    background-color: #fa503f; /* Fondo blanco */
+    background-color: none; /* Fondo blanco */
     border-radius: 20px; /* Bordes redondeados */
     display: inline-block; /* Hace que el enlace se comporte como un bloque en línea */
     width: 80%;
@@ -77,6 +77,26 @@ body {
     display: none;
     /* Estilos opcionales para la imagen si es necesario */
 }
+
+.carrusel {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+
+.slides {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.slide {
+    min-width: 100%;
+    box-sizing: border-box;
+}
+
+
+
+
 /* CSS para celulares igual cambiar hasta max 480px y hacer para tablets */
 @media screen and (max-width: 600px) {
     body {
@@ -108,11 +128,11 @@ body {
 
     .referencia {
         color: #fff;
-        background-color: #fa503f;
+        background-color: #4300d2;
     }
     .referencia:hover {
-        background-color: #fff;
-        color: #fa503f;
+        background-color: rgba(255,255,255,0.75);
+        color: #4300d2;
     }
     .mi-footer img {
         display: block;
