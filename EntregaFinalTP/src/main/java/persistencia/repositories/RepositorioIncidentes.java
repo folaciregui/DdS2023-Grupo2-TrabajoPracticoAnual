@@ -14,6 +14,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class RepositorioIncidentes implements WithSimplePersistenceUnit {
 
@@ -33,12 +34,13 @@ public class RepositorioIncidentes implements WithSimplePersistenceUnit {
     public List<Incidente> buscarPorEntidadEstablecimiento(Integer entidadId, Integer establecimientoId) {
 
         List<Establecimiento> establecimientosPorEntidad = this.repositorioEstablecimientos.buscarPorEntidad(entidadId);
+
         List<Servicio> servicios = this.repositorioServicios.buscarTodos();
         List<Servicio> serviciosFiltrados = new ArrayList<>();
 
         for(Servicio s : servicios){
             for(Establecimiento e : establecimientosPorEntidad){
-                if(s.getEstablecimiento() == e){
+                if(s.getEstablecimiento() == e && Objects.equals(e.getId(), establecimientoId)){
                     serviciosFiltrados.add(s);
                 }
             }
@@ -49,7 +51,7 @@ public class RepositorioIncidentes implements WithSimplePersistenceUnit {
 
         for(Incidente i : incidentes){
             for(Servicio s : serviciosFiltrados){
-                if(i.getServicio() == s){
+                if(i.getServicio() == s && i.getEstado() == Estado.ABIERTO){
                     incidentesFiltrados.add(i);
                 }
             }

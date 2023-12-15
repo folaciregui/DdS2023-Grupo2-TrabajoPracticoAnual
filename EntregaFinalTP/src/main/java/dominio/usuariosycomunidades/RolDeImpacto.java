@@ -1,6 +1,6 @@
 package dominio.usuariosycomunidades;
 
-enum RolDeImpacto {
+public enum RolDeImpacto {
     AFECTADO,
     OBSERVADOR;
 }

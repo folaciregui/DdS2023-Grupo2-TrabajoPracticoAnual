@@ -2,6 +2,7 @@ package persistencia.repositories;
 
 import dominio.usuariosycomunidades.Comunidad;
 import dominio.usuariosycomunidades.Membresia;
+import dominio.usuariosycomunidades.RolDeImpacto;
 import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import javax.persistence.EntityTransaction;
@@ -40,4 +41,6 @@ public class RepositorioMembresias implements WithSimplePersistenceUnit {
                 );
         return entityManager().createQuery(criteriaQuery).getResultList();
     }
+
+
 }

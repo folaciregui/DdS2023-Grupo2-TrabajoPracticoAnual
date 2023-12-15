@@ -6,6 +6,7 @@ import lombok.Setter;
 import persistencia.converters.LocalDateAttributeConverter;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
 @Table(name = "rankings")
 @Getter
 @Setter
-public class RankingsIncidente {
+public class RankingsIncidente implements Serializable {
     @Id
     @GeneratedValue
     private Integer id;

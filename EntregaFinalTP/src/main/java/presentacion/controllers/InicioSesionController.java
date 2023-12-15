@@ -40,15 +40,18 @@ public class InicioSesionController extends Controller implements ICrudViewsHand
 
             //UsuarioGeneral usuarioGeneral = this.repositorioUsuariosGenerales.buscarPorId(id_usuario);
 
+            System.out.println("--------------EL ID ES " + id_usuario);
+
             context.sessionAttribute("id", id_usuario);
+            System.out.println("--------------EL ID ES " + context.sessionAttribute("id"));
 
             UsuarioGeneral usuario = this.repositorioUsuariosGenerales.buscarPorId(id_usuario);
 
-            Map<String, Object> model = new HashMap<>();
-            model.put("miCuenta", usuario);
-            context.render("miCuentaCL.hbs", model);
+            //Map<String, Object> model = new HashMap<>();
+            //model.put("miCuenta", usuario);
+            //context.render("miCuentaCL.hbs", model);
 
-            //context.redirect("/menu");
+            context.redirect("/menu");
         }else{
             context.html("<html><head><script>" +
                     "alert('El usuario no se encuentra registrado. Revise los datos e intente nuevamente.');" +

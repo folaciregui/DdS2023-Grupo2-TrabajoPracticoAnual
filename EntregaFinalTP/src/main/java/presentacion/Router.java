@@ -47,7 +47,7 @@ public class Router {
 
         Server.app().get("/incidentes", ctx -> {ctx.render("incidentes.hbs");});
 
-        Server.app().get("/rankings", ctx -> {ctx.render("rankings.hbs");});
+        Server.app().get("/rankingsCL", ctx -> {ctx.render("rankingsCL.hbs");});
         Server.app().post("/rankingsFiltrados", ((RankingsController) FactoryController.controller("Rankings"))::filtrarRankings);
         Server.app().get("/rankingsFiltrados", ctx -> {ctx.render("rankingsFiltrados.hbs");});
 
@@ -77,6 +77,19 @@ public class Router {
         Server.app().get("/api/establecimientos/{establecimientoId}/servicios", new GetServiciosHandler());
         Server.app().get("/api/servicios", new GetServiciosHandler());
 
+        Server.app().get("/sugerenciaIncidente", ctx -> {ctx.render("sugerenciaIncidente.hbs");});
+        Server.app().get("/sugerenciaPorRol", ctx -> {ctx.render("sugerenciaPorRol.hbs");});
+        Server.app().get("/api/incidentesPorRolImpacto/{usuarioId}/{rol}", new GetIncidentesPorRolImpactoHandler());
+        Server.app().get("/sugerenciaPorNotificables", ctx -> {ctx.render("sugerenciaPorNotificables.hbs");});
+        Server.app().get("/api/incidentesPorComunidadAsociada/{usuarioId}", new GetIncidentesNotificablesHandler());
+
+        Server.app().get("/rankingsCP", ctx -> {ctx.render("rankingsCP.hbs");});
+        //Server.app().get("/rankingFiltradosCP/{tipoDeRanking}", ctx -> {ctx.render("rankingFiltradosCP.hbs");});
+
+        Server.app().get("/rankingFiltradosCP/PROMEDIO_DE_CIERRE", ctx -> {ctx.render("rankingsPorTipo1.hbs");});
+        Server.app().get("/rankingFiltradosCP/MAYOR_CANT_INCIDENTES", ctx -> {ctx.render("rankingsPorTipo2.hbs");});
+        Server.app().get("/rankingFiltradosCP/MAYOR_IMPACTO", ctx -> {ctx.render("rankingsPorTipo3.hbs");});
+        Server.app().get("/rankingFiltradosCP/{tipoDeRanking}", new GetRankingsHandler());
 
         /*
         Server.app().get("entidades", ((EntidadesController) FactoryController.controller("Entidades"))::index);

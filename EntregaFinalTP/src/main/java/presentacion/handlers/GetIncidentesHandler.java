@@ -18,6 +18,5 @@ public class GetIncidentesHandler implements Handler {
         Integer entidadId = Integer.valueOf(context.pathParam("entidadId"));
         Integer establecimientoId = Integer.valueOf(context.pathParam("establecimientoId"));
         context.json(repositorioIncidentes.buscarPorEntidadEstablecimiento(entidadId, establecimientoId));
-
     }
 }

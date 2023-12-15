@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="/img/logoUTN.png">
+    <link rel="stylesheet" href="/css/sugerenciaIncidente.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <title>Sugerencia Incidente</title>
+</head>
+<body style="margin: 0 ; padding: 0 ; text-align: center ; background-image: url('/img/subte2.jpg') ; background-size: cover">
+<header style="background-color: rgba(255,255,255,0.5) ; text-align: left ; display: flex; flex-direction: row">
+    <img class="logoUTN" src="/img/logoUTN.png" alt="Imagen en color" style="text-align: left"></img>
+    <div style="align-items: center; flex: 1; text-align: right; margin-top: 20px;">
+        <button class="boton" onclick="logout()" style="background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Cerrar Sesión</button>
+        <a class="botonMenu" href="pagina-principal.html" style="text-decoration: none; background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Volver al menu</a>
+        <h1 class="titulo">Sugerencia Incidentes</h1>
+    </div>
+</header>
+
+<div  class="contenedorColumna" style="background: rgba(255,255,255,0.5)">
+    <div class="columna1" style="background: none">
+        <div class="contenedorColumna1">
+            <a class="referencia" href="cargar-datos-entidades.html">Cargar datos Entidades y Organismos</a>
+            <a class="referencia" href="abrir-incidente.html">Abrir Incidente</a>
+            <a class="referencia" href="cerrar-incidente.html">Cerrar Incidente</a>
+            <a class="referencia" href="consultar-incidente.html">Consultar Incidente</a>
+            <a class="referenciaElegida" href="sugerencia-incidente.html">Sugerencia Incidente</a>
+            <a class="referencia" href="visualizacion-rankings.html">Rankings</a>
+            <a class="referencia" href="mi-cuenta.html">Mi cuenta</a>
+        </div>
+    </div>
+    <div id= "app" class="columna2" style=" background: none">
+        <div class="opciones">
+            <label class="label">Incidentes por comunidades notificables</label>
+            <ul>
+                <li v-for="incidente in incidentes" :key="incidente.id" @click="seleccionarIncidente(incidente)">
+                    <span v-text="incidente.id"></span>
+                </li>
+            </ul>
+
+        </div>
+        <div class="opciones">
+            <label class="label">El incidente ya terminó?</label>
+            <!-- en vez de redireccion copiar las cosas de cerrar incidente-->
+            <button class="boton" type="submit" @click="cerrarIncidente">Cerrar incidente</button>
+        </div>
+
+
+    </div>
+
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyCqXg0sZXtSOxHPEjkKKS0S4jdHER1z-VU",
+        authDomain: "dds-sistema-monitoreables.firebaseapp.com",
+        projectId: "dds-sistema-monitoreables",
+        storageBucket: "dds-sistema-monitoreables.appspot.com",
+        messagingSenderId: "625925036616",
+        appId: "1:625925036616:web:8a61a46d81a4c752b9167d"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const user = JSON.parse(localStorage.getItem('user'));
+    if(user){
+        console.log("el usuario tiene: "+user);
+        console.log("El usuario tiene: ", JSON.stringify(user, null, 2)); //permite ver toda la info guardada en un despliegue lo eliminariamos
+        console.log("nombre usuario: "+user.displayName);
+        console.log("correo usuario: "+user.email);
+        // a partir de aca trabajo el resto de cosas
+
+    }else{
+        alert("Sucedio un error por favor vuelva a iniciar sesion");//ver si lo mandamos a index o que hacemos
+        console.log("el usuario no existe");
+        window.location.href = "pagina-inicio.html";
+    }
+    function logout() {
+        console.log("cerrando");
+        firebase.auth().signOut().then(() => {
+            localStorage.removeItem('user');
+            console.log("El usuario tiene: ", JSON.stringify(user, null, 2)); //permite ver toda la info guardada en un despliegue lo eliminariamos
+            console.log(localStorage.getItem('user'));
+            window.location.href = "pagina-inicio.html"
+        }).catch((error) => {
+            alert("Error al cerrar sesión: " + error.message);
+        });
+    }
+</script>
+<script>
+    const app = new Vue({
+        el: '#app',
+        data: {
+            incidentes: [],
+            incidenteSeleccionado: '',
+        },
+        methods: {
+            seleccionarIncidente(incidenteId){
+                this.incidenteSeleccionado = incidenteId;
+            },
+            editarIncidente(){
+                document.getElementById("areaInformacion").style.display = 'none';
+                document.getElementById("areaEdicion").style.display = 'flex';
+                document.getElementById("areaEdicion").style.flexDirection = 'column';
+            },
+            volverASugerencia(){
+                document.getElementById("areaInformacion").style.display = 'block';
+                document.getElementById("areaEdicion").style.display = 'none';
+            },
+            cerrarIncidente() {
+                this.actualizarIncidenteEnBD(this.incidenteSeleccionado.id)
+                console.log("cerrando incidente");
+            },
+            actualizarIncidenteEnBD(incidenteId) {
+
+                fetch(`/api/incidentes/${incidenteId}`, {//capaz cambiar esto
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(this.incidenteSeleccionado)
+                })
+                        .then(response => {
+                            if (response.ok) {
+                                console.log('Incidente actualizado en la base de datos');
+                            } else {
+                                console.error('Error al actualizar el incidente en la base de datos (else):', response.status);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error al actualizar el incidente en la base de datos:', error);
+                        });
+            }
+
+        },
+        mounted() {
+            const usuarioId=2;
+            fetch(`http://localhost:8080/api/incidentesPorComunidadAsociada/${usuarioId}`)//traer  los incidentes notificables
+                    .then(response => {
+                        if (response.status >= 400) {
+                            alert("Hubo un error en el API")
+                        } else {
+                            return response.json()
+                        }
+                    })
+                    .then(incidentes => {
+                        this.incidentes = incidentes;
+                    })
+                    .catch(error => {
+                        console.error('Error en la solicitud de los incidentes por comunidad:', error);
+                        alert(`Hubo un error en la solicitud de los incidentes por comunidad:\n\n${error.message}`);
+                    });
+
+
+        }
+    });
+</script>
+</body>
+</html>

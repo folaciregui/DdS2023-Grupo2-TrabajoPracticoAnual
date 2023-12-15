@@ -58,7 +58,7 @@ public class RankingsController extends Controller implements ICrudViewsHandler 
 
     public void filtrarRankings(Context context) throws Exception {
         String tipoDeRankingString = context.formParam("tipoDeRanking");
-        TipoDeRanking tipoDeRanking = TipoDeRanking.valueOf(tipoDeRankingString);
+        //TipoDeRanking tipoDeRanking = TipoDeRanking.valueOf(tipoDeRankingString);
 
         List<RankingsIncidente> rankings = this.repositorioRankings.buscarTodos();
 
