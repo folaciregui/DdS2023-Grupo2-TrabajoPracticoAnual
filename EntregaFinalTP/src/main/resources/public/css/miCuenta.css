@@ -55,21 +55,21 @@ body {
 
 .contenedorColumna{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     background-color: #A780FF;
     justify-content: center;
     align-items: center;
-    height: 700px;
+    /*height: 700px;*/
 }
 .contenedorColumna1{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     /*background-color: rgba(255, 255, 255, 0.7); */
-    background-color: rgba(67, 0, 210, 0.5);
+    background: rgba(255, 255, 255, 0.3);
     justify-content: center;
     align-items: center;
-    margin: 20px;
-    border-radius: 20px;
+    /*margin: 20px;*/
+    width: 100%;
 }
 .contenedorColumna2{
     display: flex;
@@ -85,34 +85,42 @@ body {
 .columna1 {
     /*width: 20%;
     flex: 0 0 35%;*/
+    width: 100%;
     background-color: #A780FF;
-    justify-content: center;
-    align-items: center;
-    align-self: center;
-    text-align: center;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     padding: 3px;
+    align-items: flex-start;
 }
 
-/*.columna2 {*/
-/*    flex:1;*/
-/*    background-color: #A780FF; !* Color de fondo para la segunda columna *!*/
-/*    align-content: center;*/
-/*    align-items: center;*/
-/*    text-align: center;*/
-/*    display: flex;*/
-/*    flex-direction: column;*/
-/*}*/
 .columna2 {
-    flex: 0 0 65%; /* Establece el ancho en 65% */
+    /*flex: 0 0 65%; */
     align-content: center;
     align-items: center;
     text-align: center;
     display: flex;
-    flex-direction: column;
-    /*margin-left: auto; /* Alinea la columna en el lado derecho */
-    background-color: #A780FF;
+    flex-direction: row;
+    margin-left: auto;
+    width: 80%;
+    height: 100%;
+}
+
+.referencia {
+    color: #4300d2;
+    text-decoration: none;
+    font-size: 15px;
+    font-family: 'Open Sans', sans-serif;
+    padding: 10px 16px;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 20px;
+    display: block;
+    margin: 5px;
+    width: 70%;
+}
+.referencia:hover{
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #4300d2;
 }
 .columna2-v2 {
     flex: 1;
@@ -121,23 +129,6 @@ body {
     /*gap: 10px;*/
     background-color: #A780FF;
     vertical-align: top;
-}
-.referencia {
-    color: #fff; /* Cambia el color del enlace a azul */
-    text-decoration: none; /* Elimina la subrayado predeterminado */
-    font-size: 15px; /* Tamaño de fuente */
-    font-family: 'Open Sans', sans-serif;
-    padding: 10px 16px; /* Relleno para crear un botón */
-    border: none; /* Borde del botón */
-    background-color: #fa503f; /* Fondo blanco */
-    border-radius: 20px; /* Bordes redondeados */
-    display: block; /* Hace que el enlace se comporte como un bloque en línea */
-    margin: 5px;
-    width: 70%;
-}
-.referencia:hover{
-    background-color: #fff;
-    color: #fa503f;
 }
 .referenciaElegida {
     color: #fa503f; /* Cambia el color del enlace a azul */
@@ -298,6 +289,41 @@ body {
     text-align: center;
     width: 95%;
 }
+.config{
+    top: 0;
+    right: 0;
+    margin: 10px;
+    border: none;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 10px 20px;
+    height: 40%;
+    display: flex;
+}
+.seleccion{
+    /*top: 0;
+    right: 0;
+    margin: 10px;*/
+    border: none;
+    border-radius: 20px;
+    background: none;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    /*height: 50%;*/
+}
+.seleccion:hover{
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+}
+.opcion{
+    background-color: lightgrey;
+    color: white;
+
+}
+
 
 
 @media screen and (max-width: 600px) {
