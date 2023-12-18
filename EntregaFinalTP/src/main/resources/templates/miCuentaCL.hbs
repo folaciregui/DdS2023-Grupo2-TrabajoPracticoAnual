@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="/img/logoUTN.png">
+    <link rel="stylesheet" href="/css/miCuenta.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <title>Mi cuenta</title>
+</head>
+<body style="margin: 0 ; padding: 0 ; text-align: center ; background-image: url('/img/subte2.jpg') ; background-size: cover">
+<header style="background-color: rgba(255,255,255,0.5) ; text-align: left ; display: flex; flex-direction: row">
+    <img class="logoUTN" src="/img/logoUTN.png" alt="Imagen en color" style=" text-align: left"></img>
+    <div style="align-items: center; flex: 1; text-align: right; margin-top: 20px;">
+        <a class="boton" href="pagina-inicio.html" style="text-decoration: none; background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Cerrar Sesión</a>
+        <a class="botonMenu" href="pagina-principal.html" style="text-decoration: none; background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Volver al menu</a>
+        <h1 class="titulo">Mi cuenta</h1>
+    </div>
+</header>
+
+<div class="contenedorColumna" style="background: rgba(255,255,255,0.5)">
+    <!--<div class="columna1" style="background: none">
+        <div class="contenedorColumna1">
+            <a class="referencia" href="cargar-datos-entidades.html">Cargar datos Entidades y Organismos</a>
+            <a class="referencia" href="abrir-incidente.html">Abrir Incidente</a>
+            <a class="referencia" href="cerrar-incidente.html">Cerrar Incidente</a>
+            <a class="referencia" href="consultar-incidente.html">Consultar Incidente</a>
+            <a class="referencia" href="sugerencia-incidente.html">Sugerencia Incidente</a>
+            <a class="referencia" href="visualizacion-rankings.html">Rankings</a>
+            <a class="referenciaElegida" href="mi-cuenta.html">Mi cuenta</a>
+        </div>
+    </div>-->
+    <div class="columna2" style="background: none; place-items: center;align-items: center; justify-content: center; width: 100%" >
+        <div class="miCuenta" style="background: none; place-items: center;align-items: center; justify-content: center; margin: 0px">
+            <img src="/img/usuarioSinFoto.png" alt="Imagen no disponible" width=80px height=80px>
+        </div>
+        <div class="miCuentaContenedor" style="background-color: rgba(255,255,255,0.5);">
+
+
+            <p class="label2" style="margin-bottom: 0">NOMBRE</p>
+            <p id="label-nombre" class="label3" style="margin-top: 0"></p>
+            <input type="text" id="edit-name" style="display: none">
+
+            <p class="label2" style="margin-bottom: 0">APELLIDO</p>
+            <p id="label-apellido" class="label3" style="margin-top: 0">{{ miCuenta.apellido }}</p>
+            <input type="text" id="edit-lastname" style="display: none">
+
+            <p class="label2" style="margin-bottom: 0">CORREO ELECTRÓNICO</p>
+            <p id="label-correo" class="label3" style="margin-top: 0">{{ miCuenta.email }}</p>
+
+            <p class="label2" style="margin-bottom: 0">TELÉFONO</p>
+            <p id="label-telefono" class="label3" style="margin-top: 0">Teléfono</p>
+
+
+        </div>
+        <button id="boton-editar" class="boton" onclick="editarPerfil()">Editar perfil</button>
+        <button id="boton-guardar" class="boton" onclick="actualizarPerfil()" style="display: none">Guardar</button>
+
+        <form method="POST" action="/comunidadesPorUsuario">
+            <button class="referencia">Ver comunidades</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyCqXg0sZXtSOxHPEjkKKS0S4jdHER1z-VU",
+        authDomain: "dds-sistema-monitoreables.firebaseapp.com",
+        projectId: "dds-sistema-monitoreables",
+        storageBucket: "dds-sistema-monitoreables.appspot.com",
+        messagingSenderId: "625925036616",
+        appId: "1:625925036616:web:8a61a46d81a4c752b9167d"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const user = JSON.parse(localStorage.getItem('user'));
+    if(user){
+        console.log("el usuario tiene: "+user);
+        console.log("El usuario tiene: ", JSON.stringify(user, null, 2)); //permite ver toda la info guardada en un despliegue lo eliminariamos
+        console.log("nombre usuario: "+user.displayName);
+        console.log("correo usuario: "+user.email);
+        document.getElementById("label-nombre").textContent = user.displayName || "Nombre no disponible";
+        document.getElementById("label-apellido").textContent = user.apellido || "Apellido no disponible";
+        document.getElementById("label-correo").textContent = user.email || "Correo no disponible";
+        document.getElementById("label-telefono").textContent = user.telefono || "Teléfono no disponible";
+        // a partir de aca trabajo el resto de cosas
+
+    }else{
+        alert("Sucedio un error por favor vuelva a iniciar sesion");//ver si lo mandamos a index o que hacemos
+        console.log("el usuario no existe");
+    }
+
+    function editarPerfil() {
+        // Obtener referencias a los elementos HTML
+        const userNameLabel = document.getElementById("label-nombre");
+        const userLastnameLabel = document.getElementById("label-apellido");
+        const editNameInput = document.getElementById("edit-name");
+        const editLastnameInput = document.getElementById("edit-lastname");
+        const botonEditar = document.getElementById("boton-editar");
+        const botonGuardar = document.getElementById("boton-guardar");
+        // Obtener datos actuales del usuario
+        const userName = userNameLabel.textContent;
+        const userLastname = userLastnameLabel.textContent;
+
+        // Mostrar campos editables y ocultar labels
+        editNameInput.style.display = "block";
+        editLastnameInput.style.display = "block";
+        botonGuardar.style.display = "block";
+        botonEditar.style.display = "none";
+        userNameLabel.style.display = "none";
+        userLastnameLabel.style.display = "none";
+
+        // Mostrar los datos actuales en los campos editables
+        editNameInput.value = userName;
+        editLastnameInput.value = userLastname;
+    }
+    function actualizarPerfil() {
+        const userNameLabel = document.getElementById("label-nombre");
+        const userLastnameLabel = document.getElementById("label-apellido");
+        const editNameInput = document.getElementById("edit-name");
+        const editLastnameInput = document.getElementById("edit-lastname");
+        const botonEditar = document.getElementById("boton-editar");
+        const botonGuardar = document.getElementById("boton-guardar");
+
+        const userName = editNameInput.value;
+        const userLastname = editLastnameInput.value;
+
+        console.log(userName);
+        console.log(userLastname);
+
+        // Actualizar labels con los nuevos valores
+        userNameLabel.textContent = userName || "Nombre no disponible";
+        userLastnameLabel.textContent = userLastname || "Apellido no disponible";
+
+        // Ocultar inputs y mostrar labels
+        editNameInput.style.display = "none";
+        editLastnameInput.style.display = "none";
+        botonGuardar.style.display = "none";
+        botonEditar.style.display = "block";
+        userNameLabel.style.display = "block";
+        userLastnameLabel.style.display = "block";
+
+        userNameLabel.style.textAlign = "left";
+        userLastnameLabel.style.textAlign = "left";
+
+    }
+
+</script>
+</body>
+</html>

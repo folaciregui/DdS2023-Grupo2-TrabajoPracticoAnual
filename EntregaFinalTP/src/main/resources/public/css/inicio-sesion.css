@@ -1,0 +1,233 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+
+.tituloPrincipal {
+    color: #4300d2;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 50px;
+}
+.subtitulo{
+    color: #F5F5F5;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+}
+body {
+    background-color: #fff;
+    margin: 0; /* Elimina márgenes predeterminados que pueda tener el body */
+    padding: 0; /* Elimina relleno predeterminado que pueda tener el body */
+}
+.recuadro{
+    background-color: #F99417;
+    border-radius: 20px;
+    margin-top: 20px;
+    margin-right: 10px;
+    margin-bottom: 30px;
+    margin-left: 15px;
+
+}
+.contenedor {
+    display: flex;
+    height: 638px;
+    /*background-color: #A780FF;*/
+}
+.columna {
+    flex: 1;
+    padding: 10px;
+    margin: 50px;
+    background-color: rgba(0, 0, 0, 0.35);
+    border-radius: 20px;
+    width: 50px;
+}
+.formulario input,
+.formulario button {
+    display: block; /* Muestra los elementos como bloques, uno debajo del otro */
+    margin: 10px 0; /* Agrega un poco de espacio entre los elementos */
+}
+.formulario {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+.boton{
+    margin: 10px;
+    border: none;
+    border-radius: 20px;
+    background-color: #fa503f;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+}
+.boton:hover {
+    background-color: #fff;
+    color: #fa503f;
+}
+.input{
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 8px;
+    background-color: #fff;
+    width: 100%;
+}
+.subcolumna button{
+    margin: 15px;
+}
+.subcolumna {
+    display: flex;
+    justify-content: space-between;
+}
+
+.label1 {
+    color: #F5F5F5;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px; /* Tamaño de fuente ajustado para dispositivos móviles */
+}
+
+@media screen and (max-width:600px){
+    .tituloPrincipal {
+        color: #4300d2;
+        text-align: center;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 36px; /* Tamaño de fuente ajustado para dispositivos móviles */
+    }
+
+    .subtitulo {
+        color: #F5F5F5;
+        text-align: center;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 25px; /* Tamaño de fuente ajustado para dispositivos móviles */
+    }
+
+    body {
+        background-color: #fff;
+        margin: 0;
+        padding: 0;
+    }
+
+    .recuadro {
+        background-color: #F99417;
+        border-radius: 20px;
+        margin: 20px 10px 30px 15px;
+    }
+
+    .contenedor {
+        display: flex;
+        justify-content: center; /* Centra los elementos a lo largo del eje principal (horizontal en este caso) */
+        align-items: center;
+        background-color: #A780FF;
+        height: 80%; /* Altura se ajustará según el contenido */
+        padding-bottom: 20px; /* Espacio adicional opcional al fondo del contenedor */
+    }
+    .contenedor::after {
+        content: '';
+        position: absolute;
+        top: 50%; /* Posiciona en la mitad vertical del contenedor */
+        left: 0; /* Comienza desde el extremo izquierdo del contenedor */
+        width: 100%; /* Ocupa todo el ancho del contenedor */
+        height: 2px; /* Ajusta el grosor de la línea según tus necesidades */
+        background-color: #000; /* Color de la línea */
+        transform: translateY(-50%); /* Alinea el centro de la línea con el centro vertical del contenedor */
+    }
+
+    .columna {
+        flex: 1;
+        padding: 10px;
+        margin: 10px 20px; /* Espaciado reducido para dispositivos móviles */
+        margin-bottom: 200px;
+        background-color: rgba(67, 0, 210, 0.51);
+        border-radius: 20px;
+        height: 60%;
+        /*width: 50%;*/
+        text-align: center;
+        align-items: center;
+        align-content: center;
+    }
+    .columnaNueva{
+        flex: 1;
+        /*padding: 10px;
+        margin: 10px 20px; /* Espaciado reducido para dispositivos móviles */
+        margin-bottom: 200px;
+        background-color: rgba(255, 255, 255, 0.75);
+        border-radius: 20px;
+        height: 60%;
+  }
+
+    .formulario input,
+    .formulario button {
+        display: block;
+        margin: 10px 0;
+        width: 80%;
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+
+    .formulario {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .boton {
+        margin: 10px;
+        border: none;
+        border-radius: 20px;
+        background-color: #fa503f;
+        color: #fff;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 18px;
+        width: 100%; /* Ajusta el ancho al 100% para dispositivos móviles */
+    }
+
+    .boton:hover {
+        background-color: #fff;
+        color: #fa503f;
+    }
+
+    .boton-violeta{
+        margin: 10px;
+        border: none;
+        border-radius: 20px;
+        background-color: #4300d2;
+        color: #fff;
+        padding: 10px 20px;
+        cursor: pointer;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 20px;
+        width: 100%;
+    }
+    .boton-violeta:hover{
+        background-color: #fff;
+        color: #4300d2;
+    }
+
+    .input {
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        padding: 8px;
+        background-color: #fff;
+        width: 100%; /* Ajusta el ancho al 100% para dispositivos móviles */
+    }
+
+    .subcolumna button {
+        margin: 15px;
+    }
+
+    .subcolumna {
+        display: flex;
+        flex-direction: column; /* Cambia la disposición a una sola columna en dispositivos móviles */
+        align-items: center; /* Centra los elementos en dispositivos móviles */
+    }
+
+
+
+}

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="/img/logoUTN.png">
+    <link rel="stylesheet" href="/css/cargarDatosEntidades.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Consultar Incidente</title>
+</head>
+<body style="margin: 0 ; padding: 0 ; text-align: center ; background-image: url('/img/subte2.jpg') ; background-size: cover">
+<header style="background-color: rgba(255,255,255,0.5) ; text-align: left ; display: flex; flex-direction: row">
+    <img src="/img/logoUTN.png" alt="Imagen en color" style="height: 90px; text-align: left"></img>
+    <div style="display: flex; align-items: center; justify-content: right; flex: 1;">
+        <div class="config" style="align-items: center; align-content: center; justify-content: center">
+            <div style="flex: 1; width: 30%; padding: 10px;">
+                <i id="icono-usuario" class="fa fa-user" aria-hidden="true" style="color: #4300d2"></i>
+            </div>
+            <div style="flex: 1; width: 70%; padding: 10px;">
+                <select class="seleccion" id="opciones" name="opciones" style="color: #4300d2">
+                    <option class="opcion" value=""></option>
+                    <option class="opcion" value="mi-cuenta-CL" onclick="redireccionar(value)">Mi cuenta CL</option>
+                    <option class="opcion" value="mi-cuenta-CP" onclick="redireccionar(value)">Mi cuenta CP</option>
+                    <option class="opcion" value="cerrar-sesion">Cerrar sesión</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="contenedorColumna" style="background: rgba(255,255,255,0.5)">
+    <div class="columna1" style="background: none; margin-right: 0; margin-left: 0; height: 100px; margin-top: 20px">
+        <div class="contenedorColumna1" style="margin-right: 0; margin-left: 0">
+            <a class="referencia" href="/cargarDatosEntidades">Cargar entidades</a>
+            <a class="referencia" href="/abrirIncidente">Abrir Incidente</a>
+            <a class="referencia" href="/cerrarIncidente">Cerrar Incidente</a>
+            <a class="referencia" href="/consultaIncidentesPorEstado">Consultar Incidente</a>
+            <a class="referencia" href="/sugerenciaIncidente">Sugerencia Incidente</a>
+            <a class="referencia" href="/rankingsCL">Rankings CL</a>
+            <a class="referencia" href="/rankingsCP">Rankings CP</a>
+        </div>
+    </div>
+    <div class="columna2" style="margin-left: 0; margin-right: 0; background: none; height: 485px; justify-content: center; align-items: center;text-align: center;">
+        <div style="height: 20px"></div>
+        <form method="POST" action="/filtrarIncidentes">
+        <div class="opciones" style="height: 100px; align-items: center; align-content: center; justify-content: center">
+            <label class="label" for="selectEstado">Selecciona un Estado:</label>
+            <select class="input" name="estadoSeleccionado" id="selectEstado"></select>
+        </div>
+        <div style="height: 20px"></div>
+            <!--<a class="boton" style="text-decoration: none" href="/incidentes">Filtrar</a>-->
+            <button class="botonAbrir" style="text-decoration: none" type="submit">Filtrar</button>
+        </form>
+    </div>
+</div>
+
+
+
+<script>
+
+    document.getElementById('opciones').addEventListener('change', function() {
+        var selectedValue = this.value;
+
+        // Redirigir según la opción seleccionada
+        switch (selectedValue) {
+            case 'mi-cuenta-CL':
+                window.location.href = '/miCuentaCL';
+                break;
+            case 'mi-cuenta-CP':
+                window.location.href = '/miCuentaCP';
+                break;
+            case 'cerrar-sesion':
+                window.location.href = '/paginaInicio';
+                break;
+                // Puedes agregar más casos según sea necesario
+            default:
+                break;
+        }
+    });
+
+
+
+    //cargo lista estados
+    const selectEstado = document.getElementById('selectEstado');
+    const estados = ["", "ABIERTO", "CERRADO"];
+    estados.forEach(estado => {
+        const option = document.createElement('option');
+        option.value = estado;
+        option.textContent = estado;
+        selectEstado.appendChild(option);
+    });
+
+    //cargo lista entidad
+    const selectEntidad = document.getElementById('selectEntidad');
+    const entidades = ["Medio de Transporte", "Empresa"];
+    entidades.forEach(entidad => {
+        const option = document.createElement('option');
+        option.value = entidad;
+        option.textContent = entidad;
+        selectEntidad.appendChild(option);
+    });
+    //cargo lista establecimiento
+    const selectEstablecimiento = document.getElementById('selectEstablecimiento');
+    const establecimientos = ["Establecimiento 1", "Establecimiento 2"]; //faltaria ver como hacemos para que muestre solo o establecimientos o sucursales segun lo elegido antes
+    establecimientos.forEach(establecimiento => {
+        const option = document.createElement('option');
+        option.value = establecimiento;
+        option.textContent = establecimiento;
+        selectEstablecimiento.appendChild(option);
+    });
+
+</script>
+</body>
+</html>

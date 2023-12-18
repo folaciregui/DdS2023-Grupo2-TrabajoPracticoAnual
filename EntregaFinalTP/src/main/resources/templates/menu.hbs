@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="/img/logoUTN.png">
+    <link rel="stylesheet" href="/css/pagina-principal.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title class="title">Menú</title>
+</head>
+<body style="margin: 0 ; padding: 0 ; text-align: center ; background-image: url('/img/subte2.jpg') ; background-size: cover">
+
+<header style="background-color: rgba(255,255,255,0.5) ; text-align: left ; display: flex; flex-direction: row">
+    <img src="/img/logoUTN.png" alt="Imagen en color" style="height: 90px; text-align: left"></img>
+
+    <div style="display: flex; align-items: center; justify-content: right; flex: 1;">
+        <div class="config" style="align-items: center; align-content: center; justify-content: center">
+            <div style="flex: 1; width: 30%; padding: 10px;">
+                <i id="icono-usuario" class="fa fa-user" aria-hidden="true" style="color: #4300d2"></i>
+            </div>
+            <div style="flex: 1; width: 70%; padding: 10px;">
+                <select class="seleccion" id="opciones" name="opciones" style="color: #4300d2">
+                    <option class="opcion" value=""></option>
+                    <option class="opcion" value="mi-cuenta-CL" onclick="redireccionar(value)">Mi cuenta CL</option>
+                    <option class="opcion" value="mi-cuenta-CP" onclick="redireccionar(value)">Mi cuenta CP</option>
+                    <option class="opcion" value="cerrar-sesion">Cerrar sesión</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <!--
+    <div style="align-items: center; flex: 1; text-align: right;">
+        <button class="boton" onclick="logout()" style="background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.75)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Cerrar Sesión</button>
+    </div>
+    -->
+</header>
+
+<div class="contenedor" style="height: 628px; display: flex; flex-direction: column;" id="user-infoPrincipal">
+    <h1 class="tituloPrincipal" style="">MENU</h1>
+
+    <div class="carrusel-container">
+        <div class="carrusel">
+            <div class="slide">
+                <a class="referencia" href="/cargarDatosEntidades">Cargar datos Entidades Prestadoras y Organismos de Control</a>
+                <i class="fa-solid fa-file-csv" aria-hidden="true" style="font-size: 50px;"></i>
+            </div>
+            <div class="slide">
+                <a class="referencia" href="/abrirIncidente">Abrir Incidente</a>
+                <i class="fa-solid fa-circle-exclamation" aria-hidden="true" style="font-size: 50px;"></i>
+            </div>
+            <div class="slide">
+                <a class="referencia" href="/cerrarIncidente">Cerrar Incidente</a>
+                <i class="fa-solid fa-square-check" aria-hidden="true" style="font-size: 50px;"></i>
+            </div>
+            <div class="slide">
+                <a class="referencia" href="/consultaIncidentesPorEstado">Consultar Incidente</a>
+                <i class="fa-solid fa-circle-info" aria-hidden="true" style="font-size: 50px;"></i>
+                <!--<i class="fa fa-question-circle" aria-hidden="true" style="font-size: 100px;"></i>-->
+            </div>
+            <div class="slide">
+                <a class="referencia" href="/sugerenciaIncidente">Sugerencia Incidente</a>
+                <i class="fa-solid fa-comment-dots" aria-hidden="true" style="font-size: 50px;"></i>
+            </div>
+            <div class="slide" style="display: flex; flex-direction: column">
+                <div>
+                    <a class="referencia" style="flex: 1; height: 50%" href="/rankingsCL">Rankings CL</a>
+                    <a class="referencia" style="flex: 1; height: 50%" href="/rankingsCP">Rankings CP</a>
+                </div>
+            </div>
+        </div>
+        <button class="prev" onclick="prevSlide()"><i class="fas fa-chevron-left"></i></button>
+        <button class="next" onclick="nextSlide()"><i class="fas fa-chevron-right"></i></button>
+    </div>
+
+</div>
+
+<footer class="mi-footer">
+    <img src="img/logoUTN.png" alt="Imagen en color" style="height: 100px; margin-bottom: 140px">
+</footer>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script>
+
+    // Evento de clic en el icono de usuario
+    document.getElementById('icono-usuario').addEventListener('click', function() {
+        var select = document.getElementById('opciones');
+
+        select.style.display = (select.style.display === 'none' || select.style.display === '') ? 'block' : 'none';
+    });
+
+    // Manejar el cambio en el select
+    document.getElementById('opciones').addEventListener('change', function() {
+        var selectedValue = this.value;
+
+        // Redirigir según la opción seleccionada
+        switch (selectedValue) {
+            case 'mi-cuenta-CL':
+                window.location.href = '/miCuentaCL';
+                break;
+            case 'mi-cuenta-CP':
+                window.location.href = '/miCuentaCP';
+                break;
+            case 'cerrar-sesion':
+                window.location.href = '/paginaInicio';
+                break;
+                // Puedes agregar más casos según sea necesario
+            default:
+                break;
+        }
+    });
+
+
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const carrusel = document.querySelector(".carrusel");
+        const slideList = document.querySelectorAll(".slide");
+        let currentIndex = 0;
+        const slidesToShow = 4;
+
+        function updateSlide() {
+            carrusel.style.transform = `translateX(${-currentIndex * 25}%)`;
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % slideList.length;
+            updateSlide();
+        }
+
+        function prevSlide() {
+            currentIndex = (currentIndex - 1 + slideList.length) % slideList.length;
+            updateSlide();
+        }
+
+        const nextButton = document.querySelector(".next");
+        const prevButton = document.querySelector(".prev");
+
+        nextButton.addEventListener("click", nextSlide);
+        prevButton.addEventListener("click", prevSlide);
+
+    })
+
+
+
+        const firebaseConfig = {
+        apiKey: "AIzaSyCqXg0sZXtSOxHPEjkKKS0S4jdHER1z-VU",
+        authDomain: "dds-sistema-monitoreables.firebaseapp.com",
+        projectId: "dds-sistema-monitoreables",
+        storageBucket: "dds-sistema-monitoreables.appspot.com",
+        messagingSenderId: "625925036616",
+        appId: "1:625925036616:web:8a61a46d81a4c752b9167d"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const user = JSON.parse(localStorage.getItem('user'));
+    if(user){
+        console.log("el usuario tiene: "+user);
+        console.log("El usuario tiene: ", JSON.stringify(user, null, 2));
+        console.log("nombre usuario: "+user.displayName);
+        console.log("correo usuario: "+user.email);
+        document.getElementById("user-displayname").textContent = user.displayName;
+        document.getElementById("user-email").textContent = user.email;
+        // a partir de aca trabajo el resto de cosas
+
+        //arranco monitoreables
+
+        const monitoreables = [
+            { nombre: "Monitoreable 1", descripcion: "Descripción 1" },
+            { nombre: "Monitoreable 2", descripcion: "Descripción 2" },
+            { nombre: "Monitoreable 3", descripcion: "Descripción 3" },
+            // Agrega más monitoreables según tus datos
+        ];
+
+
+        const botonAbrirIncidente = document.getElementById('boton-abrir-incidente');
+        const seleccionMonitoreable = document.getElementById('seleccion-monitoreable');
+        botonAbrirIncidente.addEventListener('click', () => {
+            // Limpia cualquier opción existente en la lista desplegable
+            seleccionMonitoreable.style.display = 'block';
+
+            // Genera las opciones de la lista desplegable
+            monitoreables.forEach(monitoreable => {
+                const opcion = document.createElement('option');
+                opcion.value = monitoreable.nombre; // Valor que se enviará al servidor si se selecciona
+                opcion.textContent = `${monitoreable.nombre} - ${monitoreable.descripcion}`;
+                seleccionMonitoreable.appendChild(opcion);
+            });
+
+            // Muestra la lista desplegable
+            seleccionMonitoreable.style.display = 'block';
+        });
+
+
+    }else{
+        alert("Sucedio un error por favor vuelva a iniciar sesion");//ver si lo mandamos a index o que hacemos
+        console.log("el usuario no existe");
+    }
+
+    // Función para cerrar sesión
+    function logout() {
+        firebase.auth().signOut().then(() => {
+            window.location.href = "/paginaInicio"
+        }).catch((error) => {
+            alert("Error al cerrar sesión: " + error.message);
+        });
+    }
+    function reestablecerPassword(){
+        console.log("llegue loco");
+        firebase.auth().sendPasswordResetEmail(user.email)
+                .then(() => {
+                    // Password reset email sent!
+                    document.getElementById("restablecer-Password").textContent = "Correo de restauracion enviado!";
+                    alert("Revisa tu casilla de correo y utiliza el link para reestablecer la contraseña");
+                    console.log("actua");
+                })
+                .catch((error) => {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    // ..
+                });
+    }
+    function abrirIncidente(){
+
+    }
+    function cerrarIncidente(){
+
+    }
+    function consultarIncidentes(){
+
+    }
+
+</script>
+</body>
+</html>

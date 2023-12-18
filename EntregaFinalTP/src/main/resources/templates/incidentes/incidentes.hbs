@@ -1,0 +1,27 @@
+{{#partial "contenido" }}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <tr>
+                <th>Id</th>
+                <th>Descripcion</th>
+                <th>Estado</th>
+                <!--<th>Cant. Tareas</th>
+                <th>Acciones</th> -->
+            </tr>
+            <tbody>
+            {{#each incidentes}}
+                <tr>
+                    <td>{{ this.id }}</td>
+                    <td>{{ this.descripcion }}</td>
+                    <td>{{ this.estado }}</td>
+                </tr>
+            {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <!--
+    <div align="center">
+        <a class="btn btn-primary" href="/servicios/crear">Agregar Servicio</a>
+    </div> -->
+{{/partial}}
+{{> templates/base }}

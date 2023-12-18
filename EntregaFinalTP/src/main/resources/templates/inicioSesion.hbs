@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel='stylesheet' href='/css/inicio-sesion.css' />
+    <link rel="icon" type="image/x-icon" href="/img/logoUTN.png">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+
+    <title>Iniciar Sesión</title>
+</head>
+<body style="margin: 0 ; padding: 0 ; text-align: center ; background-image: url('/img/subte2.jpg') ; background-size: cover">
+<header style="background-color: rgba(255,255,255,0.5) ; text-align: left ; display: flex; flex-direction: row">
+    <img class ="logoUtn" src="/img/logoUTN.png" alt="Imagen en color" style="height: 90px; text-align: left"></img>
+    <div style="align-items: center; flex: 1; text-align: right;">
+        <!--<h1 class="tituloPrincipal" style="text-align: center; font-family: 'Open Sans', sans-serif; font-size: 36px; color: #fff"></h1>
+        <button class="boton" style="background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">INICIAR SESIÓN</button>
+        <button class="boton" style="background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">REGISTRARSE</button>-->
+
+    </div>
+</header>
+
+    <div class="contenedor" style="background: rgba(255,255,255,0.5); text-align: center; align-content: center; align-items: center">
+        <div class="columna" style="margin-left: 35%; margin-right: 35%">
+            <h1 class="subtitulo">INICIAR SESIÓN</h1>
+            <form method="POST" action="/iniciarSesion">
+                <div class="formulario" style="margin-left: ">
+                    <input class="input" name="nombre_de_usuario" type="email" id="emailLogin" placeholder="Correo Electrónico">
+                    <input class="input" name="contrasenia" type="password" id="passwordLogin" placeholder="Contraseña">
+                </div>
+                <button class="boton" style="background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.75)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'" onclick="loginWeb()">Iniciar Sesión</button>
+            </form>
+            <div style="height: 15px; border-bottom: 2px solid rgba(255,255,255,0.8);"></div>
+            <div style="margin-top: 15px">
+                <label class="label1" style="width: 100%">O ingresá con</label>
+                <div>
+                    <button type="button" style="background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.75)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'" class="boton" onclick="loginGoogle()">
+                        <i class="fa-brands fa-google"></i>
+                    </button>
+                    <button type="button" style="background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.75)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'" class="boton" onclick="loginMicrosoft()">
+                        <i class="fa-brands fa-microsoft"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<!-- <script src="https://www.gstatic.com/firebasejs/9.6.5/firebase-database.js"></script> -->
+<!-- ... Otros scripts de Firebase, como storage, messaging, functions, y analytics, si los necesitas ... -->
+
+<script>
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyCqXg0sZXtSOxHPEjkKKS0S4jdHER1z-VU",
+        authDomain: "dds-sistema-monitoreables.firebaseapp.com",
+        projectId: "dds-sistema-monitoreables",
+        storageBucket: "dds-sistema-monitoreables.appspot.com",
+        messagingSenderId: "625925036616",
+        appId: "1:625925036616:web:8a61a46d81a4c752b9167d"
+    };
+
+    // Inicializa Firebase
+    firebase.initializeApp(firebaseConfig);
+    var providerGoogle = new firebase.auth.GoogleAuthProvider();
+    var providerMicrosoft = new firebase.auth.OAuthProvider('microsoft.com');
+    // Manejo base de datos
+    //  const database = firebase.database();
+    // const ref = database.ref('/ruta/a/tu/datos'); // Reemplaza con la ruta de tus datos
+    //
+    // ref.on('value', (snapshot) => {
+    //     const data = snapshot.val();
+    //     // Procesa y muestra los datos en tu página web
+    // });
+
+    // Verifica estado de sesion
+    firebase.auth().onAuthStateChanged((user) => {
+        if (user) {
+            // User is signed in, see docs for a list of available properties
+            var uid = user.uid;
+            var textoVerificado="";
+            document.getElementById("userState").innerHTML="Hizo login"
+            console.log(user);//para ver datos de usuario, despues borrar esta linea
+            if(user.emailVerified){
+                textoVerificado="Estas verificado";
+            }else {
+                textoVerificado="No estas verificado"
+            }
+            document.getElementById("texto-verificado").textContent = textoVerificado;
+        } else {
+            // User is signed out
+            document.getElementById("userState").innerHTML="Deslogueado"
+
+        }
+    });
+
+    // Referencias a elementos HTML
+    const loginForm = document.getElementById("login-form");
+    const userInfo = document.getElementById("user-info");
+    const userDisplayName = document.getElementById("user-displayname");
+    const userEmail = document.getElementById("user-email");
+
+    // Función para registarse
+    function register() {
+        const email = document.getElementById("emailRegister").value;
+        const password = document.getElementById("passwordRegister").value;
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Creación del usuario exitosa
+                    const user = userCredential.user;
+                    verificarCorreo();
+                    alert("Registrado con exito");
+                    inicioSesion(user);
+                })
+                .catch(function(error) {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    alert("Error al registrar la cuenta: " + errorMessage);
+                    document.getElementById("emailLogin").innerHTML= "";//no terminado
+                    document.getElementById("passwordLogin").innerHTML="";
+                });
+    }
+
+    // Función para iniciar sesión
+    function verificarCorreo(){
+        var user = firebase.auth().currentUser;
+        user.sendEmailVerification().then(function (){
+            //Email mandado
+        }).catch(function (error){
+            // Hubo algun error, manejarlo
+        })
+    }
+    function loginWeb() {
+        const email = document.getElementById("emailLogin").value;
+        const password = document.getElementById("passwordLogin").value;
+        firebase.auth().signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user; //cuando se registra via web no tiene como un nombre de usuario
+                    console.log("valor " + userCredential.user);
+                    inicioSesion(user);
+                })
+                .catch((error) => {
+                    alert("Error al iniciar sesión: " + error.message);
+                });
+        console.log("sali");
+        console.log("valor " + userCredential);
+    }
+    function loginGoogle(){ //abrir consola y chequear error
+        firebase.auth().signInWithPopup(providerGoogle)
+                .then((result) => {
+                    //capaz es util mas adelante
+                    var credential = result.credential;
+                    var token = credential.accessToken;
+                    var user = result.user;
+                    console.log("iniciando sesion con google el usuario tiene: email="+user.email);
+                    inicioSesion(user);
+                }).catch((error) => {
+            alert("Error al iniciar sesión con google: " + error.message);
+            //manejar errores
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            var email = error.email;
+            var credential = error.credential;
+        });
+    }
+    function loginMicrosoft() {
+        firebase.auth().signInWithPopup(providerMicrosoft)
+                .then((result) => {
+                    console.log("logeado con exito: ");
+                    const user = result.user;
+                    // Realiza acciones adicionales con el usuario si es necesario
+                    inicioSesion(user);
+                })
+                .catch((error) => {
+                    console.log("codigo Error: " + error.code);
+                    console.log("Error: " + error.message);
+                    alert("Error al iniciar sesión con Microsoft: " + error.message);
+                    console.log("Error: " + error.message);
+                });
+    }
+    function inicioSesion(user){
+        localStorage.setItem('user', JSON.stringify(user));
+        window.location.href = "/menu";
+    }
+</script>
+</body>
+</html>

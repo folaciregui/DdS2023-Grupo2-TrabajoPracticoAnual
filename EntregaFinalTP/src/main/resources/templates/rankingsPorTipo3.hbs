@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/x-icon" href="/img/logoUTN.png">
+    <link rel="stylesheet" href="/css/rankings.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <title>Rankings</title>
+</head>
+<body style="margin: 0 ; padding: 0 ; text-align: center ; background-image: url('/img/subte2.jpg') ; background-size: cover">
+<header style="background-color: rgba(255,255,255,0.5) ; text-align: left ; display: flex; flex-direction: row">
+    <img class= "logoUTN"src="img/logoUTN.png" alt="Imagen en color" style=" text-align: left"></img>
+    <div style="align-items: center; flex: 1; text-align: right; margin-top: 20px;">
+        <a class="boton" href="pagina-inicio.html" style="text-decoration: none; background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Cerrar Sesión</a>
+        <!--<a class="botonMenu" href="pagina-principal.html" style="text-decoration: none; background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Volver al menu</a>-->
+        <h1 class="titulo">Rankings</h1>
+    </div>
+</header>
+
+<div class="contenedorColumna" style="background: rgba(255,255,255,0.5)">
+    <div class="columna1" style="background: none">
+        <div class="contenedorColumna1">
+            <a class="referencia" href="cargar-datos-entidades.html">Cargar datos Entidades y Organismos</a>
+            <a class="referencia" href="abrir-incidente.html">Abrir Incidente</a>
+            <a class="referencia" href="cerrar-incidente.html">Cerrar Incidente</a>
+            <a class="referencia" href="consultar-incidente.html">Consultar Incidente</a>
+            <a class="referencia" href="sugerencia-incidente.html">Sugerencia Incidente</a>
+            <a class="referenciaElegida" href="visualizacion-rankings.html">Rankings</a>
+            <a class="referencia" href="mi-cuenta.html">Mi cuenta</a>
+        </div>
+    </div>
+    <div id="app" class="columna2" style="background: none">
+        <div class="opciones">
+            <label class="label" for="selectRanking">Selecciona un Ranking:</label>
+            <!--            <select class="input" id="selectRanking" name="tipoDeRanking" v-model="selectedRanking">-->
+            <!--                <option value="">--Selecciona--</option>-->
+            <!--                <option v-for="ranking in rankings" :key="ranking" :value="ranking">{{ ranking }}</option>-->
+            <!--            </select>-->
+            <ul>
+                <li v-for="ranking in rankingFiltrados" :key="ranking"  :value="ranking" >
+                    <span v-text="ranking.id"></span>
+                    <span v-text="ranking.posicion"></span>
+                    <span v-text="ranking.tipoDeRanking"></span>
+                    <span v-text="ranking.entidad.nombre"></span>
+                </li>
+            </ul>
+
+
+        </div>
+        <div style="height: 20px"></div>
+        <button class="boton" @click="filtrarRankings">Buscar Ranking</button>
+    </div>
+</div>
+
+
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+<script>
+    const firebaseConfig = {
+        apiKey: "AIzaSyCqXg0sZXtSOxHPEjkKKS0S4jdHER1z-VU",
+        authDomain: "dds-sistema-monitoreables.firebaseapp.com",
+        projectId: "dds-sistema-monitoreables",
+        storageBucket: "dds-sistema-monitoreables.appspot.com",
+        messagingSenderId: "625925036616",
+        appId: "1:625925036616:web:8a61a46d81a4c752b9167d"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const user = JSON.parse(localStorage.getItem('user'));
+    if(user){
+        console.log("el usuario tiene: "+user);
+        console.log("El usuario tiene: ", JSON.stringify(user, null, 2)); //permite ver toda la info guardada en un despliegue lo eliminariamos
+        console.log("nombre usuario: "+user.displayName);
+        console.log("correo usuario: "+user.email);
+        // a partir de aca trabajo el resto de cosas
+
+    }else{
+        alert("Sucedio un error por favor vuelva a iniciar sesion");//ver si lo mandamos a index o que hacemos
+        console.log("el usuario no existe");
+        window.location.href = "pagina-inicio.html";
+    }
+    function logout() {
+        console.log("cerrando");
+        firebase.auth().signOut().then(() => {
+            localStorage.removeItem('user');
+            console.log("El usuario tiene: ", JSON.stringify(user, null, 2)); //permite ver toda la info guardada en un despliegue lo eliminariamos
+            console.log(localStorage.getItem('user'));
+            window.location.href = "pagina-inicio.html"
+        }).catch((error) => {
+            alert("Error al cerrar sesión: " + error.message);
+        });
+    }
+</script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            rankingSeleccionado: '',
+            rankingFiltrados: [],
+        },
+        methods: {
+
+
+        },
+        mounted() {
+
+            this.rankingSeleccionado= "MAYOR_IMPACTO";
+            console.log(this.rankingSeleccionado);
+            fetch(`http://localhost:8080/rankingFiltradosCP/${this.rankingSeleccionado}`)
+                    .then(response => {
+                        if (response.status >= 400) {
+                            alert("Hubo un error en el API filtrando")
+                        } else {
+                            return response.json()
+                        }
+                    })
+                    .then(rankingFiltrados => {
+                        console.log(rankingFiltrados);
+                        this.rankingFiltrados = rankingFiltrados;
+                        console.log('ya filtre');
+                    })
+                    .catch(error => {
+                        console.error('Error en la solicitud:', error);
+                        alert(`Hubo un error en la solicitud con fetch rankings:\n\n${error.message}`);
+                    });
+        }
+
+
+
+    });
+</script>
+
+
+
+</body>
+</html>
