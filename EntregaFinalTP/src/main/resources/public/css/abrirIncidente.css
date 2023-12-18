@@ -5,6 +5,11 @@ body {
     background-color: #fff;
     margin: 0;
     padding: 0;
+    overflow: hidden;
+}
+body, html {
+    height: 100%;
+    overflow-y: auto;
 }
 .bodyRankings {
     margin: 0;
@@ -266,8 +271,47 @@ body {
     color: #fa503f;
 }
 .logoUTN{
-    height: 100px;
+    height: 90px;
 }
+.config{
+    top: 0;
+    right: 0;
+    margin: 10px;
+    border: none;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 10px 20px;
+    height: 40%;
+    display: flex;
+}
+.seleccion{
+    /*top: 0;
+    right: 0;
+    margin: 10px;*/
+    border: none;
+    border-radius: 20px;
+    background: none;
+    color: #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 15px;
+    /*height: 50%;*/
+}
+.seleccion:hover{
+    background-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+}
+.opcion{
+    background-color: lightgrey;
+    color: white;
+
+}
+
+
+
+
+
 /* Estilos para el botón de mostrar/ocultar en tamaños menores o iguales a 600px */
 @media screen and (max-width: 1050px)and (min-width: 601px){
     .label{

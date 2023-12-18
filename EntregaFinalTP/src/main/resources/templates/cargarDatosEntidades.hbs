@@ -7,44 +7,75 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Cargar Datos de Entidades</title>
 </head>
 <body style="margin: 0 ; padding: 0 ; text-align: center ; background-image: url('/img/subte2.jpg') ; background-size: cover">
 
 <header style="background-color: rgba(255,255,255,0.5) ; text-align: left ; display: flex; flex-direction: row">
-    <img class="logoUTN" src="/img/logoUTN.png" alt="Imagen en color" style="text-align: left"></img>
-    <div style="align-items: center; flex: 1; text-align: right; margin-top: 20px;">
-        <a class="boton" href="pagina-inicio.html" style="text-decoration: none; background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Cerrar Sesión</a>
-        <a class="botonMenu" href="pagina-principal.html" style="text-decoration: none; background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Volver al menu</a>
-        <h1 class="titulo">Formulario</h1>
+    <img src="/img/logoUTN.png" alt="Imagen en color" style="height: 90px; text-align: left"></img>
+
+    <div style="display: flex; align-items: center; justify-content: right; flex: 1;">
+        <div class="config" style="align-items: center; align-content: center; justify-content: center">
+            <div style="flex: 1; width: 30%; padding: 10px;">
+                <i id="icono-usuario" class="fa fa-user" aria-hidden="true" style="color: #4300d2"></i>
+            </div>
+            <div style="flex: 1; width: 70%; padding: 10px;">
+                <select class="seleccion" id="opciones" name="opciones" style="color: #4300d2">
+                    <option class="opcion" value=""></option>
+                    <option class="opcion" value="mi-cuenta-CL" onclick="redireccionar(value)">Mi cuenta CL</option>
+                    <option class="opcion" value="mi-cuenta-CP" onclick="redireccionar(value)">Mi cuenta CP</option>
+                    <option class="opcion" value="cerrar-sesion">Cerrar sesión</option>
+                </select>
+            </div>
+        </div>
     </div>
 </header>
 
 <div class="contenedorColumna" style="background: rgba(255,255,255,0.5)">
-    <div class="columna1" style="background: none">
-        <div class="contenedorColumna1">
-            <a class="referenciaElegida" href="cargar-datos-entidades.html">Cargar datos Entidades y Organismos</a>
-            <a class="referencia" href="abrir-incidente.html">Abrir Incidente</a>
-            <a class="referencia" href="cerrar-incidente.html">Cerrar Incidente</a>
-            <a class="referencia" href="consultar-incidente.html">Consultar Incidente</a>
-            <a class="referencia" href="sugerencia-incidente.html">Sugerencia Incidente</a>
-            <a class="referencia" href="visualizacion-rankings.html">Rankings</a>
-            <a class="referencia" href="mi-cuenta.html">Mi cuenta</a>
+    <div class="columna1" style="background: none; margin-right: 0; margin-left: 0; height: 100px; margin-top: 20px">
+        <div class="contenedorColumna1" style="margin-right: 0; margin-left: 0">
+            <a class="referencia" href="/cargarDatosEntidades">Cargar entidades</a>
+            <a class="referencia" href="/abrirIncidente">Abrir Incidente</a>
+            <a class="referencia" href="/cerrarIncidente">Cerrar Incidente</a>
+            <a class="referencia" href="/consultaIncidentesPorEstado">Consultar Incidente</a>
+            <a class="referencia" href="/sugerenciaIncidente">Sugerencia Incidente</a>
+            <a class="referencia" href="/rankingsCL">Rankings CL</a>
+            <a class="referencia" href="/rankingsCP">Rankings CP</a>
         </div>
     </div>
-    <div class="columna2" style="background: none">
+    <div class="columna2" style="background: none; height: 485px">
         <div class="contenedorColumna2">
             <div class="subcontenedor" style="background: none;">
                 <label class="label" style="color: #4300d2" for="archivo-entidades">Inserte a continuación la planilla CSV</label>
                 <form method="POST" action="/cargarDatosEntidades" enctype="multipart/form-data">
-                <input class="boton" style="border: 3px solid rgba(67, 0, 210, 0.5);" type="file" id="archivo-entidades" name="archivo-entidades" required
-                       accept=".csv" />
-
-                        <button class="boton"  type="submit" >Cargar entidades</button>
+                <input class="boton" type="file" id="archivo-entidades" name="archivo-entidades" required accept=".csv" />
+                        <button class="boton" type="submit" >Cargar entidades</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+<script>
+    document.getElementById('opciones').addEventListener('change', function() {
+        var selectedValue = this.value;
+
+        // Redirigir según la opción seleccionada
+        switch (selectedValue) {
+            case 'mi-cuenta-CL':
+                window.location.href = '/miCuentaCL';
+                break;
+            case 'mi-cuenta-CP':
+                window.location.href = '/miCuentaCP';
+                break;
+            case 'cerrar-sesion':
+                window.location.href = '/paginaInicio';
+                break;
+                // Puedes agregar más casos según sea necesario
+            default:
+                break;
+        }
+    });
+</script>
 </body>
 </html>

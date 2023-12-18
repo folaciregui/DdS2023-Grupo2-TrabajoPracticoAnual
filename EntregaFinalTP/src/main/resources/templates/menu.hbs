@@ -64,11 +64,10 @@
                 <a class="referencia" href="/sugerenciaIncidente">Sugerencia Incidente</a>
                 <i class="fa-solid fa-comment-dots" aria-hidden="true" style="font-size: 50px;"></i>
             </div>
-            <div class="slide">
+            <div class="slide" style="display: flex; flex-direction: column">
                 <div>
-                    <a class="referencia" href="/rankingsCL">Rankings CL</a>
-                    <a class="referencia" href="/rankingsCP">Rankings CP</a>
-                    
+                    <a class="referencia" style="flex: 1; height: 50%" href="/rankingsCL">Rankings CL</a>
+                    <a class="referencia" style="flex: 1; height: 50%" href="/rankingsCP">Rankings CP</a>
                 </div>
             </div>
         </div>
@@ -91,7 +90,6 @@
     document.getElementById('icono-usuario').addEventListener('click', function() {
         var select = document.getElementById('opciones');
 
-        // Alternar la visibilidad del select
         select.style.display = (select.style.display === 'none' || select.style.display === '') ? 'block' : 'none';
     });
 

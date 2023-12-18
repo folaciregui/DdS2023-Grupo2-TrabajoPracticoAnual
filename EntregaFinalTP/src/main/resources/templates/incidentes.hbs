@@ -8,30 +8,80 @@
     <title>Incidentes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!--<link rel="stylesheet" href="../public/css/estilos.css">-->
 </head>
 <body style="margin: 0 ; padding: 0 ; text-align: center ; background-image: url('/img/subte2.jpg') ; background-size: cover">
 <header style="background-color: rgba(255,255,255,0.5) ; text-align: left ; display: flex; flex-direction: row">
-    <img class= "logoUTN"src="img/logoUTN.png" alt="Imagen en color" style=" text-align: left"></img>
-    <div style="align-items: center; flex: 1; text-align: right; margin-top: 20px;">
-        <a class="boton" href="pagina-inicio.html" style="text-decoration: none; background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Cerrar Sesión</a>
-        <!--<a class="botonMenu" href="pagina-principal.html" style="text-decoration: none; background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.5)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Volver al menu</a>-->
-        <h1 class="titulo">Incidentes</h1>
+    <img src="/img/logoUTN.png" alt="Imagen en color" style="height: 90px; text-align: left"></img>
+    <div style="display: flex; align-items: center; justify-content: right; flex: 1;">
+        <div class="config" style="align-items: center; align-content: center; justify-content: center">
+            <div style="flex: 1; width: 30%; padding: 10px;">
+                <i id="icono-usuario" class="fa fa-user" aria-hidden="true" style="color: #4300d2"></i>
+            </div>
+            <div style="flex: 1; width: 70%; padding: 10px;">
+                <select class="seleccion" id="opciones" name="opciones" style="color: #4300d2">
+                    <option class="opcion" value=""></option>
+                    <option class="opcion" value="mi-cuenta-CL" onclick="redireccionar(value)">Mi cuenta CL</option>
+                    <option class="opcion" value="mi-cuenta-CP" onclick="redireccionar(value)">Mi cuenta CP</option>
+                    <option class="opcion" value="cerrar-sesion">Cerrar sesión</option>
+                </select>
+            </div>
+        </div>
     </div>
 </header>
 
-<div id="content" style="background-color:rgba(255,255,255,0.5); height: 638px; display: flex; flex-direction: column;">
-    <div class="container mt-4" style="align-items: center; justify-content: center; place-items: center">
+<div class="contenedorColumna" style="background: rgba(255,255,255,0.5)">
+    <div class="columna1" style="background: none; margin-right: 0; margin-left: 0; height: 100px; margin-top: 20px">
+        <div class="contenedorColumna1" style="margin-right: 0; margin-left: 0">
+            <a class="referencia" href="/cargarDatosEntidades">Cargar entidades</a>
+            <a class="referencia" href="/abrirIncidente">Abrir Incidente</a>
+            <a class="referencia" href="/cerrarIncidente">Cerrar Incidente</a>
+            <a class="referencia" href="/consultaIncidentesPorEstado">Consultar Incidente</a>
+            <a class="referencia" href="/sugerenciaIncidente">Sugerencia Incidente</a>
+            <a class="referencia" href="/rankingsCL">Rankings CL</a>
+            <a class="referencia" href="/rankingsCP">Rankings CP</a>
+        </div>
+    </div>
+    <div class="columna2" style="margin-left: 0; margin-right: 0; background: none; height: 100vh; justify-content: start; align-items: flex-start;text-align: start;">
+        <div class="container mt-4" style="align-items: center; justify-content: center; place-items: center">
+            <div class="opciones" style="align-items: center; justify-content: center; align-self: center; width: 100%">
+                <table class="table table-striped table-hover" style="background: none">
+                    <tr style="background: none">
+                        <th style="background: rgba(101,101,101,0.66)">ID</th>
+                        <th style="background: rgba(101,101,101,0.66)">DESCRIPCION</th>
+                        <th style="background: rgba(101,101,101,0.66)">ESTADO</th>
+                        <!--<th>Cant. Tareas</th>
+                        <th>Acciones</th> -->
+                    </tr>
+                    <tbody>
+                    {{#each incidentes}}
+                        <tr style="background: none">
+                            <td style="background: rgba(255,255,255,0.74)">{{ this.id }}</td>
+                            <td style="background: rgba(255,255,255,0.74)">{{ this.descripcion }}</td>
+                            <td style="background: rgba(255,255,255,0.74)">{{ this.estado }}</td>
+                        </tr>
+                    {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            <!--
+            <div align="center">
+                <a class="btn btn-primary" href="/servicios/crear">Agregar Servicio</a>
+            </div> -->
 
+        </div>
+    </div>
+</div>
+<!--
+<div id="content" style="background-color:rgba(255,255,255,0.5); height: 625px; display: flex; flex-direction: column;">
+    <div class="container mt-4" style="align-items: center; justify-content: center; place-items: center">
         <div class="opciones" style="align-items: center; justify-content: center; align-self: center; width: 100%">
             <table class="table table-striped table-hover" style="background: none">
                 <tr style="background: none">
                     <th style="background: rgba(101,101,101,0.66)">ID</th>
                     <th style="background: rgba(101,101,101,0.66)">DESCRIPCION</th>
                     <th style="background: rgba(101,101,101,0.66)">ESTADO</th>
-                    <!--<th>Cant. Tareas</th>
-                    <th>Acciones</th> -->
                 </tr>
                 <tbody>
                 {{#each incidentes}}
@@ -44,19 +94,35 @@
                 </tbody>
             </table>
         </div>
-        <!--
-        <div align="center">
-            <a class="btn btn-primary" href="/servicios/crear">Agregar Servicio</a>
-        </div> -->
-
     </div>
 </div>
-
+-->
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/js/all.min.js"></script>
 <script src="/js/generales.js"></script>
+<script>
+    document.getElementById('opciones').addEventListener('change', function() {
+        var selectedValue = this.value;
+
+        // Redirigir según la opción seleccionada
+        switch (selectedValue) {
+            case 'mi-cuenta-CL':
+                window.location.href = '/miCuentaCL';
+                break;
+            case 'mi-cuenta-CP':
+                window.location.href = '/miCuentaCP';
+                break;
+            case 'cerrar-sesion':
+                window.location.href = '/paginaInicio';
+                break;
+                // Puedes agregar más casos según sea necesario
+            default:
+                break;
+        }
+    });
+</script>
 </body>
 </html>

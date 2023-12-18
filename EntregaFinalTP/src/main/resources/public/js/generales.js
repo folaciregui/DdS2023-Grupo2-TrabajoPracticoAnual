@@ -13,7 +13,7 @@
 
     });
 </script>*/
-
+/*
 document.addEventListener("DOMContentLoaded", function () {
     const carrusel = document.querySelector(".carrusel");
     const slides = document.querySelector(".slides");
@@ -36,4 +36,4 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     setInterval(nextSlide, 3000); // Cambia de slide cada 3 segundos (ajusta según sea necesario)
-});
+});*/
