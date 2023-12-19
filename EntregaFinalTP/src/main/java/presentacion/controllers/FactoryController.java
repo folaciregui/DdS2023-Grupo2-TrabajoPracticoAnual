@@ -13,6 +13,7 @@ public class FactoryController {
             case "Incidentes": controller = new IncidentesController(new RepositorioIncidentes()); break;
             case "Rankings": controller = new RankingsController(new RepositorioRankings()); break;
             case "Membresias": controller = new MembresiasController(new RepositorioMembresias(), new RepositorioUsuariosGenerales()); break;
+            case "MiCuenta": controller = new MiCuentaController(new RepositorioUsuariosGenerales());
             //case "Tareas": controller = new TareasController(new RepositorioEntidades()); break;
         }
         return controller;

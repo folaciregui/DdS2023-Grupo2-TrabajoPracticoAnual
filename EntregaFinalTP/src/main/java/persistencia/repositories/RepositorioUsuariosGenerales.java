@@ -56,4 +56,11 @@ public class RepositorioUsuariosGenerales implements WithSimplePersistenceUnit, 
     public void eliminar(Object o) {
 
     }
+
+    public void actualizarPerfil(UsuarioGeneral usuarioGeneral) {
+        EntityTransaction tx = entityManager().getTransaction();
+        tx.begin();
+        entityManager().merge(usuarioGeneral);
+        tx.commit();
+    }
 }

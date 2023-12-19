@@ -7,10 +7,8 @@ import io.javalin.http.Context;
 import persistencia.repositories.RepositorioRankings;
 import presentacion.handlers.ICrudViewsHandler;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class RankingsController extends Controller implements ICrudViewsHandler {
@@ -19,6 +17,36 @@ public class RankingsController extends Controller implements ICrudViewsHandler 
 
     public RankingsController(RepositorioRankings repositorioRankings){
         this.repositorioRankings = repositorioRankings;
+    }
+
+    public void filtrarRankings(Context context) throws Exception {
+        String tipoDeRankingString = context.formParam("tipoDeRanking");
+        //TipoDeRanking tipoDeRanking = TipoDeRanking.valueOf(tipoDeRankingString);
+
+        List<RankingsIncidente> rankings = this.repositorioRankings.buscarTodos();
+
+        List<RankingsIncidente> rankingsFiltrados = rankings.stream()
+                .filter(ranking -> ranking.getTipoDeRanking().name().equals(tipoDeRankingString))
+                .collect(Collectors.toList());
+
+        ordenarPorPosicion(rankingsFiltrados);
+        ordenarPorFecha(rankingsFiltrados);
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("rankingsFiltrados", rankingsFiltrados);
+        context.render("rankingsFiltrados.hbs", model);
+    }
+
+    private void ordenarPorPosicion(List<RankingsIncidente> rankingsFiltrados) {
+        Comparator<RankingsIncidente> comparadorPorPosicion = Comparator.comparingInt(RankingsIncidente::getPosicion);
+
+        rankingsFiltrados.sort(comparadorPorPosicion);
+    }
+
+    private void ordenarPorFecha(List<RankingsIncidente> rankingsFiltrados) {
+        Comparator<RankingsIncidente> comparadorPorFecha = Comparator.comparing(RankingsIncidente::getFecha);
+
+        rankingsFiltrados.sort(comparadorPorFecha);
     }
 
     @Override
@@ -56,18 +84,5 @@ public class RankingsController extends Controller implements ICrudViewsHandler 
 
     }
 
-    public void filtrarRankings(Context context) throws Exception {
-        String tipoDeRankingString = context.formParam("tipoDeRanking");
-        //TipoDeRanking tipoDeRanking = TipoDeRanking.valueOf(tipoDeRankingString);
 
-        List<RankingsIncidente> rankings = this.repositorioRankings.buscarTodos();
-
-        List<RankingsIncidente> rankingsFiltrados = rankings.stream()
-                .filter(ranking -> ranking.getTipoDeRanking().name().equals(tipoDeRankingString))
-                .collect(Collectors.toList());
-
-        Map<String, Object> model = new HashMap<>();
-        model.put("rankingsFiltrados", rankingsFiltrados);
-        context.render("rankingsFiltrados.hbs", model);
-    }
 }

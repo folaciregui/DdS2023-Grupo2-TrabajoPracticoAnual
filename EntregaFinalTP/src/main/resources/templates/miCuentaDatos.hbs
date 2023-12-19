@@ -43,41 +43,43 @@
             <a class="referencia" href="/rankingsCP">Rankings CP</a>
         </div>
     </div>
+
     <div class="columna2" style="margin-right: 30%; margin-left: 30%; background: none; height: 485px; place-items: center;align-items: center; align-content: center; justify-content: center; display: flex; flex-direction: column;">
 
-        <!--
-        <div class="miCuenta" style="background: none; place-items: center;align-items: center; justify-content: center">
+        <!--<div class="miCuenta" style="height: 90px; background: none; place-items: center;align-items: center; justify-content: center">
             <img src="/img/usuarioSinFoto.png" alt="Imagen no disponible" width=80px height=80px>
+        </div>-->
+        <img src="/img/usuarioSinFoto.png" alt="Imagen no disponible" width=80px height=80px>
+        <div class="miCuentaContenedor" style="background-color: rgba(255,255,255,0.5); margin-top: 20px;">
+
+            {{#if datos}}
+                <p class="label" style="color: #4300d2">ID</p>
+                <p class="label">{{datos.id}}</p>
+                <p class="label" style="color: #4300d2">NOMBRE</p>
+                <p class="label">{{datos.nombre}}</p>
+                <p class="label" style="color: #4300d2">APELLIDO</p>
+                <p class="label">{{datos.apellido}}</p>
+                <p class="label" style="color: #4300d2">EMAIL</p>
+                <p class="label">{{datos.email}}</p>
+
+                <!--<p id="label-nombre" class="label3" style="margin-top: 0">Nombre: {{datos.nombre}}</p>
+                <input type="text" id="edit-name" style="display: none">-->
+                <!--<p id="label-apellido" class="label3" style="margin-top: 0">Apellido: {{datos.apellido}}</p>
+                <input type="text" id="edit-lastname" style="display: none">-->
+                <!--<p id="label-correo" class="label3" style="margin-top: 0">Email: {{datos.email}}</p>-->
+            {{else}}
+                <p>No se encontraron datos de usuario.</p>
+            {{/if}}
+
         </div>
-        <div class="miCuentaContenedor" style="background-color: rgba(255,255,255,0.5);">
-
-            <p class="label2" style="margin-bottom: 0">NOMBRE</p>
-            <p id="label-nombre" class="label3" style="margin-top: 0"></p>
-            <input type="text" id="edit-name" style="display: none">
-
-            <p class="label2" style="margin-bottom: 0">APELLIDO</p>
-            <p id="label-apellido" class="label3" style="margin-top: 0">{{ miCuenta.apellido }}</p>
-            <input type="text" id="edit-lastname" style="display: none">
-
-            <p class="label2" style="margin-bottom: 0">CORREO ELECTRÓNICO</p>
-            <p id="label-correo" class="label3" style="margin-top: 0">{{ miCuenta.email }}</p>
-
-            <p class="label2" style="margin-bottom: 0">TELÉFONO</p>
-            <p id="label-telefono" class="label3" style="margin-top: 0">Teléfono</p>
-
-
+        <div style="display: flex; flex-direction: row; width: 315px; align-items: center; justify-content: center">
+            <form method="GET" action="/editarPerfil" style="flex: 1; width: 50%; align-items: center; justify-content: center">
+                <button class="referencia">Editar perfil</button>
+            </form>
+            <form method="POST" action="/comunidadesPorUsuario" style="flex: 1; width: 50%; align-items: center; justify-content: center">
+                <button class="referencia" style="text-align: center">Ver comunidades</button>
+            </form>
         </div>
-        <button id="boton-editar" class="boton" onclick="editarPerfil()">Editar perfil</button>
-        <button id="boton-guardar" class="boton" onclick="actualizarPerfil()" style="display: none">Guardar</button>
-
-        <form method="POST" action="/comunidadesPorUsuario">
-            <button class="referencia">Ver comunidades</button>
-        </form>
-        -->
-
-        <form method="POST" action="/miCuentaDatos">
-            <button class="referencia">Obtener datos</button>
-        </form>
 
     </div>
 </div>

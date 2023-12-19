@@ -25,8 +25,10 @@ public class RankingsIncidente implements Serializable {
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_ranking")
     private TipoDeRanking tipoDeRanking;
+
     @Column(name = "posicion")
     private Integer posicion;
+
     @Convert(converter = LocalDateAttributeConverter.class)
     @Column(name = "fecha_ranking")
     private LocalDate fecha;

@@ -2,6 +2,7 @@ package presentacion.controllers;
 
 import dominio.usuariosycomunidades.Comunidad;
 import dominio.usuariosycomunidades.Membresia;
+import dominio.usuariosycomunidades.RolDeImpacto;
 import dominio.usuariosycomunidades.UsuarioGeneral;
 import io.javalin.http.Context;
 import persistencia.repositories.RepositorioMembresias;
@@ -65,16 +66,32 @@ public class MembresiasController extends Controller implements ICrudViewsHandle
         System.out.println("El id es " + id);
 
         //UsuarioGeneral usuarioGeneral = this.repositorioUsuariosGenerales.buscarPorId(id);
-        List<Membresia> membresiasPorUsuario = this.repositorioMembresias.buscarPorUsuario(1);
-        List<Comunidad> comunidades = new ArrayList<>();
+        List<Membresia> membresiasPorUsuario = this.repositorioMembresias.buscarPorUsuario(id);
+        /*List<Comunidad> comunidades = new ArrayList<>();
 
         for(Membresia m : membresiasPorUsuario){
             comunidades.add(m.getComunidad());
-        }
+        }*/
 
         Map<String, Object> model = new HashMap<>();
-        model.put("comunidadesPorUsuario", comunidades);
+        model.put("membresiasPorUsuario", membresiasPorUsuario);
         context.render("comunidadesPorUsuario.hbs", model);
+
+    }
+
+    public void cambiarRol(Context context) throws Exception {
+        Integer usuario_id = context.sessionAttribute("id");
+        Integer comunidad_id = Integer.valueOf(context.formParam("comunidadId"));
+        RolDeImpacto rol = RolDeImpacto.valueOf(context.formParam("rol"));
+
+        Membresia membresia = this.repositorioMembresias.encontrarMembresia(usuario_id, comunidad_id, rol);
+        this.repositorioMembresias.cambiarRol(membresia);
+
+        List<Membresia> membresiasPorUsuario = this.repositorioMembresias.buscarPorUsuario(usuario_id);
+
+        Map<String, Object> model = new HashMap<>();
+        model.put("membresiasPorUsuarioEditado", membresiasPorUsuario);
+        context.render("comunidadesPorUsuarioEditado.hbs", model);
 
     }
 }

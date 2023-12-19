@@ -43,42 +43,20 @@
             <a class="referencia" href="/rankingsCP">Rankings CP</a>
         </div>
     </div>
-    <div class="columna2" style="margin-right: 30%; margin-left: 30%; background: none; height: 485px; place-items: center;align-items: center; align-content: center; justify-content: center; display: flex; flex-direction: column;">
 
-        <!--
-        <div class="miCuenta" style="background: none; place-items: center;align-items: center; justify-content: center">
-            <img src="/img/usuarioSinFoto.png" alt="Imagen no disponible" width=80px height=80px>
-        </div>
-        <div class="miCuentaContenedor" style="background-color: rgba(255,255,255,0.5);">
-
-            <p class="label2" style="margin-bottom: 0">NOMBRE</p>
-            <p id="label-nombre" class="label3" style="margin-top: 0"></p>
-            <input type="text" id="edit-name" style="display: none">
-
-            <p class="label2" style="margin-bottom: 0">APELLIDO</p>
-            <p id="label-apellido" class="label3" style="margin-top: 0">{{ miCuenta.apellido }}</p>
-            <input type="text" id="edit-lastname" style="display: none">
-
-            <p class="label2" style="margin-bottom: 0">CORREO ELECTRÓNICO</p>
-            <p id="label-correo" class="label3" style="margin-top: 0">{{ miCuenta.email }}</p>
-
-            <p class="label2" style="margin-bottom: 0">TELÉFONO</p>
-            <p id="label-telefono" class="label3" style="margin-top: 0">Teléfono</p>
-
-
-        </div>
-        <button id="boton-editar" class="boton" onclick="editarPerfil()">Editar perfil</button>
-        <button id="boton-guardar" class="boton" onclick="actualizarPerfil()" style="display: none">Guardar</button>
-
-        <form method="POST" action="/comunidadesPorUsuario">
-            <button class="referencia">Ver comunidades</button>
-        </form>
-        -->
-
-        <form method="POST" action="/miCuentaDatos">
-            <button class="referencia">Obtener datos</button>
-        </form>
-
+    <div class="columna2" style="background: rgba(255,255,255,0.5); margin-right: 30%; margin-left: 30%; background: none; height: 485px; place-items: center;align-items: center; align-content: center; justify-content: center; display: flex; flex-direction: column;">
+            <h1 class="subtitulo">Editar perfil</h1>
+            <form method="POST" action="/editarPerfil">
+                <div class="formulario">
+                    <input class="input" name="nombre" type="text" id="nombreRegister" placeholder="Nombre">
+                    <input class="input" name="apellido" type="text" id="apellidoRegister" placeholder="Apellido">
+                    <input class="input" name="nombre_de_usuario" type="email" id="emailRegister" placeholder="Correo Electrónico">
+                    <input class="input" name="contrasenia" type="password" id="passwordRegister" placeholder="Contraseña">
+                </div>
+                <a href="/menu" style="text-decoration: none">
+                    <button class="boton" style="background-color: #4300d2; color: #ffffff;" onmouseover="this.style.backgroundColor='rgba(255,255,255,0.75)'; this.style.color='#4300d2'" onmouseout="this.style.backgroundColor='#4300d2'; this.style.color='#fff'">Actualizar</button>
+                </a>
+            </form>
     </div>
 </div>
 

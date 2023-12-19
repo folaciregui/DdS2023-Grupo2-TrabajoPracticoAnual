@@ -51,12 +51,18 @@ public class Router {
         Server.app().post("/rankingsFiltrados", ((RankingsController) FactoryController.controller("Rankings"))::filtrarRankings);
         Server.app().get("/rankingsFiltrados", ctx -> {ctx.render("rankingsFiltrados.hbs");});
 
+        Server.app().post("/miCuentaDatos", ((MiCuentaController) FactoryController.controller("MiCuenta"))::obtenerDatosCuenta);
+        Server.app().get("/miCuentaDatos", ctx -> {ctx.render("miCuentaDatos.hbs");});
+
         Server.app().get("/miCuentaCL", ctx -> {ctx.render("miCuentaCL.hbs");});
         Server.app().get("/miCuentaCP", ctx -> {ctx.render("miCuentaCP.hbs");});
 
-        Server.app().post("/comunidadesPorUsuario", ((MembresiasController) FactoryController.controller("Membresias"))::comunidadesPorUsuario);
-        Server.app().get("/comunidadesPorUsuario", ctx -> {ctx.render("comunidadesPorUsuario.hbs");});
+        Server.app().get("/editarPerfil", ctx -> {ctx.render("editarPerfil.hbs");});
+        Server.app().post("/editarPerfil", ((MiCuentaController) FactoryController.controller("MiCuenta"))::editarPerfil);
 
+        Server.app().get("/comunidadesPorUsuario", ctx -> {ctx.render("comunidadesPorUsuario.hbs");});
+        Server.app().post("/comunidadesPorUsuario", ((MembresiasController) FactoryController.controller("Membresias"))::comunidadesPorUsuario);
+        Server.app().post("/comunidadesPorUsuarioEditado", ((MembresiasController) FactoryController.controller("Membresias"))::cambiarRol);
 
         //app.get("/api/entidades", new GetEntidadesHandler());
         //app.get("/api/entidades/:entidadId/establecimientos", new GetEstablecimientosHandler());
