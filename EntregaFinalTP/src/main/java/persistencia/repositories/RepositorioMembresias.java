@@ -89,4 +89,21 @@ public class RepositorioMembresias implements WithSimplePersistenceUnit {
         entityManager().merge(membresia);
         tx.commit();
     }
+
+    public Membresia buscarPorId(Integer membresiaId) {
+        CriteriaBuilder cb = entityManager().getCriteriaBuilder();
+        CriteriaQuery<Membresia> criteriaQuery = cb.createQuery(Membresia.class);
+        Root<Membresia> root = criteriaQuery.from(Membresia.class);
+
+        criteriaQuery
+                .select(root)
+                .where(
+                        cb.and(
+                                cb.equal(root.get("id"), membresiaId)
+                        )
+                );
+
+        return entityManager().createQuery(criteriaQuery).getSingleResult();
+    }
+
 }

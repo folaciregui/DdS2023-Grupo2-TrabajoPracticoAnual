@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="icon" type="image/x-icon" href="/img/logoUTN.png">
-    <link rel="stylesheet" href="/css/miCuentaCP.css">
+    <link rel="stylesheet" href="/css/miCuenta.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap" rel="stylesheet">
@@ -20,55 +20,70 @@
 </header>
 
 <div class="contenedorColumna" style="background: rgba(255,255,255,0.5)">
-    <div class="columna1" style="background: none">
-        <div class="contenedorColumna1">
-            <a class="referencia" href="cargar-datos-entidades.html">Cargar datos Entidades y Organismos</a>
-            <a class="referencia" href="abrir-incidente.html">Abrir Incidente</a>
-            <a class="referencia" href="cerrar-incidente.html">Cerrar Incidente</a>
-            <a class="referencia" href="consultar-incidente.html">Consultar Incidente</a>
-            <a class="referencia" href="sugerencia-incidente.html">Sugerencia Incidente</a>
-            <a class="referencia" href="visualizacion-rankings.html">Rankings</a>
-            <a class="referenciaElegida" href="mi-cuenta.html">Mi cuenta</a>
-        </div>
-    </div>
-    <div class="columna2" style="background: none; " >
+<!--    <div class="columna1" style="background: none">-->
+<!--&lt;!&ndash;        <div class="contenedorColumna1">&ndash;&gt;-->
+<!--&lt;!&ndash;            <a class="referencia" href="cargar-datos-entidades.html">Cargar datos Entidades y Organismos</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            <a class="referencia" href="abrir-incidente.html">Abrir Incidente</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            <a class="referencia" href="cerrar-incidente.html">Cerrar Incidente</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            <a class="referencia" href="consultar-incidente.html">Consultar Incidente</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            <a class="referencia" href="sugerencia-incidente.html">Sugerencia Incidente</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            <a class="referencia" href="visualizacion-rankings.html">Rankings</a>&ndash;&gt;-->
+<!--&lt;!&ndash;            <a class="referenciaElegida" href="mi-cuenta.html">Mi cuenta</a>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--    </div>-->
+    <div id= "app" class="columna2" style="background: none; " >
         <div class="miCuenta" style="background: none; margin: 0">
             <img src="/img/usuarioSinFoto.png" alt="Imagen no disponible" width=80px height=80px>
         </div>
-        <div id="perfilArea" class="miCuentaContenedor" style="background-color: rgba(255,255,255,0.5);">
+        <div id="perfilArea" class="miCuentaContenedor" v-show="!mostrarAreaComunidades" style="background-color: rgba(255,255,255,0.5);">
+
             <p class="label2" style="margin-bottom: 0">NOMBRE</p>
-            <p id="label-nombre" class="label3" style="margin-top: 0">Nombre</p>
-            <input type="text" id="edit-name" style="display: none">
+            <p id="label-nombre" class="label3" style="margin-top: 0" v-if="!estaEditando">{{ nombreOriginal }}</p>
+            <input type="text" id="edit-name"  v-if="estaEditando" v-model="nombreNuevo">
 
             <p class="label2" style="margin-bottom: 0">APELLIDO</p>
-            <p id="label-apellido" class="label3" style="margin-top: 0">Apellido</p>
-            <input type="text" id="edit-lastname" style="display: none">
+            <p id="label-apellido" class="label3" style="margin-top: 0" v-if="!estaEditando">{apellidoOriginal}</p>
+            <!--style="display: none"-->
+            <input type="text" id="edit-lastname" v-if="estaEditando" v-model="apellidoNuevo" >
 
             <p class="label2" style="margin-bottom: 0">CORREO ELECTRÓNICO</p>
-            <p id="label-correo" class="label3" style="margin-top: 0">Correo electrónico</p>
+            <p id="label-correo" class="label3" style="margin-top: 0" v-if="!estaEditando">{correoOriginal}</p>
+            <input type="text" id="edit-email"  v-if="estaEditando" v-model="correoNuevo" >
 
-            <p class="label2" style="margin-bottom: 0">TELÉFONO</p>
-            <p id="label-telefono" class="label3" style="margin-top: 0">Teléfono</p>
+            <p class="label2" style="margin-bottom: 0">CONTRASEÑA</p>
+            <p id="label-telefono" class="label3" style="margin-top: 0" v-if="!estaEditando">{contraseñaOriginal}</p>
+            <input type="text" id="edit-phonenumber" v-if="estaEditando" v-model="contraseñaNueva" >
         </div>
-        <div class= "areaComunidad" id="comunidadesArea" style="display: none;">
+        <!--        <div class= "areaComunidad" id="comunidadesArea" style="display: none;">-->
+        <div class="areaComunidad" id="comunidadesArea" v-show="mostrarAreaComunidades">
             <!-- Contenido de las comunidades -->
-            <select id="comunidadesDropdown" v-model="comunidadSeleccionada" @change="actualizarRol">
-                <!-- Opciones del desplegable -->
-                <option value="comunidad1">Comunidad 1</option>
-                <option value="comunidad2">Comunidad 2</option>
-            </select>
-            <!-- Actualización dinámica del rol -->
+            <label class="label">Comunidades:</label>
+            <ul>
+                <li v-for="membresia in membresias" :key="membresia.id" @click="seleccionarComunidad(membresia)">
+                    <span v-text="membresia.comunidad.id" ></span>
+                    <span v-text="membresia.rolDeImpacto" ></span>
+                    <button id="boton-modificarRol" class="boton" @click="modificarRol(membresia)">Cambiar rol</button>
+                </li>
 
+            </ul>
 
-            <button id="boton-modificarRol" @click="modificarRol">Modificar Rol</button>
-
-            <select id="selectRoles" style="display: none;"></select>
-            <button id="boton-guardarRol" class="boton" @click="guardarRol" style="display: none; font-size: 14px;"> Guardar Cambios</button>
+<!--            <div id="areaRoles" v-show="mostrarListaRoles"> &lt;!&ndash; v-show para mostrar/ocultar &ndash;&gt;-->
+<!--                <label class="label">Selecciona un rol:</label>-->
+<!--                <ul>-->
+<!--                    <li v-for="rol in roles" :key="rol" @click="seleccionarRol(rol)">-->
+<!--                        <span v-text="rol"></span>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--            <button id="boton-guardarRol" class="boton" @click="guardarRol" v-show="mostrarListaRoles">Guardar Cambios</button>-->
         </div>
-        <button id="boton-editar" class="boton" onclick="editarPerfil()">Editar perfil</button>
-        <button id="boton-comunidades" class="boton" onclick="verComunidades()">Mis comunidades</button>
-        <button id="boton-guardar" class="boton" onclick="actualizarPerfil()" style="display: none">Guardar</button>
-        <button id="boton-atras" class="boton" onclick="ocultarComunidades()" style="display: none">Atras</button>
+        <button id="boton-comunidades" class="boton" @click="mostrarAreaComunidades()" v-show="!mostrarAreaComunidades">Mis comunidades</button>
+        <button id="boton-editar" class="boton" @click="editarPerfil()" v-show="mostrarBotonEditar">Editar perfil</button>
+        <button id="boton-atras" class="boton" @click="ocultarComunidades" v-show="mostrarAreaComunidades">Atras</button>
+        <button id="boton-guardar" class="boton" @click="actualizarPerfil()" v-show="estaEditando">Guardar</button>
+        <!--        <button id="boton-atras" class="boton" onclick="ocultarComunidades()" style="display: none">Atras</button>-->
+        <!--        <button id="boton-comunidades" class="boton" onclick="verComunidades()">Mis comunidades</button>-->
+
     </div>
 </div>
 
@@ -78,133 +93,6 @@
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script><!-- para vue    -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script>
-    // URL de tu API que devuelve los roles de las comunidades
-    //devuelve las membresias {idComunidad, rolImpacto}
-
-    // Realizar la solicitud HTTP usando fetch
-
-       new Vue({
-            el: '#comunidadesArea',
-            data: {
-                comunidadSeleccionada: 'comunidad1', // Establecer una comunidad predeterminada la primera de la lista seria
-                // rolesPorComunidad: {
-                //     comunidad1: 'observador', // Define los roles por comunidad
-                //     comunidad2: 'observador'
-                // }
-                rolesPorComunidad: {}
-            },
-            methods: {
-                actualizarRol() {
-                    const rolActualElement = document.getElementById('rolActual');
-                    const rolComunidad = this.rolesPorComunidad[this.comunidadSeleccionada];
-                    rolActualElement.textContent = `Rol actual: ${rolComunidad}`;
-                },
-                guardarRol() {
-                    const nuevoRol = document.getElementById('selectRoles').value;
-                    const rolActualElement = document.getElementById('rolActual');
-                    //const comunidadSeleccionada = document.getElementById('comunidadesDropdown').value;
-                    const comunidadSeleccionada = this.comunidadSeleccionada;
-                    this.$set(this.rolesPorComunidad, comunidadSeleccionada, nuevoRol);
-                    // aca persistir el rol y la comunidad
-                    // rolesPorComunidad[comunidadSeleccionada] = nuevoRol;
-                    rolActualElement.textContent = `Rol actual: ${this.rolesPorComunidad[comunidadSeleccionada]}`;
-                    // Aquí puedes enviar el nuevo rol a tu backend para actualizarlo en la base de datos
-                    console.log(`Nuevo rol seleccionado: ${nuevoRol} para la comunidad ${comunidadSeleccionada}`);
-                    document.getElementById('selectRoles').style.display = 'none';
-                    document.getElementById("boton-modificarRol").style.display = "block";
-                    document.getElementById('boton-guardarRol').style.display = 'none';
-                    // Enviar datos actualizados al backend
-                    fetch('URL_DEL_BACKEND', {
-                        method: 'PUT', // Método HTTP para actualizar los datos
-                        headers: {
-                            'Content-Type': 'application/json' // Tipo de contenido que estás enviando
-                        },
-                        body: JSON.stringify({
-                            comunidad: comunidadSeleccionada,
-                            nuevoRol: nuevoRol
-                        })
-                    })
-                            .then(response => {
-                                if (!response.ok) {
-                                    throw new Error('Error al actualizar el rol en la base de datos');
-                                }
-                                return response.json();
-                            })
-                            .then(data => {
-                                // Manejar la respuesta del backend si es necesario
-                                console.log('Rol actualizado en la base de datos:', data);
-                            })
-                            .catch(error => {
-                                console.error('Error al enviar los datos al backend:', error);
-                            });
-                },
-                modificarRol() {
-                    // Mostrar el rol actual
-                    const rolActualElement = document.getElementById('rolActual');
-                    const comunidadSeleccionada = this.comunidadSeleccionada;
-                    const rolComunidad = this.rolesPorComunidad[comunidadSeleccionada]; //no se modifica este
-
-                    rolActualElement.textContent = `Rol actual: ${rolComunidad}`;
-                    document.getElementById("boton-modificarRol").style.display = "none";
-                    document.getElementById("boton-guardarRol").style.display = "block";
-                    // Obtener el select de roles
-                    const selectRoles = document.getElementById('selectRoles');
-
-                    // Limpiar el select antes de agregar nuevas opciones
-                    selectRoles.innerHTML = '';
-
-
-                    const roles = ['observador', 'afectado']; // si se modificaran los roles habria que leer desde la BD los roles
-
-                    // Agregar las opciones al select
-                    roles.forEach((rol) => {
-                        const option = document.createElement('option');
-                        option.value = rol;
-                        option.textContent = rol.charAt(0).toUpperCase() + rol.slice(1); // Formatear la primera letra en mayúscula
-                        selectRoles.appendChild(option);
-                    });
-
-                    // Mostrar el select
-                    selectRoles.value = rolComunidad;
-                    selectRoles.style.display = 'block';
-                }
-            },
-            mounted() {
-                // Mostrar el rol actual al cargar la página
-                fetch(`https://localhost:8080/api/obtenerRoles`)
-                        .then(response => {
-                            if (response.status >= 400) {
-                                alert("Hubo un error en el API")
-                            } else {
-                                return response.json()
-                            }
-                        })
-                        .then(data => {
-                            // Los datos obtenidos de la API (suponiendo que es un objeto con roles)
-                            // Ahora rolesPorComunidad tiene los roles de la API
-                            console.log(data); // Verificar en la consola
-                            console.log(`entra al segundo then`);
-                            let rolesPorComunidadBD = {};
-
-                            // Suponiendo que 'data' es la respuesta de la API con los roles de las comunidades
-                            data.forEach(membresia => {
-                                rolesPorComunidadBD[membresia.id] = membresia.rolImpacto; // Asignar el ID como clave y el rol como valor
-                            });
-                            rolesPorComunidad=rolesPorComunidadBD;
-                        })
-                        .catch(error => {
-                            console.error('Error al obtener los roles:', error);
-                            console.error('Tipo de error:', error.constructor.name);
-                            console.error('Mensaje de error:', error.message);
-                        });
-
-                // const rolActualElement = document.getElementById('rolActual');
-              //  rolActualElement.textContent = `Rol actual: ${this.rolesPorComunidad[this.comunidadSeleccionada]}`;
-            }
-        });
-
-
-
     const firebaseConfig = {
         apiKey: "AIzaSyCqXg0sZXtSOxHPEjkKKS0S4jdHER1z-VU",
         authDomain: "dds-sistema-monitoreables.firebaseapp.com",
@@ -242,103 +130,200 @@
             alert("Error al cerrar sesión: " + error.message);
         });
     }
+</script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            comunidadSeleccionada: '',
+            membresias: [],
+            mostrarListaRoles: false,
+            mostrarAreaComunidades:false,
+            // mostrarBotonGuardarPerfil: false,
+            roles: ["OBSERVADOR", "AFECTADO"],
+            rolSeleccionado: '',
+            nombreNuevo: user.displayName,
+            nombreOriginal: user.displayName, //el de firebase
+            apellidoOriginal: '', //de donde lo saco
+            apellidoNuevo: '',
+            contraseñaOriginal:'', // de donde lo saco
+            contraseñaNueva:'',
+            correoOriginal:user.email,
+            correoNuevo: user.email,
+            // isNombreModificado: false,
+            // isApellidoModificado: false,
+            // isCorreoModificado: false,
+            // isTelefonoModificado: false,
+            estaEditando: false,
+            mostrarBotonEditar: true,
+        },
 
-    function editarPerfil() {
-        // Obtener referencias a los elementos HTML
-        const userNameLabel = document.getElementById("label-nombre");
-        const userLastnameLabel = document.getElementById("label-apellido");
-        const editNameInput = document.getElementById("edit-name");
-        const editLastnameInput = document.getElementById("edit-lastname");
-        const botonEditar = document.getElementById("boton-editar");
-        const botonComunidades = document.getElementById("boton-comunidades");
-        const botonGuardar = document.getElementById("boton-guardar");
-        // Obtener datos actuales del usuario
-        const userName = userNameLabel.textContent;
-        const userLastname = userLastnameLabel.textContent;
+        methods: {
+            seleccionarComunidad(comunidadId){
+                this.comunidadSeleccionada = comunidadId;
+            },
+            seleccionarRol(rolId){
+                this.rolSeleccionado = rolId;
+            },
+            mostrarAreaComunidades(){
+                this.mostrarAreaComunidades = true;
+                this.mostrarBotonEditar = false
+            },
+            modificarRol(membresia) {
+                //muestra la lista de roles
+                this.mostrarListaRoles = true;
+                if(membresia.rolDeImpacto !== "OBSERVADOR"){
+                    membresia.rolDeImpacto = "AFECTADO";
+                }else {
+                    membresia.rolDeImpacto = "OBSERVADOR";
+                }
+                this.guardarRol(membresia);
+            },
+            guardarRol(membresia) {
+                console.log('Rol nuevo:', membresia.rolDeImpacto);
+                //capaz implementar un if para que no se guarde el mismo rol
+                // Lógica para actualizar el rol de la comunidad con this.rolSeleccionado
+                fetch(`/api/comunidades/${membresia.id}/${membresia.rolDeImpacto}`, {//capaz cambiar esto
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(membresia)
+                })
+                        .then(response => {
+                            if (response.ok) {
+                                console.log('Membresia actualizada en la base de datos');
+                            } else {
+                                console.error('Error al actualizar la membresia en la base de datos (else):', response.status);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error al actualizar la membresia en la base de datos:', error);
+                        });
+                // Una vez guardado el rol oculto la lista de roles
+                this.mostrarListaRoles = false;
+            },
+            ocultarComunidades(){
+                this.mostrarAreaComunidades = false;
+                this.mostrarBotonEditar= true;
+            },
 
-        // Mostrar campos editables y ocultar labels
-        editNameInput.style.display = "block";
-        editLastnameInput.style.display = "block";
-        botonGuardar.style.display = "block";
-        botonEditar.style.display = "none";
-        botonComunidades.style.display = "none";
-        userNameLabel.style.display = "none";
-        userLastnameLabel.style.display = "none";
+            editarPerfil() {
+                // Al editar el perfil, activar las variables de modificación según sea necesario
+                this.estaEditando = true;
+                this.mostrarBotonEditar= false;
+            },
+            actualizarPerfil(){
+                //const usuarioId = 5;
+                if (this.nombreOriginal !== this.nombreNuevo) {
 
-        // Mostrar los datos actuales en los campos editables
-        editNameInput.value = userName;
-        editLastnameInput.value = userLastname;
-    }
-    function actualizarPerfil() {
-        const userNameLabel = document.getElementById("label-nombre");
-        const userLastnameLabel = document.getElementById("label-apellido");
-        const editNameInput = document.getElementById("edit-name");
-        const editLastnameInput = document.getElementById("edit-lastname");
-        const botonEditar = document.getElementById("boton-editar");
-        const botonComunidades = document.getElementById("boton-comunidades");
-        const botonGuardar = document.getElementById("boton-guardar");
+                    console.log('Nombre modificado');
+                }
+                if (this.apellidoOriginal !== this.apellidoNuevo) {
 
-        const userName = editNameInput.value;
-        const userLastname = editLastnameInput.value;
+                    console.log('Apellido modificado');
+                }
+                if (this.correoOriginal !== this.correoNuevo) {
 
-        console.log(userName);
-        console.log(userLastname);
+                    console.log('Correo modificado');
+                }
+                if (this.contraseñaOriginal !== this.contraseñaNueva) {
 
-        // Actualizar labels con los nuevos valores
-        userNameLabel.textContent = userName || "Nombre no disponible";
-        userLastnameLabel.textContent = userLastname || "Apellido no disponible";
+                    console.log('Contraseña modificada');
+                }
+                // this.isNombreModificado = false;
+                // this.isApellidoModificado = false;
+                // this.isCorreoModificado = false;
+                // this.isTelefonoModificado = false;
+                this.actualizarUsuarioBD();
+                this.estaEditando = false;
+                this.mostrarBotonEditar = true;
+                console.log('toque boton guardar');
+            },
+            actualizarUsuarioBD(){
 
-        // Ocultar inputs y mostrar labels
-        editNameInput.style.display = "none";
-        editLastnameInput.style.display = "none";
-        botonGuardar.style.display = "none";
-        botonComunidades.style.display = "block";
-        botonEditar.style.display = "block";
-        userNameLabel.style.display = "block";
-        userLastnameLabel.style.display = "block";
+                const usuarioModificado = {
+                    "id": 5,
+                    "nombre": this.nombreNuevo,
+                    "apellido": this.apellidoNuevo,
+                    "email": this.correoNuevo,
+                    "contrasenia": this.contraseñaNueva
+                }
+                fetch(`/api/usuario/${usuarioModificado.id}`, {//capaz cambiar esto
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(usuarioModificado)
+                })
+                        .then(response => {
+                            if (response.ok) {
+                                console.log('Varios datos actualizado en la base de datos');
+                            } else {
+                                console.error('Error al actualizar Varios datos en la base de datos (else):', response.status);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error al actualizar Varios datos en la base de datos:', error);
+                        });
+            },
 
-        userNameLabel.style.textAlign = "left";
-        userLastnameLabel.style.textAlign = "left";
+            // Simplificación del método actualizarPerfil para evitar redundancia
+            // actualizarPerfil() {
+            //     if(this.isNombreModificado){
+            //         this.actualizarDatosBD('nombre', this.nombreNuevo);
+            //     }
+            //     if(this.isApellidoModificado){
+            //         this.actualizarDatosBD('apellido', this.apellidoNuevo);
+            //     }
+            //     // Lógica similar para correo y teléfono si son editables
+            // }
+            //
+            // actualizarDatosBD(propiedad, valor) {
+            //     fetch(`/api/usuario/${valor}`, {
+            //         method: 'PUT',
+            //         headers: {
+            //             'Content-Type': 'application/json'
+            //         },
+            //         body: JSON.stringify({ [propiedad]: valor })
+            //     })
+            //             .then(response => {
+            //                 if (response.ok) {
+            //                     console.log(`${propiedad} actualizado en la base de datos`);
+            //                 } else {
+            //                     console.error(`Error al actualizar ${propiedad} en la base de datos (else):`, response.status);
+            //                 }
+            //             })
+            //             .catch(error => {
+            //                 console.error(`Error al actualizar ${propiedad} en la base de datos:`, error);
+            //             });
+            // }
+        },
+        mounted(){
+            // Mostrar el rol actual al cargar la página
+            const usuarioId = 5; //OBTENER EL ID REAL
+            fetch(`/api/obtenerComunidadesPorUsuario/${usuarioId}`)//ya hay un get parecido en CL
+                    .then(response => {
+                        if (response.status >= 400) {
+                            alert("Hubo un error en el API")
+                        } else {
+                            return response.json()
+                        }
+                    })
+                    .then(membresias => {
+                        console.log(membresias); // Verificar en la consola
+                        this.membresias = membresias;
 
-    }
-    // Función para mostrar las comunidades
-    // Objeto para almacenar los roles por comunidad
+                    })
+                    .catch(error => {
+                        console.error('Error en la solicitud de las comunidades:', error);
+                        alert(`Hubo un error en la solicitud al buscar las comunidades:\n\n${error.message}`);
+                    });
 
-
-
-    function verComunidades() {
-        // Ocultar otros elementos y mostrar comunidades
-        document.getElementById("boton-editar").style.display = "none";
-        document.getElementById("boton-comunidades").style.display = "none";
-        document.getElementById("boton-guardar").style.display = "none";
-
-        // Mostrar el área de las comunidades
-        document.getElementById("comunidadesArea").style.display = "flex";
-        document.getElementById("perfilArea").style.display="none";
-        document.getElementById("boton-atras").style.display = "block";
-    }
-    function ocultarComunidades(){
-        document.getElementById("boton-editar").style.display = "block";
-        document.getElementById("boton-comunidades").style.display = "block";
-        document.getElementById("boton-guardar").style.display = "none";
-
-        // Mostrar el área de las comunidades
-        document.getElementById("comunidadesArea").style.display = "none";
-        document.getElementById("perfilArea").style.display="block";
-        document.getElementById("boton-atras").style.display = "none";
-    }
-
-    // Función para modificar el rol
-    // Suponiendo que tienes una variable que almacena el rol actual del usuario en esa comunidad
-    // let rolActual = 'observador'; // Puedes obtener esta información de tu lógica de backend o base de datos
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     const rolActualElement = document.getElementById('rolActual');
-    //     rolActualElement.textContent = `Rol actual: ${rolActual}`;
-    // });
-    // let rolesPorComunidad = {
-    //     comunidad1: 'observador',
-    //     comunidad2: 'observador'
-    // };
+            // const rolActualElement = document.getElementById('rolActual');
+            //  rolActualElement.textContent = `Rol actual: ${this.rolesPorComunidad[this.comunidadSeleccionada]}`;
+        }
+    });
 
 </script>
 </body>

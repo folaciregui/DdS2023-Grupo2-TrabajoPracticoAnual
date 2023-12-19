@@ -70,14 +70,7 @@
     firebase.initializeApp(firebaseConfig);
     var providerGoogle = new firebase.auth.GoogleAuthProvider();
     var providerMicrosoft = new firebase.auth.OAuthProvider('microsoft.com');
-    // Manejo base de datos
-    //  const database = firebase.database();
-    // const ref = database.ref('/ruta/a/tu/datos'); // Reemplaza con la ruta de tus datos
-    //
-    // ref.on('value', (snapshot) => {
-    //     const data = snapshot.val();
-    //     // Procesa y muestra los datos en tu página web
-    // });
+
 
     // Verifica estado de sesion
     firebase.auth().onAuthStateChanged((user) => {
@@ -85,7 +78,7 @@
             // User is signed in, see docs for a list of available properties
             var uid = user.uid;
             var textoVerificado="";
-            document.getElementById("userState").innerHTML="Hizo login"
+
             console.log(user);//para ver datos de usuario, despues borrar esta linea
             if(user.emailVerified){
                 textoVerificado="Estas verificado";
@@ -94,8 +87,7 @@
             }
             document.getElementById("texto-verificado").textContent = textoVerificado;
         } else {
-            // User is signed out
-            document.getElementById("userState").innerHTML="Deslogueado"
+
 
         }
     });
@@ -105,27 +97,6 @@
     const userInfo = document.getElementById("user-info");
     const userDisplayName = document.getElementById("user-displayname");
     const userEmail = document.getElementById("user-email");
-
-    // Función para registarse
-    function register() {
-        const email = document.getElementById("emailRegister").value;
-        const password = document.getElementById("passwordRegister").value;
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-                .then((userCredential) => {
-                    // Creación del usuario exitosa
-                    const user = userCredential.user;
-                    verificarCorreo();
-                    alert("Registrado con exito");
-                    inicioSesion(user);
-                })
-                .catch(function(error) {
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    alert("Error al registrar la cuenta: " + errorMessage);
-                    document.getElementById("emailLogin").innerHTML= "";//no terminado
-                    document.getElementById("passwordLogin").innerHTML="";
-                });
-    }
 
     // Función para iniciar sesión
     function verificarCorreo(){

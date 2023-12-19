@@ -24,7 +24,7 @@ public class Cuenta {
     @Column(name = "nombre_identificador")
     private String nombre;
 
-    @Column(name = "contrasenia") // ?????? NO ME GUSTA
+    @Column(name = "contrasenia")
     private String contrasenia;
 
 }

@@ -22,17 +22,18 @@ public class GetRankingsHandler implements Handler {
 
     @Override
     public void handle(@NotNull Context context) throws Exception {
+        System.out.println("antes de hacer cualquier cosa en el handler");
         String tipoDeRankingString = context.pathParam("tipoDeRanking");
 
         List<RankingsIncidente> rankings = this.repositorioRankings.buscarTodos();
 
-        //System.out.println(tipoDeRankingString);
+        System.out.println(tipoDeRankingString);
 
         List<RankingsIncidente> rankingsFiltradoss = rankings.stream()
                 .filter(ranking -> ranking.getTipoDeRanking().name().equals(tipoDeRankingString))
                 .collect(Collectors.toList());
 
-        //System.out.println("la lista tiene " + rankingsFiltrados.size() + " rankings");
+        System.out.println("la lista tiene " + rankingsFiltradoss.size() + " rankings");
 
         context.json(rankingsFiltradoss);
     }

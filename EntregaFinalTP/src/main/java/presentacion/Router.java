@@ -92,10 +92,20 @@ public class Router {
         Server.app().get("/rankingsCP", ctx -> {ctx.render("rankingsCP.hbs");});
         //Server.app().get("/rankingFiltradosCP/{tipoDeRanking}", ctx -> {ctx.render("rankingFiltradosCP.hbs");});
 
-        Server.app().get("/rankingFiltradosCP/PROMEDIO_DE_CIERRE", ctx -> {ctx.render("rankingsPorTipo1.hbs");});
+        /*Server.app().get("/rankingFiltradosCP/PROMEDIO_DE_CIERRE", ctx -> {ctx.render("rankingsPorTipo1.hbs");});
         Server.app().get("/rankingFiltradosCP/MAYOR_CANT_INCIDENTES", ctx -> {ctx.render("rankingsPorTipo2.hbs");});
-        Server.app().get("/rankingFiltradosCP/MAYOR_IMPACTO", ctx -> {ctx.render("rankingsPorTipo3.hbs");});
+        Server.app().get("/rankingFiltradosCP/MAYOR_IMPACTO", ctx -> {ctx.render("rankingsPorTipo3.hbs");});*/
         Server.app().get("/rankingFiltradosCP/{tipoDeRanking}", new GetRankingsHandler());
+
+        Server.app().get("/api/obtenerComunidadesPorUsuario/{usuarioId}", new GetMembresiasPorUsuarioHandler());
+        Server.app().put("/api/comunidades/{membresia_id}/{rolDeImpacto}", new PutCambioDeRolHandler());
+        Server.app().put("/api/usuario/{usuarioId}", new PutEditarPerfilHandler());
+
+
+
+
+
+
 
         /*
         Server.app().get("entidades", ((EntidadesController) FactoryController.controller("Entidades"))::index);

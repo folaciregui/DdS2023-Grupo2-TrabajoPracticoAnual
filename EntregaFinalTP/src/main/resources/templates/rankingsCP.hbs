@@ -52,20 +52,16 @@
     <div  class="columna2" style="background: none">
         <div class="opciones">
             <ul>
-                <li v-for="ranking in rankingsFiltrados" :key="ranking"  :value="ranking" @click="seleccionarRanking(ranking)">
+                <li v-for="ranking in rankingFiltrados" :key="ranking">
                     <span v-text="ranking.id"></span>
                     <span v-text="ranking.posicion"></span>
                     <span v-text="ranking.tipoDeRanking"></span>
+                    <span v-text="ranking.fecha"></span>
                     <span v-text="ranking.entidad.nombre"></span>
                 </li>
             </ul>
 
         </div>
-        <!--
-        <div style="height: 20px"></div>
-        <button class="boton" @click="filtrarRankings">Buscar Ranking</button>
-        -->
-        <h1>FALTA TERMINAR</h1>
     </div>
 </div>
 
@@ -167,7 +163,7 @@
 
             filtrarRankings(){
                 console.log(this.rankingSeleccionado);
-                fetch(`http://localhost:8080/rankingFiltradosCP/${this.rankingSeleccionado}`)
+                fetch(`/rankingFiltradosCP/${this.rankingSeleccionado}`)
                         .then(response => {
                             if (response.status >= 400) {
                                 alert("Hubo un error en el API filtrando")
@@ -176,9 +172,10 @@
                             }
                         })
                         .then(rankingFiltrados => {
+                            console.log('ya filtre');
                             console.log(rankingFiltrados);
                             this.rankingFiltrados = rankingFiltrados;
-                            console.log('ya filtre');
+
                         })
                         .catch(error => {
                             console.error('Error en la solicitud:', error);
