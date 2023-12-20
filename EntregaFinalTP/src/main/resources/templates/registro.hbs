@@ -104,6 +104,7 @@
                     // Creación del usuario exitosa
                     const user = userCredential.user;
                     verificarCorreo();
+                    console.log("El usuario tiene: ", JSON.stringify(user, null, 2));
                     alert("Registrado con exito");
                     inicioSesion(user);
                 })

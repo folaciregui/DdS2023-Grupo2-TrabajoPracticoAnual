@@ -101,10 +101,7 @@ public class Router {
         Server.app().put("/api/comunidades/{membresia_id}/{rolDeImpacto}", new PutCambioDeRolHandler());
         Server.app().put("/api/usuario/{usuarioId}", new PutEditarPerfilHandler());
 
-
-
-
-
+        Server.app().get("/api/todosLosIncidentes", new GetIncidentesTodosHandler());
 
 
         /*

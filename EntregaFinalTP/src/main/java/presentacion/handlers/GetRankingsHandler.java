@@ -6,6 +6,7 @@ import io.javalin.http.Handler;
 import org.jetbrains.annotations.NotNull;
 import persistencia.repositories.RepositorioRankings;
 
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +23,6 @@ public class GetRankingsHandler implements Handler {
 
     @Override
     public void handle(@NotNull Context context) throws Exception {
-        System.out.println("antes de hacer cualquier cosa en el handler");
         String tipoDeRankingString = context.pathParam("tipoDeRanking");
 
         List<RankingsIncidente> rankings = this.repositorioRankings.buscarTodos();
@@ -33,8 +33,21 @@ public class GetRankingsHandler implements Handler {
                 .filter(ranking -> ranking.getTipoDeRanking().name().equals(tipoDeRankingString))
                 .collect(Collectors.toList());
 
-        System.out.println("la lista tiene " + rankingsFiltradoss.size() + " rankings");
+        this.ordenarPorPosicion(rankingsFiltradoss);
+        this.ordenarPorFecha(rankingsFiltradoss);
 
         context.json(rankingsFiltradoss);
+    }
+
+    private void ordenarPorPosicion(List<RankingsIncidente> rankingsFiltrados) {
+        Comparator<RankingsIncidente> comparadorPorPosicion = Comparator.comparingInt(RankingsIncidente::getPosicion);
+
+        rankingsFiltrados.sort(comparadorPorPosicion);
+    }
+
+    private void ordenarPorFecha(List<RankingsIncidente> rankingsFiltrados) {
+        Comparator<RankingsIncidente> comparadorPorFecha = Comparator.comparing(RankingsIncidente::getFecha);
+
+        rankingsFiltrados.sort(comparadorPorFecha);
     }
 }

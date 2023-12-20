@@ -42,11 +42,29 @@
             <a class="referencia" href="/rankingsCP">Rankings CP</a>
         </div>
     </div>
-    <div class="columna2" style="display: flex; flex-direction:column; margin-left: 0; margin-right: 0; background: none; height: 485px; justify-content: center; align-items: center;text-align: center;">
-        <a class="botonAbrir" style="text-decoration: none" href="/sugerenciaPorRol">Incidentes por Impacto</a>
-        <div style="height: 25px"></div>
-        <a class="botonAbrir" style="text-decoration: none" href="/sugerenciaPorNotificables">Incidentes notificables</a>
-        <h1>FALTA TERMINAR</h1>
+    <div id = "app" class="columna2" style="display: flex; flex-direction:column; margin-left: 0; margin-right: 0; background: none; height: 485px; justify-content: center; align-items: center;text-align: center;">
+        <div id="loAnterior" v-show="!mostrarAreaIncidentes">
+            <a class="botonAbrir" style="text-decoration: none" href="/sugerenciaPorRol">Incidentes por Impacto</a>
+            <div style="height: 25px"></div>
+            <a class="botonAbrir" style="text-decoration: none" href="/sugerenciaPorNotificables">Incidentes notificables</a>
+            <div style="height: 25px"></div>
+<!--            <button class="botonAbrir" style="text-decoration: none" v-show="establecimientosCargados" @click="mostrarListaIncidentes">Incidentes por cercania</button>-->
+            <button class="botonAbrir" style="text-decoration: none" v-show="incidentesCargados" @click="filtrarIncidentesPorCercania">Incidentes por cercania</button>
+
+        </div>
+        <div id="areaListaIncidentes" v-show="mostrarAreaIncidentes">
+            <label class="label">Incidentes:</label>
+            <ul>
+                <li v-for="incidente in incidentesFiltrados" :key="incidente.id" @click="seleccionarIncidente(incidente)">
+                    <span v-text="incidente.id"></span>
+                </li>
+            </ul>
+            <div class="opciones">
+                <label class="label">El incidente ya terminó?</label>
+                <!-- en vez de redireccion copiar las cosas de cerrar incidente-->
+                <button class="boton" type="submit" @click="cerrarIncidente">Cerrar incidente</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -113,6 +131,280 @@
         });
     }
 </script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            incidentesFiltrados:[],
+            incidentes: [],
+            establecimientos: [],
+            incidenteSeleccionado: '',
+            latitudUsuario:'',
+            longitudUsuario:'',
+            mostrarAreaIncidentes: false,
+            establecimientosCargados: false,
+            incidentesCargados:false,
+        },
+        methods: {
+            seleccionarIncidente(incidenteId){
+                this.incidenteSeleccionado = incidenteId;
+            },
 
+            cerrarIncidente() {
+                this.actualizarIncidenteEnBD(this.incidenteSeleccionado.id)
+                console.log("cerrando incidente");
+            },
+            actualizarIncidenteEnBD(incidenteId) {
+
+                fetch(`/api/incidentes/${incidenteId}`, {//capaz cambiar esto
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(this.incidenteSeleccionado)
+                })
+                        .then(response => {
+                            if (response.ok) {
+                                console.log('Incidente actualizado en la base de datos');
+                            } else {
+                                console.error('Error al actualizar el incidente en la base de datos (else):', response.status);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error al actualizar el incidente en la base de datos:', error);
+                        });
+            },
+            mostrarListaIncidentes(){
+                this.mostrarAreaIncidentes=true;
+                // por cada establecimiento que hay pedirle la ubicacion
+                // verificar esa ubicacion con el if
+                // de cada establecimiento, tiene que tener algun incidente para mostrar
+                //mostrarlo como sugerencia cercana en la lista de incidentes
+                //se actualizara si me voy moviendo(?
+
+                if ("geolocation" in navigator) {
+                    navigator.geolocation.getCurrentPosition((position) => {
+                        this.latitudUsuario = position.coords.latitude;
+                        this.longitudUsuario = position.coords.longitude;
+
+                        console.log("Latitud usuario:", this.latitudUsuario);
+                        console.log("Longitud usuario:", this.longitudUsuario);
+                        //filtro cercanos
+                        const establecimientosFiltrados =  this.filtrarEstablecimientosCercanos(this.establecimientos, this.latitudUsuario, this.longitudUsuario);
+                        console.log("Establecimientos cercanos:", establecimientosFiltrados);
+                        // const distancia = calcularDistancia(latitudUsuario,longitudUsuario,latitudOtroPunto,longitudOtroPunto);
+                        this.incidentes = this.obtenerIncidentesActivos(establecimientosFiltrados);
+
+                    }, function(error) {
+                        console.error("Error al obtener la ubicación:", error.message);
+                        // Manejar posibles errores al obtener la ubicación
+                    });
+                } else {
+                    console.log("La geolocalización no está disponible en este navegador.");
+                    // Manejar el caso en el que la geolocalización no esté disponible
+                }
+//                 let watchId;
+//
+//                 if ("geolocation" in navigator) {
+//                     watchId = navigator.geolocation.watchPosition(function(position) {
+//                         const latitud = position.coords.latitude;
+//                         const longitud = position.coords.longitude;
+//
+//                         console.log("Latitud actualizada:", latitud);
+//                         console.log("Longitud actualizada:", longitud);
+//
+//                         // Hacer lo que necesites con la ubicación actualizada
+//                     }, function(error) {
+//                         console.error("Error al obtener la ubicación:", error.message);
+//                         // Manejar posibles errores al obtener la ubicación
+//                     });
+//                 } else {
+//                     console.log("La geolocalización no está disponible en este navegador.");
+//                     // Manejar el caso en el que la geolocalización no esté disponible
+//                 }
+                //
+                // // Para detener el rastreo de la ubicación, puedes usar:
+                // // navigator.geolocation.clearWatch(watchId);
+            },
+            obtenerIncidentesActivos(establecimientos) {
+                const incidentesActivos = [];
+                establecimientos.forEach(establecimiento => {
+                    establecimiento.monitoreables.forEach(monitoreable => {
+                        // Verificar si hay incidentes activos en este monitoreable
+                        const incidentes = monitoreable.incidentesActivos;
+                        if (incidentes.length > 0) {
+                            // Agregar los incidentes activos a la lista
+                            incidentesActivos.push(...incidentes);
+                        }
+                    });
+                });
+
+                return incidentesActivos;
+            },
+            filtrarEstablecimientosCercanos(establecimientos, latUsuario, lonUsuario) {
+                return establecimientos.filter(establecimiento => {
+                    console.log("establecimiento altitud:", establecimiento.altitud);
+                    console.log("establecimiento latitud:", establecimiento.latitud);
+                    const distancia = this.calcularDistancia(latUsuario, lonUsuario, establecimiento.latitud, establecimiento.altitud);
+                    return distancia <= 2000;
+                });
+            },
+            calcularDistancia(lat1, lon1, lat2, lon2) {
+                const radioTierra = 6371; // Radio de la Tierra en kilómetros
+                const dLat = this.toRadians(lat2 - lat1);
+                const dLon = this.toRadians(lon2 - lon1);
+                const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                        Math.cos(this.toRadians(lat1)) * Math.cos(this.toRadians(lat2)) *
+                        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+                const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                const distancia = radioTierra * c * 1000; // Distancia en metros
+                return distancia;
+            },
+
+            toRadians(grados) {
+                return grados * (Math.PI / 180);
+            },
+            filtrarIncidentesPorCercania(){
+                this.mostrarAreaIncidentes=true;
+                if ("geolocation" in navigator) {
+                    navigator.geolocation.getCurrentPosition((position) => {
+                        this.latitudUsuario = position.coords.latitude;
+                        this.longitudUsuario = position.coords.longitude;
+
+                        console.log("Latitud usuario: antes de filtrar ", this.latitudUsuario);
+                        console.log("Longitud usuario: antes de filtrar", this.longitudUsuario);
+                        this.incidentesFiltrados= this.incidentes.filter(incidente => {
+                            const latitudIncidente =incidente.servicio.establecimiento.latitud;
+                            const altitudIncidente =incidente.servicio.establecimiento.altitud;
+                            console.log("establecimiento altitud:", altitudIncidente);
+                            console.log("Longitud usuario filtrando:", this.longitudUsuario);
+                            console.log("establecimiento latitud: ", latitudIncidente);
+                            console.log("Latitud usuario filtrando:", this.latitudUsuario);
+
+                            const distancia = this.calcularDistancia(this.latitudUsuario, this.longitudUsuario, latitudIncidente,  altitudIncidente);
+                            console.log("la distancia es: ", distancia);
+                            return distancia <= 100;
+                        });
+                        console.log("Incidentes filtrados:", this.incidentesFiltrados);
+
+                    }, function(error) {
+                        console.error("Error al obtener la ubicación:", error.message);
+                        // Manejar posibles errores al obtener la ubicación
+                    });
+                } else {
+                    console.log("La geolocalización no está disponible en este navegador.");
+                    // Manejar el caso en el que la geolocalización no esté disponible
+                }
+
+            }
+
+        },
+        mounted() {
+            fetch(`http://localhost:8080/api/todosLosIncidentes`)
+                    .then(response => {
+                        if (response.status >= 400) {
+                            alert("Hubo un error en el API")
+                        } else {
+                            return response.json()
+                        }
+                    })
+                    .then(incidentes => {
+                        console.log("Incidentes totales:", incidentes);
+                        this.incidentes = incidentes;
+                        this.incidentesCargados=true;
+                    })
+                    .catch(error => {
+                        console.error('Error en la solicitud:', error);
+                        alert(`Hubo un error en la solicitud con buscando los incidentes:\n\n${error.message}`);
+                    });
+
+
+        }
+            // obtener todos los establecimientos que haya del repo
+        //     fetch(`http://localhost:8080/api/establecimientos`)
+        //             .then(response => {
+        //                 if (response.status >= 400) {
+        //                     alert("Hubo un error en el API")
+        //                 } else {
+        //                     return response.json()
+        //                 }
+        //             })
+        //             .then(establecimientos => {
+        //                 console.log("Establecimientos totales:", establecimientos);
+        //                 this.establecimientos = establecimientos;
+        //                 this.establecimientosCargados=true;
+        //             })
+        //             .catch(error => {
+        //                 console.error('Error en la solicitud:', error);
+        //                 alert(`Hubo un error en la solicitud con buscando los establecimientos:\n\n${error.message}`);
+        //             });
+        //
+        //
+        // }
+    });
+</script>
+<!--<script>-->
+<!--    // Código JavaScript para obtener la ubicación-->
+<!--    console.log("nuevo script")-->
+<!--    //cercana-->
+<!--    // const latitudOtroPunto = -34.593461561890386/* latitud de la otra ubicación */;-->
+<!--    // const longitudOtroPunto = -58.4013644037152/* longitud de la otra ubicación */;-->
+<!--    //lejana-->
+<!--    // const latitudOtroPunto = -34.591672112431915/* latitud de la otra ubicación */;-->
+<!--    // const longitudOtroPunto = -58.407194571485824/* longitud de la otra ubicación */;-->
+
+<!--    if ("geolocation" in navigator) {-->
+<!--        navigator.geolocation.getCurrentPosition(function(position) {-->
+<!--            const latitudUsuario = position.coords.latitude;-->
+<!--            const longitudUsuario = position.coords.longitude;-->
+
+<!--            console.log("Latitud:", latitudUsuario);-->
+<!--            console.log("Longitud:", longitudUsuario);-->
+<!--            // obtener todos los establecimientos que haya del repo-->
+<!--            // por cada establecimiento que hay pedirle la ubicacion-->
+<!--            // verificar esa ubicacion con el if-->
+<!--            // de cada establecimiento, tiene que tener algun incidente para mostrar-->
+<!--            //mostrarlo como sugerencia cercana en la lista de incidentes-->
+<!--            //se actualizara si me voy moviendo(?-->
+
+
+<!--            const distancia = calcularDistancia(latitudUsuario,longitudUsuario,latitudOtroPunto,longitudOtroPunto);-->
+<!--            // Verificar si la distancia es menor o igual a 100 metros-->
+<!--            if (distancia <= 100) {-->
+<!--                console.log("El usuario está a 100 metros o menos de la otra ubicación. Debe ir a revisar");-->
+<!--            } else {-->
+<!--                console.log("El usuario está a más de 100 metros de la otra ubicación.");-->
+<!--            }-->
+
+<!--        }, function(error) {-->
+<!--            console.error("Error al obtener la ubicación:", error.message);-->
+<!--            // Manejar posibles errores al obtener la ubicación-->
+<!--        });-->
+<!--    } else {-->
+<!--        console.log("La geolocalización no está disponible en este navegador.");-->
+<!--        // Manejar el caso en el que la geolocalización no esté disponible-->
+<!--    }-->
+
+
+
+<!--    function calcularDistancia(lat1, lon1, lat2, lon2) {-->
+<!--        const radioTierra = 6371; // Radio de la Tierra en kilómetros-->
+<!--        const dLat = toRadians(lat2 - lat1);-->
+<!--        const dLon = toRadians(lon2 - lon1);-->
+<!--        const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +-->
+<!--                Math.cos(toRadians(lat1)) * Math.cos(toRadians(lat2)) *-->
+<!--                Math.sin(dLon / 2) * Math.sin(dLon / 2);-->
+<!--        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));-->
+<!--        const distancia = radioTierra * c * 1000; // Distancia en metros-->
+<!--        return distancia;-->
+<!--    }-->
+
+<!--    function toRadians(grados) {-->
+<!--        return grados * (Math.PI / 180);-->
+<!--    }-->
+
+
+
+<!--</script>-->
 </body>
 </html>
