@@ -9,6 +9,7 @@ import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -25,6 +26,13 @@ public class RepositorioIncidentes implements WithSimplePersistenceUnit {
         EntityTransaction tx = entityManager().getTransaction();
         tx.begin();
         entityManager().persist(incidente); // INSERT INTO ...
+        tx.commit();
+    }
+    public void mergear(Incidente incidente){
+        EntityTransaction tx = entityManager().getTransaction();
+        tx.begin();
+        Incidente incidenteGestionado = entityManager().merge(incidente);
+        entityManager().persist(incidenteGestionado);
         tx.commit();
     }
     public List<Incidente> buscarTodos(){
@@ -88,5 +96,31 @@ public class RepositorioIncidentes implements WithSimplePersistenceUnit {
             tx.commit();
 
         }
+    }
+
+    public List<Incidente> buscarTodosLosAbiertos() {
+        List<Incidente> incidentes = entityManager().createQuery("from " + Incidente.class.getName()).getResultList();
+
+        List<Incidente> incidentesFiltrados = new ArrayList<>();
+
+        for(Incidente i : incidentes){
+            if(i.getEstado() == Estado.ABIERTO){
+                incidentesFiltrados.add(i);
+            }
+        }
+        return incidentesFiltrados;
+    }
+
+    public Integer buscarMayorId() {
+        Integer mayorId = 0;
+        List<Incidente> incidentes = this.buscarTodos();
+
+        for(Incidente i : incidentes){
+            if(i.getId() > mayorId){
+                mayorId = i.getId();
+            }
+        }
+        System.out.println("el mayor id es " + mayorId);
+        return mayorId;
     }
 }

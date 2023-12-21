@@ -49,9 +49,9 @@
             <button class="botonAbrir" style="margin-right: 10px" @click="tipoMayorCant()">MAYOR_CANT_INCIDENTES</button>
         </div>
     </div>
-    <div  class="columna2" style="background: none">
-        <div class="opciones">
-            <ul>
+    <div  class="columna2" style="background: none;  height: 100%">
+        <div class="opciones" style="height: 100%">
+            <!--<ul>
                 <li v-for="ranking in rankingFiltrados" :key="ranking">
                     <span v-text="ranking.id"></span>
                     <span v-text="ranking.posicion"></span>
@@ -59,7 +59,27 @@
                     <span v-text="ranking.fecha"></span>
                     <span v-text="ranking.entidad.nombre"></span>
                 </li>
-            </ul>
+            </ul>-->
+            <table>
+                <thead>
+                <tr>
+                    <th style="width: 300px">ID</th>
+                    <th style="width: 300px">Posicion entidad</th>
+                    <th style="width: 300px">Tipo de ranking</th>
+                    <th style="width: 300px">Fecha</th>
+                    <th style="width: 300px">Nombre de la entidad</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="ranking in rankingFiltrados" :key="ranking">
+                    <td><span v-text="ranking.id"></span></td>
+                    <td><span v-text="ranking.posicion"></span></td>
+                    <td><span v-text="ranking.tipoDeRanking"></span></td>
+                    <td><span v-text="ranking.fecha"></span></td>
+                    <td><span v-text="ranking.entidad.nombre"></span></td>
+                </tr>
+                </tbody>
+            </table>
 
         </div>
     </div>
@@ -71,6 +91,7 @@
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
 <!--<script>-->
 <!--    const selectRanking = document.getElementById('selectRanking');-->
 <!--    const rankings = ["", "PROMEDIO_DE_CIERRE", "MAYOR_IMPACTO", "MAYOR_CANT_INCIDENTES"];-->
@@ -93,10 +114,7 @@
     firebase.initializeApp(firebaseConfig);
     const user = JSON.parse(localStorage.getItem('user'));
     if(user){
-        console.log("el usuario tiene: "+user);
-        console.log("El usuario tiene: ", JSON.stringify(user, null, 2)); //permite ver toda la info guardada en un despliegue lo eliminariamos
-        console.log("nombre usuario: "+user.displayName);
-        console.log("correo usuario: "+user.email);
+
         // a partir de aca trabajo el resto de cosas
 
     }else{

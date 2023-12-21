@@ -47,11 +47,9 @@ public class InicioSesionController extends Controller implements ICrudViewsHand
 
             UsuarioGeneral usuario = this.repositorioUsuariosGenerales.buscarPorId(id_usuario);
 
-            //Map<String, Object> model = new HashMap<>();
-            //model.put("miCuenta", usuario);
-            //context.render("miCuentaCL.hbs", model);
+            //context.redirect("/menu");
+            context.redirect("/menu/" + id_usuario);
 
-            context.redirect("/menu");
         }else{
             context.html("<html><head><script>" +
                     "alert('El usuario no se encuentra registrado. Revise los datos e intente nuevamente.');" +

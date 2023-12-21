@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class IncidentesNotificables {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne

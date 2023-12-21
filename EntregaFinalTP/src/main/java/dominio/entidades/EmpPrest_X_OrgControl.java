@@ -13,7 +13,7 @@ import javax.persistence.*;
 @Setter
 public class EmpPrest_X_OrgControl {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "tipo")

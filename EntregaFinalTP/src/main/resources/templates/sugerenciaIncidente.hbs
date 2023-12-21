@@ -44,7 +44,7 @@
     </div>
     <div id = "app" class="columna2" style="display: flex; flex-direction:column; margin-left: 0; margin-right: 0; background: none; height: 485px; justify-content: center; align-items: center;text-align: center;">
         <div id="loAnterior" v-show="!mostrarAreaIncidentes">
-            <a class="botonAbrir" style="text-decoration: none" href="/sugerenciaPorRol">Incidentes por Impacto</a>
+
             <div style="height: 25px"></div>
             <a class="botonAbrir" style="text-decoration: none" href="/sugerenciaPorNotificables">Incidentes notificables</a>
             <div style="height: 25px"></div>
@@ -108,10 +108,7 @@
     firebase.initializeApp(firebaseConfig);
     const user = JSON.parse(localStorage.getItem('user'));
     if(user){
-        console.log("el usuario tiene: "+user);
-        console.log("El usuario tiene: ", JSON.stringify(user, null, 2)); //permite ver toda la info guardada en un despliegue lo eliminariamos
-        console.log("nombre usuario: "+user.displayName);
-        console.log("correo usuario: "+user.email);
+
         // a partir de aca trabajo el resto de cosas
 
     }else{

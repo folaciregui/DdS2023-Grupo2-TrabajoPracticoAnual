@@ -6,6 +6,7 @@ import io.github.flbulgarelli.jpa.extras.simple.WithSimplePersistenceUnit;
 
 import javax.persistence.EntityTransaction;
 import java.util.List;
+import java.util.Objects;
 
 public class RepositorioUsuariosGenerales implements WithSimplePersistenceUnit, ICrudRepository {
 
@@ -34,7 +35,14 @@ public class RepositorioUsuariosGenerales implements WithSimplePersistenceUnit, 
     }
 
     public UsuarioGeneral buscarPorEmail(String email){
-        return entityManager().find(UsuarioGeneral.class, email);
+        List<UsuarioGeneral> usuarios = this.buscarTodos();
+        UsuarioGeneral usuarioElegido = new UsuarioGeneral();
+        for(UsuarioGeneral ug : usuarios){
+            if(Objects.equals(ug.getEmail(), email)){
+                usuarioElegido = ug;
+            }
+        }
+        return usuarioElegido;
     }
 
     @Override
@@ -46,6 +54,7 @@ public class RepositorioUsuariosGenerales implements WithSimplePersistenceUnit, 
         entityManager().persist(o);
         tx.commit();
     }
+
 
     @Override
     public void actualizar(Object o) {

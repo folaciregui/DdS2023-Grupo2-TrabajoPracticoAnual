@@ -6,9 +6,11 @@ import io.javalin.http.Context;
 import io.javalin.http.Handler;
 import org.jetbrains.annotations.NotNull;
 import persistencia.repositories.RepositorioIncidentes;
+import presentacion.utils.Notificaciones;
 
 public class PostIncidenteHandler implements Handler {
     private final RepositorioIncidentes repositorioIncidentes;
+    Notificaciones notificacion = new Notificaciones();
 
     public PostIncidenteHandler() {
         this.repositorioIncidentes = new RepositorioIncidentes();
@@ -23,8 +25,10 @@ public class PostIncidenteHandler implements Handler {
 
         System.out.println("Creando incidente: " + bodyString);
         System.out.println(incidente);
-
+        
         this.repositorioIncidentes.agregar(incidente);
+
+        notificacion.enviarEmail(incidente.getUsuarioCreador().getEmail(), "APERTURA", incidente);
 
         context.status(201);
     }

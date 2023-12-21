@@ -14,7 +14,7 @@ import javax.persistence.*;
 public class Servicio extends Monitoreable{
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "descripcion")

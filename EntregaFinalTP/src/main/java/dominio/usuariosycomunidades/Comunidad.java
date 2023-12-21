@@ -14,7 +14,7 @@ import java.util.List;
 public class Comunidad {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "nombre")

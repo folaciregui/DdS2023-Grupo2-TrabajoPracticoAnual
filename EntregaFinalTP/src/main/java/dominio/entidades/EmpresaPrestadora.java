@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 public class EmpresaPrestadora {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Integer id;
 
     @Column(name = "nombre")

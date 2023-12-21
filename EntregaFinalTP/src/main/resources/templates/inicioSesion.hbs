@@ -24,7 +24,7 @@
 </header>
 
     <div class="contenedor" style="background: rgba(255,255,255,0.5); text-align: center; align-content: center; align-items: center">
-        <div class="columna" style="margin-left: 35%; margin-right: 35%">
+        <div class="columna" >
             <h1 class="subtitulo">INICIAR SESIÓN</h1>
             <form method="POST" action="/iniciarSesion">
                 <div class="formulario" style="margin-left: ">
@@ -79,13 +79,11 @@
             var uid = user.uid;
             var textoVerificado="";
 
-            console.log(user);//para ver datos de usuario, despues borrar esta linea
             if(user.emailVerified){
                 textoVerificado="Estas verificado";
             }else {
                 textoVerificado="No estas verificado"
             }
-            document.getElementById("texto-verificado").textContent = textoVerificado;
         } else {
 
 
@@ -120,7 +118,7 @@
                     alert("Error al iniciar sesión: " + error.message);
                 });
         console.log("sali");
-        console.log("valor " + userCredential);
+
     }
     function loginGoogle(){ //abrir consola y chequear error
         firebase.auth().signInWithPopup(providerGoogle)
@@ -130,7 +128,19 @@
                     var token = credential.accessToken;
                     var user = result.user;
                     console.log("iniciando sesion con google el usuario tiene: email="+user.email);
+                    document.getElementById("emailLogin").value = user.email;
                     inicioSesion(user);
+                    obtenerUsuarioPorEmail(user.email)
+                            .then(usuarioId => {
+                                console.log('ID del usuario obtenido:', usuarioId);
+                                window.location.href = "/menu/" + usuarioId;
+                                // Aquí puedes realizar acciones con el ID del usuario obtenido
+                            })
+                            .catch(error => {
+                                console.error('Error al obtener el ID del usuario:', error);
+                                // Manejar errores
+                            });
+
                 }).catch((error) => {
             alert("Error al iniciar sesión con google: " + error.message);
             //manejar errores
@@ -147,6 +157,8 @@
                     const user = result.user;
                     // Realiza acciones adicionales con el usuario si es necesario
                     inicioSesion(user);
+                    document.getElementById("emailLogin").value = user.email;
+                    window.location.href = "/menu/2";
                 })
                 .catch((error) => {
                     console.log("codigo Error: " + error.code);
@@ -157,8 +169,34 @@
     }
     function inicioSesion(user){
         localStorage.setItem('user', JSON.stringify(user));
-        window.location.href = "/menu";
+        // alert("guarde en el local storage");
+
     }
+
+    function obtenerUsuarioPorEmail(emailUsuario) {
+        return new Promise((resolve, reject) => {
+            fetch(`/api/obtenerUsuario/${emailUsuario}`)
+                    .then(response => {
+                        if (response.status >= 400) {
+                            throw new Error("Hubo un error en el API");
+                        } else {
+                            return response.json();
+                        }
+                    })
+                    .then(usuario => {
+                        console.log("El usuario devuelto es: ", usuario);
+                        // Suponiendo que el ID del usuario está en la propiedad 'id'
+                        const usuarioId = usuario.id; // Ajusta esto según la estructura real del objeto usuario
+                        resolve(usuarioId);
+                    })
+                    .catch(error => {
+                        console.error('Error en la solicitud de get usuario:', error);
+                        reject(error);
+                    });
+        });
+    }
+
+
 </script>
 </body>
 </html>

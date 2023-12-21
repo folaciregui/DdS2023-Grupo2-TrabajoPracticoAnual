@@ -20,39 +20,44 @@
 </header>
 
 <div class="contenedorColumna" style="background: rgba(255,255,255,0.5)">
-<!--    <div class="columna1" style="background: none">-->
-<!--&lt;!&ndash;        <div class="contenedorColumna1">&ndash;&gt;-->
-<!--&lt;!&ndash;            <a class="referencia" href="cargar-datos-entidades.html">Cargar datos Entidades y Organismos</a>&ndash;&gt;-->
-<!--&lt;!&ndash;            <a class="referencia" href="abrir-incidente.html">Abrir Incidente</a>&ndash;&gt;-->
-<!--&lt;!&ndash;            <a class="referencia" href="cerrar-incidente.html">Cerrar Incidente</a>&ndash;&gt;-->
-<!--&lt;!&ndash;            <a class="referencia" href="consultar-incidente.html">Consultar Incidente</a>&ndash;&gt;-->
-<!--&lt;!&ndash;            <a class="referencia" href="sugerencia-incidente.html">Sugerencia Incidente</a>&ndash;&gt;-->
-<!--&lt;!&ndash;            <a class="referencia" href="visualizacion-rankings.html">Rankings</a>&ndash;&gt;-->
-<!--&lt;!&ndash;            <a class="referenciaElegida" href="mi-cuenta.html">Mi cuenta</a>&ndash;&gt;-->
-<!--&lt;!&ndash;        </div>&ndash;&gt;-->
-<!--    </div>-->
+    <!--    <div class="columna1" style="background: none">-->
+    <!--&lt;!&ndash;        <div class="contenedorColumna1">&ndash;&gt;-->
+    <!--&lt;!&ndash;            <a class="referencia" href="cargar-datos-entidades.html">Cargar datos Entidades y Organismos</a>&ndash;&gt;-->
+    <!--&lt;!&ndash;            <a class="referencia" href="abrir-incidente.html">Abrir Incidente</a>&ndash;&gt;-->
+    <!--&lt;!&ndash;            <a class="referencia" href="cerrar-incidente.html">Cerrar Incidente</a>&ndash;&gt;-->
+    <!--&lt;!&ndash;            <a class="referencia" href="consultar-incidente.html">Consultar Incidente</a>&ndash;&gt;-->
+    <!--&lt;!&ndash;            <a class="referencia" href="sugerencia-incidente.html">Sugerencia Incidente</a>&ndash;&gt;-->
+    <!--&lt;!&ndash;            <a class="referencia" href="visualizacion-rankings.html">Rankings</a>&ndash;&gt;-->
+    <!--&lt;!&ndash;            <a class="referenciaElegida" href="mi-cuenta.html">Mi cuenta</a>&ndash;&gt;-->
+    <!--&lt;!&ndash;        </div>&ndash;&gt;-->
+    <!--    </div>-->
     <div id= "app" class="columna2" style="background: none; " >
         <div class="miCuenta" style="background: none; margin: 0">
             <img src="/img/usuarioSinFoto.png" alt="Imagen no disponible" width=80px height=80px>
         </div>
         <div id="perfilArea" class="miCuentaContenedor" v-show="!mostrarAreaComunidades" style="background-color: rgba(255,255,255,0.5);">
 
+            <p class="label2" style="margin-bottom: 0">ID</p>
+            <span  class="label3" v-text="idUsuario" v-if="!estaEditando"></span>
+            <!--<p id="label-id" class="label3" style="margin-top: 0" v-if="!estaEditando">{{ idUsuario }}</p>-->
+
             <p class="label2" style="margin-bottom: 0">NOMBRE</p>
-            <p id="label-nombre" class="label3" style="margin-top: 0" v-if="!estaEditando">{{ nombreOriginal }}</p>
+            <span  class="label3" v-text="nombreOriginal" v-if="!estaEditando"></span>
+            <!--<p id="label-nombre" class="label3" style="margin-top: 0" v-if="!estaEditando">{{ nombreOriginal }}</p>-->
             <input type="text" id="edit-name"  v-if="estaEditando" v-model="nombreNuevo">
 
             <p class="label2" style="margin-bottom: 0">APELLIDO</p>
-            <p id="label-apellido" class="label3" style="margin-top: 0" v-if="!estaEditando">{apellidoOriginal}</p>
-            <!--style="display: none"-->
+            <span  class="label3" v-text="apellidoOriginal" v-if="!estaEditando"></span>
+            <!--<p id="label-apellido" class="label3" style="margin-top: 0" v-if="!estaEditando">{{apellidoOriginal}}</p>
+            style="display: none"-->
             <input type="text" id="edit-lastname" v-if="estaEditando" v-model="apellidoNuevo" >
 
             <p class="label2" style="margin-bottom: 0">CORREO ELECTRÓNICO</p>
-            <p id="label-correo" class="label3" style="margin-top: 0" v-if="!estaEditando">{correoOriginal}</p>
+            <span  class="label3" v-text="correoOriginal" v-if="!estaEditando"></span>
+            <!--<p id="label-correo" class="label3" style="margin-top: 0" v-if="!estaEditando">{{correoOriginal}}</p>-->
             <input type="text" id="edit-email"  v-if="estaEditando" v-model="correoNuevo" >
 
-            <p class="label2" style="margin-bottom: 0">CONTRASEÑA</p>
-            <p id="label-telefono" class="label3" style="margin-top: 0" v-if="!estaEditando">{contraseñaOriginal}</p>
-            <input type="text" id="edit-phonenumber" v-if="estaEditando" v-model="contraseñaNueva" >
+
         </div>
         <!--        <div class= "areaComunidad" id="comunidadesArea" style="display: none;">-->
         <div class="areaComunidad" id="comunidadesArea" v-show="mostrarAreaComunidades">
@@ -67,17 +72,17 @@
 
             </ul>
 
-<!--            <div id="areaRoles" v-show="mostrarListaRoles"> &lt;!&ndash; v-show para mostrar/ocultar &ndash;&gt;-->
-<!--                <label class="label">Selecciona un rol:</label>-->
-<!--                <ul>-->
-<!--                    <li v-for="rol in roles" :key="rol" @click="seleccionarRol(rol)">-->
-<!--                        <span v-text="rol"></span>-->
-<!--                    </li>-->
-<!--                </ul>-->
-<!--            </div>-->
-<!--            <button id="boton-guardarRol" class="boton" @click="guardarRol" v-show="mostrarListaRoles">Guardar Cambios</button>-->
+            <!--            <div id="areaRoles" v-show="mostrarListaRoles"> &lt;!&ndash; v-show para mostrar/ocultar &ndash;&gt;-->
+            <!--                <label class="label">Selecciona un rol:</label>-->
+            <!--                <ul>-->
+            <!--                    <li v-for="rol in roles" :key="rol" @click="seleccionarRol(rol)">-->
+            <!--                        <span v-text="rol"></span>-->
+            <!--                    </li>-->
+            <!--                </ul>-->
+            <!--            </div>-->
+            <!--            <button id="boton-guardarRol" class="boton" @click="guardarRol" v-show="mostrarListaRoles">Guardar Cambios</button>-->
         </div>
-        <button id="boton-comunidades" class="boton" @click="mostrarAreaComunidades()" v-show="!mostrarAreaComunidades">Mis comunidades</button>
+        <button id="boton-comunidades" class="boton" @click="mostrarElAreaComunidades()" v-show="!mostrarAreaComunidades">Mis comunidades</button>
         <button id="boton-editar" class="boton" @click="editarPerfil()" v-show="mostrarBotonEditar">Editar perfil</button>
         <button id="boton-atras" class="boton" @click="ocultarComunidades" v-show="mostrarAreaComunidades">Atras</button>
         <button id="boton-guardar" class="boton" @click="actualizarPerfil()" v-show="estaEditando">Guardar</button>
@@ -104,15 +109,6 @@
     firebase.initializeApp(firebaseConfig);
     const user = JSON.parse(localStorage.getItem('user'));
     if(user){
-        //console.log("el usuario tiene: "+user);
-        // console.log("El usuario tiene: ", JSON.stringify(user, null, 2)); //permite ver toda la info guardada en un despliegue lo eliminariamos
-        console.log("nombre usuario: "+user.displayName);
-        console.log("correo usuario: "+user.email);
-        document.getElementById("label-nombre").textContent = user.displayName || "Nombre no disponible";
-        document.getElementById("label-apellido").textContent = user.apellido || "Apellido no disponible";
-        document.getElementById("label-correo").textContent = user.email || "Correo no disponible";
-        document.getElementById("label-telefono").textContent = user.telefono || "Teléfono no disponible";
-        // a partir de aca trabajo el resto de cosas
 
     }else{
         alert("Sucedio un error por favor vuelva a iniciar sesion");//ver si lo mandamos a index o que hacemos
@@ -146,8 +142,7 @@
             nombreOriginal: user.displayName, //el de firebase
             apellidoOriginal: '', //de donde lo saco
             apellidoNuevo: '',
-            contraseñaOriginal:'', // de donde lo saco
-            contraseñaNueva:'',
+            idUsuario:'',
             correoOriginal:user.email,
             correoNuevo: user.email,
             // isNombreModificado: false,
@@ -156,6 +151,7 @@
             // isTelefonoModificado: false,
             estaEditando: false,
             mostrarBotonEditar: true,
+            usuario: '',
         },
 
         methods: {
@@ -165,7 +161,7 @@
             seleccionarRol(rolId){
                 this.rolSeleccionado = rolId;
             },
-            mostrarAreaComunidades(){
+            mostrarElAreaComunidades(){
                 this.mostrarAreaComunidades = true;
                 this.mostrarBotonEditar = false
             },
@@ -227,10 +223,7 @@
 
                     console.log('Correo modificado');
                 }
-                if (this.contraseñaOriginal !== this.contraseñaNueva) {
 
-                    console.log('Contraseña modificada');
-                }
                 // this.isNombreModificado = false;
                 // this.isApellidoModificado = false;
                 // this.isCorreoModificado = false;
@@ -243,12 +236,13 @@
             actualizarUsuarioBD(){
 
                 const usuarioModificado = {
-                    "id": 5,
+                    "id": this.usuario.id,
                     "nombre": this.nombreNuevo,
                     "apellido": this.apellidoNuevo,
                     "email": this.correoNuevo,
-                    "contrasenia": this.contraseñaNueva
+
                 }
+                console.log("el id modificado es :", usuarioModificado.id);
                 fetch(`/api/usuario/${usuarioModificado.id}`, {//capaz cambiar esto
                     method: 'PUT',
                     headers: {
@@ -267,6 +261,25 @@
                             console.error('Error al actualizar Varios datos en la base de datos:', error);
                         });
             },
+            obtenerComunidadesPorUsuario(){
+                fetch(`/api/obtenerComunidadesPorUsuario/${this.usuario.id}`)//ya hay un get parecido en CL
+                        .then(response => {
+                            if (response.status >= 400) {
+                                alert("Hubo un error en el API")
+                            } else {
+                                return response.json()
+                            }
+                        })
+                        .then(membresias => {
+                            console.log("la membresias que devuelve es: ",membresias); // Verificar en la consola
+                            this.membresias = membresias;
+
+                        })
+                        .catch(error => {
+                            console.error('Error en la solicitud de las comunidades:', error);
+                            alert(`Hubo un error en la solicitud al buscar las comunidades:\n\n${error.message}`);
+                        });
+            }
 
             // Simplificación del método actualizarPerfil para evitar redundancia
             // actualizarPerfil() {
@@ -301,8 +314,8 @@
         },
         mounted(){
             // Mostrar el rol actual al cargar la página
-            const usuarioId = 5; //OBTENER EL ID REAL
-            fetch(`/api/obtenerComunidadesPorUsuario/${usuarioId}`)//ya hay un get parecido en CL
+
+            fetch(`/api/obtenerUsuario`)//ya hay un get parecido en CL
                     .then(response => {
                         if (response.status >= 400) {
                             alert("Hubo un error en el API")
@@ -310,15 +323,21 @@
                             return response.json()
                         }
                     })
-                    .then(membresias => {
-                        console.log(membresias); // Verificar en la consola
-                        this.membresias = membresias;
-
+                    .then(usuario => {
+                        console.log("el usuario que devuelve es: ", usuario); // Verificar en la consola
+                        this.usuario = usuario;
+                        this.idUsuario = usuario.id;
+                        this.nombreOriginal = usuario.nombre;
+                        this.apellidoOriginal = usuario.apellido;
+                        this.correoOriginal = usuario.email;
+                        //OBTENER EL ID REAL
+                        this.obtenerComunidadesPorUsuario();
                     })
                     .catch(error => {
                         console.error('Error en la solicitud de las comunidades:', error);
                         alert(`Hubo un error en la solicitud al buscar las comunidades:\n\n${error.message}`);
                     });
+
 
             // const rolActualElement = document.getElementById('rolActual');
             //  rolActualElement.textContent = `Rol actual: ${this.rolesPorComunidad[this.comunidadSeleccionada]}`;

@@ -35,7 +35,7 @@ public class Router {
 
         Server.app().post("/iniciarSesion", ((InicioSesionController) FactoryController.controller("IniciarSesion"))::validarUsuario);
 
-        Server.app().get("/menu", ctx -> {ctx.render("menu.hbs");});
+        Server.app().get("/menu/{id}", ctx -> {ctx.render("menu.hbs");});
 
         Server.app().get("/cargarDatosEntidades", ctx -> {ctx.render("cargarDatosEntidades.hbs");});
         Server.app().post("/cargarDatosEntidades", ((EntidadesController) FactoryController.controller("Entidades"))::cargarEntidades);
@@ -102,6 +102,9 @@ public class Router {
         Server.app().put("/api/usuario/{usuarioId}", new PutEditarPerfilHandler());
 
         Server.app().get("/api/todosLosIncidentes", new GetIncidentesTodosHandler());
+
+        Server.app().get("/api/obtenerUsuario", new GetIdUsuarioHandler());
+        Server.app().get("/api/obtenerUsuario/{email}", new GetIdUsuarioPorEmailHandler());
 
 
         /*

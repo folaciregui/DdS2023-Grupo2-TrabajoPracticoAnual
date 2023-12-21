@@ -38,6 +38,8 @@ body {
     background-color: rgba(0, 0, 0, 0.35);
     border-radius: 20px;
     width: 50px;
+    margin-left: 35%;
+    margin-right: 35%;
 }
 .formulario input,
 .formulario button {
@@ -89,6 +91,14 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-size: 15px; /* Tamaño de fuente ajustado para dispositivos móviles */
 }
+@media screen and (max-width:800px) and (min-width:601px) {
+    .subtitulo {
+        color: #F5F5F5;
+        text-align: center;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 22px; /* Tamaño de fuente ajustado para dispositivos móviles */
+    }
+}
 
 @media screen and (max-width:600px){
     .tituloPrincipal {
@@ -119,7 +129,6 @@ body {
 
     .contenedor {
         display: flex;
-        justify-content: center; /* Centra los elementos a lo largo del eje principal (horizontal en este caso) */
         align-items: center;
         background-color: #A780FF;
         height: 80%; /* Altura se ajustará según el contenido */
@@ -141,13 +150,15 @@ body {
         padding: 10px;
         margin: 10px 20px; /* Espaciado reducido para dispositivos móviles */
         margin-bottom: 200px;
-        background-color: rgba(67, 0, 210, 0.51);
+        background-color: rgba(0, 0, 0, 0.35);
         border-radius: 20px;
         height: 60%;
         /*width: 50%;*/
         text-align: center;
         align-items: center;
         align-content: center;
+        margin-left: 25%;
+        margin-right: 25%;
     }
     .columnaNueva{
         flex: 1;
@@ -157,10 +168,11 @@ body {
         background-color: rgba(255, 255, 255, 0.75);
         border-radius: 20px;
         height: 60%;
-  }
+    }
 
     .formulario input,
     .formulario button {
+        align-items: center;
         display: block;
         margin: 10px 0;
         width: 80%;
@@ -177,6 +189,7 @@ body {
 
     .boton {
         margin: 10px;
+        align-items: center;
         border: none;
         border-radius: 20px;
         background-color: #fa503f;
@@ -185,7 +198,7 @@ body {
         cursor: pointer;
         font-family: 'Open Sans', sans-serif;
         font-size: 18px;
-        width: 100%; /* Ajusta el ancho al 100% para dispositivos móviles */
+        width: 80%; /* Ajusta el ancho al 100% para dispositivos móviles */
     }
 
     .boton:hover {
@@ -195,6 +208,7 @@ body {
 
     .boton-violeta{
         margin: 10px;
+        align-items: center;
         border: none;
         border-radius: 20px;
         background-color: #4300d2;

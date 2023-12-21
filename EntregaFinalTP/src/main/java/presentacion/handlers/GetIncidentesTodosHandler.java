@@ -15,6 +15,6 @@ public class GetIncidentesTodosHandler implements Handler {
 
     @Override
     public void handle(@NotNull Context context) throws Exception {
-        context.json(repositorioIncidentes.buscarTodos());
+        context.json(repositorioIncidentes.buscarTodosLosAbiertos());
     }
 }

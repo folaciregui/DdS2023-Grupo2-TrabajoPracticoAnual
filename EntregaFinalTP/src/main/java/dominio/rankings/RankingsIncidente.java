@@ -16,7 +16,7 @@ import java.util.List;
 @Setter
 public class RankingsIncidente implements Serializable {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne
     @JoinColumn(name = "entidad_id", referencedColumnName = "id")

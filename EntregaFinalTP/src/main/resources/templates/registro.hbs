@@ -17,7 +17,7 @@
     </div>
 </header>
 <div class="contenedor" style="background: rgba(255,255,255,0.5); height: 638px; text-align: center; align-content: center; align-items: center">
-    <div class="columna" style="justify-content: center; margin-left: 35%; margin-right: 35%">
+    <div class="columna" style="justify-content: center;" >
         <h1 class="subtitulo">REGISTRARSE</h1>
         <form method="POST" action="/login">
         <div class="formulario">
@@ -141,42 +141,10 @@
         console.log("sali");
         console.log("valor " + userCredential);
     }
-    function loginGoogle(){ //abrir consola y chequear error
-        firebase.auth().signInWithPopup(providerGoogle)
-                .then((result) => {
-                    //capaz es util mas adelante
-                    var credential = result.credential;
-                    var token = credential.accessToken;
-                    var user = result.user;
-                    console.log("iniciando sesion con google el usuario tiene: email="+user.email);
-                    inicioSesion(user);
-                }).catch((error) => {
-            alert("Error al iniciar sesión con google: " + error.message);
-            //manejar errores
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            var email = error.email;
-            var credential = error.credential;
-        });
-    }
-    function loginMicrosoft() {
-        firebase.auth().signInWithPopup(providerMicrosoft)
-                .then((result) => {
-                    console.log("logeado con exito: ");
-                    const user = result.user;
-                    // Realiza acciones adicionales con el usuario si es necesario
-                    inicioSesion(user);
-                })
-                .catch((error) => {
-                    console.log("codigo Error: " + error.code);
-                    console.log("Error: " + error.message);
-                    alert("Error al iniciar sesión con Microsoft: " + error.message);
-                    console.log("Error: " + error.message);
-                });
-    }
+
     function inicioSesion(user){
         localStorage.setItem('user', JSON.stringify(user));
-        window.location.href = "/menu";
+        // window.location.href = "/menu";
     }
 </script>
 </body>

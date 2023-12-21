@@ -19,7 +19,7 @@ import java.util.List;
 public class Establecimiento {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "nombre")

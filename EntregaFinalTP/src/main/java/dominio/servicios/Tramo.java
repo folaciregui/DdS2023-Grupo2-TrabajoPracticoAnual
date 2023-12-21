@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Tramo {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Enumerated(EnumType.STRING)

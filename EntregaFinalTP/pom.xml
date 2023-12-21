@@ -75,7 +75,13 @@
       <groupId>com.fasterxml.jackson.datatype</groupId>
       <artifactId>jackson-datatype-jsr310</artifactId>
       <version>2.12.4</version> <!-- Asegúrate de usar la última versión disponible -->
-    </dependency>
 
+    </dependency>
+    <!-- dependencia para los mails -->
+    <dependency>
+      <groupId>com.sun.mail</groupId>
+      <artifactId>javax.mail</artifactId>
+      <version>1.5.3</version>
+    </dependency>
   </dependencies>
 </project>

@@ -24,23 +24,19 @@ public class PutEditarPerfilHandler implements Handler {
         System.out.println("Nombre modificado: " + usuarioGeneralModificado.getNombre());
         System.out.println("Apellido modificado: " + usuarioGeneralModificado.getApellido());
         System.out.println("Email modificado: " + usuarioGeneralModificado.getNombre());
-        System.out.println("Contraseña modificado: " + usuarioGeneralModificado.getContrasenia());
 
         UsuarioGeneral usuarioGeneral = this.repositorioUsuariosGenerales.buscarPorId(usuarioId);
         Cuenta cuenta = this.repositorioCuentas.buscarPorUsuario(usuarioGeneral.getId());
 
-        if(!usuarioGeneralModificado.getNombre().isEmpty()){
+        if(!usuarioGeneralModificado.getNombre().isEmpty() || usuarioGeneralModificado.getNombre() == null){
             usuarioGeneral.setNombre(usuarioGeneralModificado.getNombre());
         }
-        if(!usuarioGeneralModificado.getApellido().isEmpty()){
+        if(!usuarioGeneralModificado.getApellido().isEmpty() || usuarioGeneralModificado.getApellido() == null){
             usuarioGeneral.setApellido(usuarioGeneralModificado.getApellido());
         }
-        if(!usuarioGeneralModificado.getEmail().isEmpty()){
+        if(!usuarioGeneralModificado.getEmail().isEmpty() || usuarioGeneralModificado.getEmail() == null){
             usuarioGeneral.setEmail(usuarioGeneralModificado.getEmail());
             usuarioGeneral.getCuenta().setNombre(usuarioGeneralModificado.getEmail());
-        }
-        if(!usuarioGeneralModificado.getContrasenia().isEmpty()){
-            usuarioGeneral.getCuenta().setContrasenia(usuarioGeneralModificado.getContrasenia());
         }
 
         repositorioUsuariosGenerales.actualizarPerfil(usuarioGeneral);

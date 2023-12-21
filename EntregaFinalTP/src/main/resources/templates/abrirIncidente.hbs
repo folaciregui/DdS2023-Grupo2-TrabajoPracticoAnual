@@ -137,6 +137,7 @@
             serviciosFiltrados:[],
             servicioSeleccionado: '',
             descripcion: '',
+            idUsuario:'',
         },
         computed: {
 
@@ -213,7 +214,8 @@
                 const incidente = {
                    // entidad: this.entidadSeleccionada,
                     //establecimiento: this.establecimientoSeleccionado
-                    usuarioCreador: {"id":1,"nombre":"Santi","apellido":"Blanco","email":"santi@gmail.com","horarioDeNotificacion":null,"tipoDeNotificacion":null,"frecuenciaNotificacion":null,"empresaDeInteres":null},
+                    //usuarioCreador: {"id":1,"nombre":"Santi","apellido":"Blanco","email":"santi@gmail.com","horarioDeNotificacion":null,"tipoDeNotificacion":null,"frecuenciaNotificacion":null,"empresaDeInteres":null},
+                    usuarioCreador: this.usuario,
                     servicio: this.servicioSeleccionado,
                     descripcion: this.descripcion
                 };
@@ -233,10 +235,31 @@
                         .catch((error) => {
                             //console.error('Error al crear el incidente:', error);
                         });
+            },
+            obtenerEntidades() {
+                fetch(`http://localhost:8080/api/entidades`)
+                        .then(response => {
+                            if (response.status >= 400) {
+                                alert("Hubo un error en el API")
+                            } else {
+                                return response.json()
+                            }
+                        })
+                        .then(entidades => {
+                            console.log(entidades);
+                            console.log(entidades[0].nombre);
+                            // entidades.forEach(entidad);
+                            // const nombresEntidades = entidades.map(entidad => entidad.nombre);
+                            this.entidades = entidades;
+                        })
+                        .catch(error => {
+                            console.error('Error en la solicitud:', error);
+                            alert(`Hubo un error en la solicitud con fetch entidades:\n\n${error.message}`);
+                        });
             }
         },
         mounted() {
-            fetch(`http://localhost:8080/api/entidades`)
+            fetch(`/api/obtenerUsuario`)//ya hay un get parecido en CL
                     .then(response => {
                         if (response.status >= 400) {
                             alert("Hubo un error en el API")
@@ -244,16 +267,16 @@
                             return response.json()
                         }
                     })
-                    .then(entidades => {
-                        console.log(entidades);
-                        console.log(entidades[0].nombre);
-                       // entidades.forEach(entidad);
-                        // const nombresEntidades = entidades.map(entidad => entidad.nombre);
-                        this.entidades = entidades;
+                    .then(usuario => {
+                        console.log("el usuario que devuelve es: ", usuario); // Verificar en la consola
+                        this.usuario = usuario;
+
+                        //OBTENER EL ID REAL
+                        this.obtenerEntidades();
                     })
                     .catch(error => {
-                        console.error('Error en la solicitud:', error);
-                        alert(`Hubo un error en la solicitud con fetch entidades:\n\n${error.message}`);
+                        console.error('Error en la solicitud de get usuario:', error);
+                        alert(`Hubo un error en la solicitud al buscar el usuario:\n\n${error.message}`);
                     });
 
         }

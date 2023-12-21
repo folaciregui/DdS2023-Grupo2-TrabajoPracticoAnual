@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Setter
 public class Membresia {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @ManyToOne

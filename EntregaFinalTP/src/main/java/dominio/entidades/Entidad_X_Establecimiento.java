@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Setter
 public class Entidad_X_Establecimiento {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue
     private Integer id;
 
     @ManyToOne
